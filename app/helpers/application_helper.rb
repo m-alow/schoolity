@@ -14,4 +14,12 @@ module ApplicationHelper
   def classrooms_path
     school_school_class_classrooms_path
   end
+
+  def flash_class(level)
+    type = ''
+    type = 'info' if level == :notice
+    type = 'success' if level == :success
+    type = 'danger' if level == :alert || level == :error
+    "alert alert-#{type}"
+  end
 end
