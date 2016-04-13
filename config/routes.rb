@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboard' => 'dashboard#index', as: 'dashboard'
+
   root to: 'static_pages#home'
   get 'about' => 'static_pages#about'
 
