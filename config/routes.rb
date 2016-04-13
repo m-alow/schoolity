@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :schools do
+    put 'activation', action: :activate, on: :member
     resources :school_classes do
       resources :classrooms
     end

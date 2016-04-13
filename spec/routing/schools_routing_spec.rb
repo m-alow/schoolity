@@ -35,5 +35,8 @@ RSpec.describe SchoolsController, type: :routing do
       expect(:delete => "/schools/1").to route_to("schools#destroy", :id => "1")
     end
 
+    it 'routes to #activate' do
+      expect(:put => '/schools/1/activation').to route_to('schools#activate', id: '1')
+    end
   end
 end

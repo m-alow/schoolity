@@ -54,6 +54,13 @@ RSpec.describe SchoolsController, type: :controller do
         expect(response).to require_login
       end
     end
+
+    describe 'PUT #activate' do
+      it 'requires login' do
+        put :activate, id: school
+        expect(response).to require_login
+      end
+    end
   end
 
   context 'user access' do
@@ -170,6 +177,24 @@ RSpec.describe SchoolsController, type: :controller do
       it 'redirects to the schools list' do
         delete :destroy, id: school
         expect(response).to redirect_to(schools_url)
+      end
+    end
+
+    describe 'PUT #activate' do
+      it 'updates the requested school' do
+        put :activate, id: school, school: { active: true }
+        school.reload
+        expect(school.active?).to be true
+      end
+
+      it 'assigns the requested school as @school' do
+        put :activate, id: school, school: { active: true }
+        expect(assigns(:school)).to eq(school)
+      end
+
+      it 'redirects to the school' do
+        put :activate, id: school, school: { active: true }
+        expect(response).to redirect_to(school)
       end
     end
   end

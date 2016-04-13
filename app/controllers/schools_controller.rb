@@ -1,5 +1,5 @@
 class SchoolsController < ApplicationController
-  before_action :set_school, only: [:show, :edit, :update, :destroy]
+  before_action :set_school, only: [:show, :edit, :update, :destroy, :activate]
 
   # GET /schools
   # GET /schools.json
@@ -51,6 +51,18 @@ class SchoolsController < ApplicationController
     end
   end
 
+  def activate
+    respond_to do |format|
+      if @school.update(school_activation_params)
+        format.html { redirect_to @school, notice: 'School was successfully activated.' }
+        format.json { render :show, status: :ok, location: @school }
+      else
+        format.html { redirect_to schools_path, notice: 'School can not be activated.' }
+        format.json { render json: 'School can not be activated', status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /schools/1
   # DELETE /schools/1.json
   def destroy
@@ -70,5 +82,9 @@ class SchoolsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
       params.require(:school).permit(:name)
+    end
+
+    def school_activation_params
+      params.require(:school).permit(:active)
     end
 end
