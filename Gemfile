@@ -45,6 +45,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'spring'
 end
 
 group :test do
@@ -55,7 +56,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-group :productoin do
+group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
