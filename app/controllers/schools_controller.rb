@@ -1,6 +1,7 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :edit, :update, :destroy, :activate]
-
+  skip_after_action :verify_authorized, except: [:activate]
+  
   # GET /schools
   # GET /schools.json
   def index
@@ -52,6 +53,7 @@ class SchoolsController < ApplicationController
   end
 
   def activate
+    authorize @school
     respond_to do |format|
       if @school.update(school_activation_params)
         format.html { redirect_to @school, notice: 'School was successfully activated.' }

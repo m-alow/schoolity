@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+gem 'pundit'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
@@ -54,6 +55,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'pundit-matchers'
 end
 
 group :production do

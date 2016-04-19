@@ -3,74 +3,9 @@ require 'rails_helper'
 RSpec.describe SchoolsController, type: :controller do
   let(:valid_attributes) { attributes_for :school }
   let(:invalid_attributes) { attributes_for :invalid_school }
+  let(:school) { create(:school) }
 
-  context 'guest access' do
-    let(:school) { build_stubbed(:school) }
-    describe 'GET #index' do
-      it 'requires login' do
-        get :index
-        expect(response).to require_login
-      end
-    end
-
-    describe 'GET #show' do
-      it 'requires login' do
-        get :show, id: school
-        expect(response).to require_login
-      end
-    end
-
-    describe 'GET #new' do
-      it 'requires login' do
-        get :new
-        expect(response).to require_login
-      end
-    end
-
-    describe 'GET #edit' do
-      it 'requires login' do
-        get :edit, id: school
-        expect(response).to require_login
-      end
-    end
-
-    describe 'POST #create' do
-      it 'requires login' do
-        post :create, school: valid_attributes
-        expect(response).to require_login
-      end
-    end
-
-    describe 'PUT #update' do
-      it 'requires login' do
-        put :update, id: school, school: valid_attributes
-        expect(response).to require_login
-      end
-    end
-
-    describe 'DELETE #destroy' do
-      it 'requires login' do
-        delete :destroy, id: school
-        expect(response).to require_login
-      end
-    end
-
-    describe 'PUT #activate' do
-      it 'requires login' do
-        put :activate, id: school
-        expect(response).to require_login
-      end
-    end
-  end
-
-  context 'user access' do
-    before(:each) do
-      @user = create(:user)
-      sign_in @user
-    end
-
-    let(:school) { create(:school) }
-
+  shared_examples :user_access do
     describe 'GET #index' do
       it 'assigns all schools as @schools' do
         get :index
@@ -179,6 +114,101 @@ RSpec.describe SchoolsController, type: :controller do
         expect(response).to redirect_to(schools_url)
       end
     end
+  end
+
+  context 'guest access' do
+    let(:school) { build_stubbed(:school) }
+    describe 'GET #index' do
+      it 'requires login' do
+        get :index
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #show' do
+      it 'requires login' do
+        get :show, id: school
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #new' do
+      it 'requires login' do
+        get :new
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'requires login' do
+        get :edit, id: school
+        expect(response).to require_login
+      end
+    end
+
+    describe 'POST #create' do
+      it 'requires login' do
+        post :create, school: valid_attributes
+        expect(response).to require_login
+      end
+    end
+
+    describe 'PUT #update' do
+      it 'requires login' do
+        put :update, id: school, school: valid_attributes
+        expect(response).to require_login
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      it 'requires login' do
+        delete :destroy, id: school
+        expect(response).to require_login
+      end
+    end
+
+    describe 'PUT #activate' do
+      it 'requires login' do
+        put :activate, id: school
+        expect(response).to require_login
+      end
+    end
+  end
+
+  context 'user access' do
+    before(:each) do
+      @user = create(:user)
+      sign_in @user
+    end
+
+    it_behaves_like :user_access
+
+    describe 'PUT #activate' do
+      it 'does not activate the requested school' do
+        put :activate, id: school, school: { active: true }
+        school.reload
+        expect(school.active?).to be false
+      end
+
+      it 'assigns the requested school as @school' do
+        put :activate, id: school, school: { active: true }
+        expect(assigns(:school)).to eq(school)
+      end
+
+      it 'require authorization' do
+        put :activate, id: school, school: { active: true }
+        expect(response).to redirect_to(root_url)
+      end
+    end
+  end
+
+  context 'admin access' do
+    before(:each) do
+      @user = create(:admin)
+      sign_in @user
+    end
+
+    it_behaves_like :user_access
 
     describe 'PUT #activate' do
       it 'updates the requested school' do
