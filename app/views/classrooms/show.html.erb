@@ -10,5 +10,5 @@
   <%= @classroom.name %>
 </p>
 
-<%= link_to 'Edit', [:edit, @school, @school_class, @classroom] %> |
-<%= link_to 'Back', classrooms_path %>
+<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
+<%= link_to 'Back', school_class_classrooms_path(@school_class) %>

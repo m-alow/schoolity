@@ -1,6 +1,6 @@
 <h1>Editing School Class</h1>
 
-<%= render 'form' %>
+<%= render 'edit_form' %>
 
-<%= link_to 'Show', [@school, @school_class] %> |
-<%= link_to 'Back', school_classes_path %>
+<%= link_to 'Show', @school_class %> |
+<%= link_to 'Back', school_school_classes_path(@school)%>

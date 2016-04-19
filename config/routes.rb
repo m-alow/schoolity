@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  resources :schools do
+  resources :schools, shallow: true do
     put 'activation', action: :activate, on: :member
     resources :school_classes do
       resources :classrooms

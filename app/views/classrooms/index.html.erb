@@ -16,9 +16,9 @@
       <tr>
         <td><%= classroom.school_class %></td>
         <td><%= classroom.name %></td>
-        <td><%= link_to 'Show', [@school, @school_class, classroom] %></td>
-        <td><%= link_to 'Edit', [:edit, @school, @school_class, classroom] %></td>
-        <td><%= link_to 'Destroy', [@school, @school_class, classroom], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', classroom %></td>
+        <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
+        <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Classroom', new_school_school_class_classroom_path %>
+<%= link_to 'New Classroom', new_school_class_classroom_path(@school_class) %>

@@ -12,11 +12,11 @@ RSpec.describe SchoolClassesController, type: :routing do
     end
 
     it "routes to #show" do
-      expect(:get => "/schools/1/school_classes/1").to route_to("school_classes#show", :id => "1", :school_id => "1")
+      expect(:get => "/school_classes/1").to route_to("school_classes#show", :id => "1")
     end
 
     it "routes to #edit" do
-      expect(:get => "/schools/1/school_classes/1/edit").to route_to("school_classes#edit", :id => "1", :school_id => "1")
+      expect(:get => "/school_classes/1/edit").to route_to("school_classes#edit", :id => "1")
     end
 
     it "routes to #create" do
@@ -24,15 +24,15 @@ RSpec.describe SchoolClassesController, type: :routing do
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/schools/1/school_classes/1").to route_to("school_classes#update", :id => "1", :school_id => "1")
+      expect(:put => "/school_classes/1").to route_to("school_classes#update", :id => "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/schools/1/school_classes/1").to route_to("school_classes#update", :id => "1", :school_id => "1")
+      expect(:patch => "/school_classes/1").to route_to("school_classes#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/schools/1/school_classes/1").to route_to("school_classes#destroy", :id => "1", :school_id => "1")
+      expect(:delete => "/school_classes/1").to route_to("school_classes#destroy", :id => "1")
     end
 
   end

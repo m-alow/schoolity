@@ -2,7 +2,7 @@
 
 <p>
   <strong>School:</strong>
-  <%= @school_class.school %>
+  <%= @school %>
 </p>
 
 <p>
@@ -10,5 +10,5 @@
   <%= @school_class.name %>
 </p>
 
-<%= link_to 'Edit', [:edit, @school, @school_class] %> |
-<%= link_to 'Back', school_classes_path %>
+<%= link_to 'Edit', edit_school_class_path(@school) %> |
+<%= link_to 'Back', school_school_classes_path(@school) %>

@@ -17,7 +17,7 @@ RSpec.describe SchoolClassesController, type: :controller do
 
     describe 'GET #show' do
       it 'requires login' do
-        get :show, id: school_class, school_id: school
+        get :show, id: school_class
         expect(response).to require_login
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe SchoolClassesController, type: :controller do
 
     describe 'GET #edit' do
       it 'requires login' do
-        get :edit, id: school_class, school_id: school
+        get :edit, id: school_class
         expect(response).to require_login
       end
     end
@@ -45,14 +45,14 @@ RSpec.describe SchoolClassesController, type: :controller do
 
     describe 'PUT #update' do
       it 'requires login' do
-        put :update, id: school, school_id: school, school: valid_attributes
+        put :update, id: school_class, school: valid_attributes
         expect(response).to require_login
       end
     end
 
     describe 'DELETE #destroy' do
       it 'requires login' do
-        delete :destroy, id: school, school_id: school
+        delete :destroy, id: school_class
         expect(response).to require_login
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe SchoolClassesController, type: :controller do
 
     describe 'GET #show' do
       it 'assigns the requested school_class as @school_class' do
-        get :show, school_id: school, id: school_class
+        get :show, id: school_class
         expect(assigns(:school_class)).to eq(school_class)
       end
     end
@@ -90,7 +90,7 @@ RSpec.describe SchoolClassesController, type: :controller do
 
     describe 'GET #edit' do
       it 'assigns the requested school_class as @school_class' do
-        get :edit, school_id: school, id: school_class
+        get :edit, id: school_class
         expect(assigns(:school_class)).to eq(school_class)
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe SchoolClassesController, type: :controller do
 
         it 'redirects to the created school_class' do
           post :create, school_id: school, school_class: valid_attributes
-          expect(response).to redirect_to([school, SchoolClass.last])
+          expect(response).to redirect_to(SchoolClass.last)
         end
       end
 
@@ -133,30 +133,30 @@ RSpec.describe SchoolClassesController, type: :controller do
         let(:new_attributes) { { name: '10-A' } }
 
         it 'updates the requested school_class' do
-          put :update, school_id: school, id: school_class, school_class: new_attributes
+          put :update, id: school_class, school_class: new_attributes
           school_class.reload
           expect(school_class.name).to eq '10-A'
         end
 
         it 'assigns the requested school_class as @school_class' do
-          put :update, school_id: school, id: school_class, school_class: valid_attributes
+          put :update, id: school_class, school_class: valid_attributes
           expect(assigns(:school_class)).to eq(school_class)
         end
 
         it 'redirects to the school_class' do
-          put :update, school_id: school, id: school_class, school_class: valid_attributes
-          expect(response).to redirect_to([school, school_class])
+          put :update, id: school_class, school_class: valid_attributes
+          expect(response).to redirect_to(school_class)
         end
       end
 
       context 'with invalid params' do
         it 'assigns the school_class as @school_class' do
-          put :update, school_id: school, id: school_class, school_class: invalid_attributes
+          put :update, id: school_class, school_class: invalid_attributes
           expect(assigns(:school_class)).to eq(school_class)
         end
 
         it "re-renders the 'edit' template" do
-          put :update, school_id: school, id: school_class, school_class: invalid_attributes
+          put :update, id: school_class, school_class: invalid_attributes
           expect(response).to render_template('edit')
         end
       end
@@ -166,13 +166,13 @@ RSpec.describe SchoolClassesController, type: :controller do
       it 'destroys the requested school_class' do
         school_class
         expect {
-          delete :destroy, school_id: school, id: school_class
+          delete :destroy, id: school_class
         }.to change(SchoolClass, :count).by(-1)
       end
 
       it 'redirects to the school_classes list' do
-        delete :destroy, school_id: school, id: school_class
-        expect(response).to redirect_to(school_classes_url)
+        delete :destroy, id: school_class
+        expect(response).to redirect_to(school_school_classes_url(school_id: school))
       end
     end
   end
