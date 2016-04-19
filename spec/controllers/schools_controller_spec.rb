@@ -4,6 +4,7 @@ RSpec.describe SchoolsController, type: :controller do
   let(:valid_attributes) { attributes_for :school }
   let(:invalid_attributes) { attributes_for :invalid_school }
   let(:school) { create(:school) }
+  let(:current_user) { @user }
 
   shared_examples :user_access do
     describe 'GET #index' do
@@ -46,6 +47,11 @@ RSpec.describe SchoolsController, type: :controller do
           post :create, school: valid_attributes
           expect(assigns(:school)).to be_a(School)
           expect(assigns(:school)).to be_persisted
+        end
+
+        it 'sets the current user as the owner of the school' do
+          post :create, school: valid_attributes
+          expect(assigns(:school).owner).to eq @user
         end
 
         it 'redirects to the created school' do

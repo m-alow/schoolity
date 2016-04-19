@@ -1,7 +1,7 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :edit, :update, :destroy, :activate]
-  skip_after_action :verify_authorized, except: [:activate]
-  
+  after_action :verify_authorized, only: [:activate]
+
   # GET /schools
   # GET /schools.json
   def index
@@ -25,7 +25,9 @@ class SchoolsController < ApplicationController
   # POST /schools
   # POST /schools.json
   def create
-    @school = School.new(school_params)
+    @school = School.new(school_params) do |u|
+      u.owner = current_user
+    end
 
     respond_to do |format|
       if @school.save
