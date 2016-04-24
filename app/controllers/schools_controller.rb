@@ -1,94 +1,81 @@
 class SchoolsController < ApplicationController
   before_action :set_school, only: [:show, :edit, :update, :destroy, :activate]
-  after_action :verify_authorized, only: [:activate]
+  after_action :verify_authorized
 
   # GET /schools
-  # GET /schools.json
   def index
+    authorize School
     @schools = School.all
   end
 
   # GET /schools/1
-  # GET /schools/1.json
   def show
+    authorize @school
   end
 
   # GET /schools/new
   def new
+    authorize School
     @school = School.new
   end
 
   # GET /schools/1/edit
   def edit
+    authorize @school
   end
 
   # POST /schools
-  # POST /schools.json
   def create
+    authorize School
     @school = School.new(school_params) do |u|
       u.owner = current_user
     end
 
-    respond_to do |format|
-      if @school.save
-        format.html { redirect_to @school, notice: 'School was successfully created.' }
-        format.json { render :show, status: :created, location: @school }
-      else
-        format.html { render :new }
-        format.json { render json: @school.errors, status: :unprocessable_entity }
-      end
+    if @school.save
+      redirect_to @school, notice: 'School was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /schools/1
-  # PATCH/PUT /schools/1.json
   def update
-    respond_to do |format|
-      if @school.update(school_params)
-        format.html { redirect_to @school, notice: 'School was successfully updated.' }
-        format.json { render :show, status: :ok, location: @school }
-      else
-        format.html { render :edit }
-        format.json { render json: @school.errors, status: :unprocessable_entity }
-      end
+    authorize @school
+    if @school.update(school_params)
+      redirect_to @school, notice: 'School was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def activate
     authorize @school
-    respond_to do |format|
-      if @school.update(school_activation_params)
-        format.html { redirect_to @school, notice: 'School was successfully activated.' }
-        format.json { render :show, status: :ok, location: @school }
-      else
-        format.html { redirect_to schools_path, notice: 'School can not be activated.' }
-        format.json { render json: 'School can not be activated', status: :unprocessable_entity }
-      end
+    if @school.update(school_activation_params)
+      redirect_to @school, notice: 'School was successfully activated.'
+    else
+      redirect_to schools_path, notice: 'School can not be activated.'
     end
   end
 
   # DELETE /schools/1
-  # DELETE /schools/1.json
   def destroy
+    authorize @school
     @school.destroy
-    respond_to do |format|
-      format.html { redirect_to schools_url, notice: 'School was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to schools_url, notice: 'School was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_school
-      @school = School.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_school
+    @school = School.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def school_params
-      params.require(:school).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def school_params
+    params.require(:school).permit(:name)
+  end
 
-    def school_activation_params
-      params.require(:school).permit(:active)
-    end
+  def school_activation_params
+    params.require(:school).permit(:active)
+  end
 end
