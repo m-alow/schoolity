@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @school_administration.user %>
+</p>
+
+<p>
+  <strong>School:</strong>
+  <%= @school_administration.school %>
+</p>
+
+<%= link_to 'Edit', edit_school_administration_path(@school_administration) %> |
+<%= link_to 'Back', school_administrations_path %>

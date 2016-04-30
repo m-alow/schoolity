@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     resources :school_classes do
       resources :classrooms
     end
+    resources :school_administrations
   end
 end
