@@ -44,79 +44,46 @@ RSpec.describe SchoolPolicy do
     end
   end
 
-  permissions :new? do
-    it 'allows a access for a user' do
+  permissions :new?, :create?  do
+    it 'allows a user' do
       expect(subject).to permit(user)
     end
-    it 'allows access for an admin' do
+
+    it 'allows an admin' do
       expect(subject).to permit(admin)
     end
-    it 'allows access for a school owner' do
+
+    it 'allows a school owner' do
       expect(subject).to permit(school_owner)
     end
   end
 
-  permissions :create? do
-    let(:school) { build_stubbed(:school, owner: school_owner) }
-    it 'allows a user to create a school' do
-      expect(subject).to permit(user)
-    end
-    it 'allows an admin to create a school' do
-      expect(subject).to permit(admin)
-    end
-    it 'allows a school owner to create another school' do
-      expect(subject).to permit(school_owner)
-    end
-  end
+  permissions :edit?, :update?, :destroy? do
+    let(:school) { build(:school, owner: school_owner) }
 
-  permissions :edit? do
-    let(:school) { build_stubbed(:school, owner: school_owner) }
-
-    it 'prevents other users from editing the school' do
+    it 'prevents other users' do
       expect(subject).not_to permit(user, school)
     end
-    it 'allows the school owner to edit her school' do
+
+    it 'allows the school owner' do
       expect(subject).to permit(school_owner, school)
     end
-    it 'allows admins to edit the school!!!' do
-      expect(subject).to permit(admin, school)
-    end
-  end
 
-  permissions :update? do
-    let(:school) { build_stubbed(:school, owner: school_owner) }
-
-    it 'prevents other users from updating the school' do
-      expect(subject).not_to permit(user, school)
-    end
-    it 'allows the school owner to update her school' do
-      expect(subject).to permit(school_owner, school)
-    end
-    it 'allows amins to update the shcool!!!' do
-      expect(subject).to permit(admin, school)
-    end
-  end
-
-  permissions :destroy? do
-    it 'prevents other users from deleting the school' do
-      expect(subject).not_to permit(user, school)
-    end
-    it 'allows the school owner to delete his school!!!' do
-      expect(subject).to permit(school_owner, school)
-    end
-    it 'allows admins to delete schools' do
+    it 'allows admin' do
       expect(subject).to permit(admin, school)
     end
   end
 
   permissions :activate? do
-    it 'prevents users from activating schools' do
+    it 'prevents users' do
       expect(subject).not_to permit(user, school)
     end
-    it 'prevents the school owner from activatin his school' do
+
+    it 'prevents the school owner' do
       expect(subject).not_to permit(school_owner, school)
     end
-    it 'allows admin to activate schools' do
+
+    it 'allows admin' do
       expect(subject).to permit(admin, school)
     end
   end
