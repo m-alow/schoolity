@@ -6,6 +6,13 @@ class ApplicationPolicy
     @record = record
   end
 
+  def authorize_action(action)
+    unless public_send(action)
+      raise Pundit::NotAuthorizedError, query: action, record: record, policy: self
+    end
+    true
+  end
+
   def index?
     false
   end

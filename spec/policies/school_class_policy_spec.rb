@@ -93,8 +93,16 @@ RSpec.describe SchoolClassPolicy do
         expect(subject).to permit(owner, school_class)
       end
 
+      it 'prevents the school owner from accessing school class not in his school' do
+        expect(subject).not_to permit(owner, other_school_class)
+      end
+
       it 'allows the school administrator' do
         expect(subject).to permit(school_admin, school_class)
+      end
+
+      it 'prevents the school administrator from accessing school class not in his school' do
+        expect(subject).not_to permit(school_admin, other_school_class)
       end
 
       it 'prevents school teachers' do
