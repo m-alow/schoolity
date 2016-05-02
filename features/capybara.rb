@@ -1,3 +1,4 @@
 require 'capybara/rails'
 require 'capybara/rspec'
-require_relative 'database_cleaner.rb'
+
+Dir[Rails.root.join('features/helpers/**/*.rb')].each { |f| require f }
