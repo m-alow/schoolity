@@ -6,11 +6,10 @@
   <tbody>
     <% @schools.each do |school| %>
     <tr>
-      <td><%= school.name %></td>
+      <td><%= link_to school.name, school %></td>
       <td>
         <%= school.active? %>
       </td>
-      <td><%= link_to 'Show', school %></td>
       <td><%= link_to 'Edit', edit_school_path(school) %></td>
       <td>
         <% if school.active? %>
