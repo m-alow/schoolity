@@ -87,4 +87,62 @@ RSpec.describe SchoolPolicy do
       expect(subject).to permit(admin, school)
     end
   end
+
+  describe 'scope' do
+    let(:user) { create(:user) }
+    let(:another_user) { create(:user) }
+    let(:admin) { create(:admin) }
+    let(:owner) { create(:user) }
+
+    let(:owned_active_schools) { @owned_active_schools }
+    let(:owned_non_active_schools) { @owned_non_active_schools }
+    let(:other_active_schools) { @other_active_schools }
+    let(:other_non_active_schools) { @other_non_active_schools }
+    let(:active_schools) { owned_active_schools + other_active_schools }
+    let(:non_active_schools) { owned_non_active_schools + other_non_active_schools }
+    let(:all_schools) { active_schools + non_active_schools }
+    let(:owned_schools) { owned_active_schools + owned_non_active_schools }
+    before do
+      @owned_active_schools = [ create(:active_school, owner: owner), create(:active_school, owner: owner) ]
+      @owned_non_active_schools = [ create(:non_active_school, owner: owner), create(:non_active_school, owner: owner) ]
+      @other_active_schools = [ create(:active_school, owner: create(:user)), create(:active_school, owner: create(:user)) ]
+      @other_non_active_schools = [ create(:non_active_school, owner: create(:user)), create(:non_active_school, owner: create(:user)) ]
+    end
+
+    context 'admin' do
+      subject { Pundit::policy_scope(admin, School) }
+
+      it 'sees all schools' do
+        expect(subject).to match_array all_schools
+      end
+    end
+
+    context 'school owner' do
+      subject { Pundit::policy_scope(owner, School) }
+
+      it 'sees owned schools' do
+        expect(subject).to include(*owned_schools)
+      end
+
+      it 'sees all active schools' do
+        expect(subject).to include(*active_schools)
+      end
+
+      it 'does not see non active non owned schools' do
+        expect(subject).not_to include(*other_non_active_schools)
+      end
+    end
+
+    context 'user' do
+      subject { Pundit::policy_scope(user, School) }
+
+      it 'sees all active schools' do
+        expect(subject).to include(*active_schools)
+      end
+
+      it 'does not see non active schools' do
+        expect(subject).not_to include(*non_active_schools)
+      end
+    end
+  end
 end

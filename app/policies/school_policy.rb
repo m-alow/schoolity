@@ -1,6 +1,6 @@
 class SchoolPolicy < ApplicationPolicy
   alias_method :school, :record
-  
+
   def index?
     true
   end
@@ -31,6 +31,16 @@ class SchoolPolicy < ApplicationPolicy
 
   def activate?
     user.admin?
+  end
+
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.where('active = "t" or user_id = ?', user)
+      end
+    end
   end
 
   private

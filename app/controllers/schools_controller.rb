@@ -5,7 +5,7 @@ class SchoolsController < ApplicationController
   # GET /schools
   def index
     authorize School
-    @schools = School.all
+    @schools = policy_scope(School)
   end
 
   # GET /schools/1

@@ -6,6 +6,14 @@ FactoryGirl.define do
       name nil
     end
 
+    factory :active_school do
+      active true
+    end
+
+    factory :non_active_school do
+      active false
+    end
+
     factory :school_with_classes do
       transient do
         school_classes_count 3
