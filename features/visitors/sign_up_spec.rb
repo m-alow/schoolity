@@ -1,6 +1,6 @@
 require 'rails_helper'
 require_relative '../capybara'
-require_relative '../pages/sign_up_form'
+
 
 feature 'create a new account' do
   let(:sign_up_form) { SignUpForm.new }

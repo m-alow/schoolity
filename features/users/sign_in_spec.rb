@@ -1,6 +1,6 @@
 require 'rails_helper'
 require_relative '../capybara'
-require_relative '../pages/sign_in_form'
+
 
 feature 'sign in' do
   let(:sign_in_form) { SignInForm.new }
