@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe SchoolAdministrationsController, type: :controller do
-  let(:valid_attributes) { attributes_for(:school_administration) }
-  let(:invalid_attributes) { attributes_for(:invalid_school_administration) }
+  let(:valid_attributes) {  user.email }
+  let(:invalid_attributes) { 'non-existent@mail.com' }
 
-  let(:school_administration) { create(:school_administration) }
-  let(:school) { school_administration.administrated_school }
-  let(:school_admin) { school_administration.administrator }
+  let(:school_administration) { create(:school_administration, administrated_school: school, administrator: school_admin) }
+  let(:school) { create(:school, owner: owner) }
+  let(:school_admin) { create(:user) }
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
+  let(:owner) { create(:user) }
 
   context 'guest' do
     describe 'GET #index' do
@@ -32,23 +33,10 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
       end
     end
 
-    describe 'GET #edit' do
-      it 'requires log in' do
-        get :edit, id: school_administration
-        expect(response).to require_login
-      end
-    end
-
     describe 'POST #create' do
       it 'requires log in' do
         post :create, school_id: school, school_administration: valid_attributes
         expect(response).to require_login
-      end
-    end
-
-    describe 'PUT #update' do
-      it 'requires log in' do
-        put :update, id: school_administration, school_administration: valid_attributes
       end
     end
 
@@ -60,129 +48,113 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
     end
   end
 
-  # context 'admin' do
-  #   before(:each) do
-  #     sign_in admin
-  #   end
+  context 'authenticated user' do
+    context 'not authorized' do
+      before do
+        sign_in user
+      end
 
-  #   describe "GET #index" do
-  #     it "assigns all school_administrations as @school_administrations" do
-  #       sign_in school_admin
-  #       get :index, school_id: school
-  #       expect(assigns(:school_administrations)).to eq([school_administration])
-  #     end
-  #   end
+      describe 'GET #index' do
+        it 'requires authorization' do
+          get :index, school_id: school
+          expect(response).to require_authorization
+        end
+      end
 
-  #   describe "GET #show" do
-  #     it "assigns the requested school_administration as @school_administration" do
-  #       school_administration = SchoolAdministration.create! valid_attributes
-  #       get :show, {:id => school_administration.to_param}
-  #       expect(assigns(:school_administration)).to eq(school_administration)
-  #     end
-  #   end
+      describe 'GET #show' do
+        it 'requires authorization' do
+          get :show, id: school_administration
+          expect(response).to require_authorization
+        end
+      end
 
-  #   describe "GET #new" do
-  #     it "assigns a new school_administration as @school_administration" do
-  #       get :new, {}
-  #       expect(assigns(:school_administration)).to be_a_new(SchoolAdministration)
-  #     end
-  #   end
+      describe 'GET #new' do
+        it 'requires authorization' do
+          get :new, school_id: school
+          expect(response).to require_authorization
+        end
+      end
 
-  #   describe "GET #edit" do
-  #     it "assigns the requested school_administration as @school_administration" do
-  #       school_administration = SchoolAdministration.create! valid_attributes
-  #       get :edit, {:id => school_administration.to_param}
-  #       expect(assigns(:school_administration)).to eq(school_administration)
-  #     end
-  #   end
+      describe 'POST #create' do
+        it 'requires authorization' do
+          post :create, school_id: school, school_administration: { administrator_id: user }
+          expect(response).to require_authorization
+        end
+      end
 
-  #   describe "POST #create" do
-  #     context "with valid params" do
-  #       it "creates a new SchoolAdministration" do
-  #         expect {
-  #           post :create, {:school_administration => valid_attributes}
-  #         }.to change(SchoolAdministration, :count).by(1)
-  #       end
+      describe 'DELETE #destroy' do
+        it 'requires authorization' do
+          delete :destroy, id: school_administration
+          expect(response).to require_authorization
+        end
+      end
+    end
 
-  #       it "assigns a newly created school_administration as @school_administration" do
-  #         post :create, {:school_administration => valid_attributes}
-  #         expect(assigns(:school_administration)).to be_a(SchoolAdministration)
-  #         expect(assigns(:school_administration)).to be_persisted
-  #       end
+    context 'authorized' do
+      before do
+        sign_in owner
+      end
 
-  #       it "redirects to the created school_administration" do
-  #         post :create, {:school_administration => valid_attributes}
-  #         expect(response).to redirect_to(SchoolAdministration.last)
-  #       end
-  #     end
+      describe 'GET #index' do
+        it 'succeed' do
+          get :index, school_id: school
+          expect(response.status).to be 200
+        end
+      end
 
-  #     context "with invalid params" do
-  #       it "assigns a newly created but unsaved school_administration as @school_administration" do
-  #         post :create, {:school_administration => invalid_attributes}
-  #         expect(assigns(:school_administration)).to be_a_new(SchoolAdministration)
-  #       end
+      describe 'GET #show' do
+        it 'succeed' do
+          get :show, id: school_administration
+          expect(response.status).to be 200
+        end
+      end
 
-  #       it "re-renders the 'new' template" do
-  #         post :create, {:school_administration => invalid_attributes}
-  #         expect(response).to render_template("new")
-  #       end
-  #     end
-  #   end
+      describe 'GET #new' do
+        it 'succeed' do
+          get :new, school_id: school
+          expect(response.status).to be 200
+        end
+      end
 
-  #   describe "PUT #update" do
-  #     context "with valid params" do
-  #       let(:new_attributes) {
-  #         skip("Add a hash of attributes valid for your model")
-  #       }
+      describe 'POST #create' do
+        context 'with valid params' do
+          it 'creates a new school administration' do
+            expect {
+              post :create, school_id: school, email: valid_attributes
+            }.to change(SchoolAdministration, :count).by(1)
+          end
 
-  #       it "updates the requested school_administration" do
-  #         school_administration = SchoolAdministration.create! valid_attributes
-  #         put :update, {:id => school_administration.to_param, :school_administration => new_attributes}
-  #         school_administration.reload
-  #         skip("Add assertions for updated state")
-  #       end
+          it 'redirects to the created school_class' do
+            post :create, school_id: school, email: valid_attributes
+            expect(response).to redirect_to(SchoolAdministration.last)
+          end
+        end
 
-  #       it "assigns the requested school_administration as @school_administration" do
-  #         school_administration = SchoolAdministration.create! valid_attributes
-  #         put :update, {:id => school_administration.to_param, :school_administration => valid_attributes}
-  #         expect(assigns(:school_administration)).to eq(school_administration)
-  #       end
+        context 'with invalid params' do
+          it 'does not change the database' do
+            expect {
+              post :create, school_id: school, email: invalid_attributes
+            }.not_to change(SchoolAdministration, :count)
+          end
 
-  #       it "redirects to the school_administration" do
-  #         school_administration = SchoolAdministration.create! valid_attributes
-  #         put :update, {:id => school_administration.to_param, :school_administration => valid_attributes}
-  #         expect(response).to redirect_to(school_administration)
-  #       end
-  #     end
+          it "re-renders the 'new' template" do
+            post :create, school_id: school, email: invalid_attributes
+            expect(response).to render_template('new')
+          end
+        end
+      end
 
-  #     context "with invalid params" do
-  #       it "assigns the school_administration as @school_administration" do
-  #         school_administration = SchoolAdministration.create! valid_attributes
-  #         put :update, {:id => school_administration.to_param, :school_administration => invalid_attributes}
-  #         expect(assigns(:school_administration)).to eq(school_administration)
-  #       end
+      describe 'DELETE #destroy' do
+        it 'destroys the requested school administration' do
+          delete :destroy, id: school_administration
+          expect(SchoolAdministration.exists?(school_administration.id)).to be_falsy
+        end
 
-  #       it "re-renders the 'edit' template" do
-  #         school_administration = SchoolAdministration.create! valid_attributes
-  #         put :update, {:id => school_administration.to_param, :school_administration => invalid_attributes}
-  #         expect(response).to render_template("edit")
-  #       end
-  #     end
-  #   end
-
-  #   describe "DELETE #destroy" do
-  #     it "destroys the requested school_administration" do
-  #       school_administration = SchoolAdministration.create! valid_attributes
-  #       expect {
-  #         delete :destroy, {:id => school_administration.to_param}
-  #       }.to change(SchoolAdministration, :count).by(-1)
-  #     end
-
-  #     it "redirects to the school_administrations list" do
-  #       school_administration = SchoolAdministration.create! valid_attributes
-  #       delete :destroy, {:id => school_administration.to_param}
-  #       expect(response).to redirect_to(school_administrations_url)
-  #     end
-  #   end
-  # end
+        it 'redirects to the school_classes list' do
+          delete :destroy, id: school_administration
+          expect(response).to redirect_to(school_school_administrations_url(school))
+        end
+      end
+    end
+  end
 end

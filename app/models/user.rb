@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
   def administrates?(school)
     administrated_schools.include? school
   end
+
+  def owns?(school)
+    self == school.owner
+  end
 end

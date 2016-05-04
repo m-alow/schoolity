@@ -15,20 +15,8 @@ RSpec.describe SchoolAdministrationsController, type: :routing do
       expect(:get => "/school_administrations/1").to route_to("school_administrations#show", id: '1')
     end
 
-    it "routes to #edit" do
-      expect(:get => "/school_administrations/1/edit").to route_to("school_administrations#edit", id: '1')
-    end
-
     it "routes to #create" do
       expect(:post => "schools/1/school_administrations").to route_to("school_administrations#create", school_id: '1')
-    end
-
-    it "routes to #update via PUT" do
-      expect(:put => "/school_administrations/1").to route_to("school_administrations#update", id: '1')
-    end
-
-    it "routes to #update via PATCH" do
-      expect(:patch => "/school_administrations/1").to route_to("school_administrations#update", id: '1')
     end
 
     it "routes to #destroy" do

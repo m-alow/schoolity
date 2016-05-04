@@ -181,6 +181,8 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     spring (1.7.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -234,6 +236,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
+  shoulda-matchers
   spring
   spring-commands-rspec
   sqlite3

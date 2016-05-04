@@ -2,13 +2,17 @@
 
 <p>
   <strong>User:</strong>
-  <%= @school_administration.user %>
+  <%= @school_administration.administrator.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @school_administration.administrator.email %>
 </p>
 
 <p>
   <strong>School:</strong>
-  <%= @school_administration.school %>
+  <%= @school_administration.administrated_school.name %>
 </p>
 
-<%= link_to 'Edit', edit_school_administration_path(@school_administration) %> |
-<%= link_to 'Back', school_administrations_path %>
+<%= link_to 'Back', school_school_administrations_path(@school) %>

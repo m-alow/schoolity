@@ -1,25 +1,12 @@
-<%= form_for(@school_administration) do |f| %>
-  <% if @school_administration.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@school_administration.errors.count, "error") %> prohibited this school_administration from being saved:</h2>
+<%= form_for([@school, @school_administration]) do |f| %>
 
-      <ul>
-      <% @school_administration.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/error_messages', resource: @school_administration %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :school_id %><br>
-    <%= f.text_field :school_id %>
+    <%= label_tag :email %><br>
+    <%= email_field_tag :email %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit' %>
   </div>
 <% end %>
