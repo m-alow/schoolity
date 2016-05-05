@@ -1,8 +1,8 @@
 class SchoolClassesIndexPage
-  include Capybara::DSL
+  extend Capybara::DSL
 
-  def visit_page(school)
-    SchoolPage.new.visit_page(school)
+  def self.visit_page(school)
+    SchoolPage.visit_page(school)
     click_on 'School classes'
     self
   end

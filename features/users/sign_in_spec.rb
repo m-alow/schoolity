@@ -3,11 +3,10 @@ require_relative '../capybara'
 
 
 feature 'sign in' do
-  let(:sign_in_form) { SignInForm.new }
   let(:user) { create(:user, email: 'me@mail.com', password: '123123123') }
 
   scenario 'user can sign in' do
-    sign_in_form.
+    SignInForm.
       visit_page.
       fill_in_with(
         email: user.email,
@@ -18,7 +17,7 @@ feature 'sign in' do
   end
 
   scenario 'user can not sign in with invalid password' do
-    sign_in_form.
+    SignInForm.
       visit_page.
       fill_in_with(
         email: user.email,
@@ -29,7 +28,7 @@ feature 'sign in' do
   end
 
   scenario 'visitor can not sign in' do
-    sign_in_form.
+    SignInForm.
       visit_page.
       fill_in_with(
         email: 'guest@mail.com',

@@ -1,19 +1,19 @@
 class SignInForm
-  include Capybara::DSL
+  extend Capybara::DSL
 
-  def visit_page
+  def self.visit_page
     visit '/'
     click_on 'Login'
     self
   end
 
-  def fill_in_with(params = {})
+  def self.fill_in_with(params = {})
     fill_in 'Email', with: params.fetch(:email, 'me@mail.com')
     fill_in 'Password', with: params.fetch(:password, '123123123')
     self
   end
 
-  def submit
+  def self.submit
     click_on 'Log in'
     self
   end

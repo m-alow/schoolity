@@ -1,19 +1,19 @@
 class DashboardIndexPage
-  include Capybara::DSL
+  extend Capybara::DSL
 
-  def visit_page
+  def self.visit_page
     visit '/'
     click_on 'Dashboard'
     self
   end
 
-  def visit_schools_listing
+  def self.visit_schools_listing
     visit_page
     click_on 'Schools'
     self
   end
 
-  def visit_add_school
+  def self.visit_add_school
     visit_page
     click_on 'Add school'
     self

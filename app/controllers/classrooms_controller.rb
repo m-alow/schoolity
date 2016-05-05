@@ -12,35 +12,27 @@ class ClassroomsController < ApplicationController
   end
 
   def new
-    @classroom = Classroom.new
+    @classroom = @school_class.classrooms.build
   end
 
   def edit
   end
 
   def create
-    @classroom = Classroom.new(classroom_params)
+    @classroom = @school_class.classrooms.build(classroom_params)
 
-    respond_to do |format|
-      if @classroom.save
-        format.html { redirect_to @classroom, notice: 'Classroom was successfully created.' }
-        format.json { render :show, status: :created, location: @classroom }
-      else
-        format.html { render :new }
-        format.json { render json: @classroom.errors, status: :unprocessable_entity }
-      end
+    if @classroom.save
+      redirect_to @classroom, notice: 'Classroom was successfully added.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @classroom.update(classroom_params)
-        format.html { redirect_to @classroom, notice: 'Classroom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @classroom }
-      else
-        format.html { render :edit }
-        format.json { render json: @classroom.errors, status: :unprocessable_entity }
-      end
+    if @classroom.update(classroom_params)
+      redirect_to @classroom, notice: 'Classroom was successfully updated.'
+    else
+      render :edit
     end
   end
 

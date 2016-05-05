@@ -5,12 +5,11 @@ feature 'edit school' do
   let(:owner) { create(:user) }
   let(:owner_school) { create(:school, active: true, owner: owner) }
   let(:other_school) { create(:school, active: true, owner: create(:user)) }
-  let(:edit_school_form) { EditSchoolForm.new }
 
   scenario 'owner can edit school' do
     sign_in_user owner
 
-    edit_school_form.
+    EditSchoolForm.
       visit_page(owner_school).
       fill_in_with(
         name: 'Edited School'
@@ -23,7 +22,7 @@ feature 'edit school' do
   scenario 'cannot edit other schools' do
     sign_in_user owner
 
-    edit_school_form.
+    EditSchoolForm.
       visit_page(other_school)
 
     expect(page).to have_content 'not authorized'
@@ -32,7 +31,7 @@ feature 'edit school' do
   scenario 'owner cannot edit school with invalid data' do
     sign_in_user owner
 
-    edit_school_form.
+    EditSchoolForm.
       visit_page(owner_school).
       fill_in_with(
         name: ''

@@ -1,17 +1,17 @@
 class NewSchoolForm
-  include Capybara::DSL
+  extend Capybara::DSL
 
-  def visit_page
-    DashboardIndexPage.new.visit_add_school
+  def self.visit_page
+    DashboardIndexPage.visit_add_school
     self
   end
 
-  def fill_in_with(params = {})
+  def self.fill_in_with(params = {})
     fill_in 'Name', with: params.fetch(:name, 'School')
     self
   end
 
-  def submit
+  def self.submit
     click_on 'Submit'
     self
   end

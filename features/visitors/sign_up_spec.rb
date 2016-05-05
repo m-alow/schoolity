@@ -3,10 +3,8 @@ require_relative '../capybara'
 
 
 feature 'create a new account' do
-  let(:sign_up_form) { SignUpForm.new }
-
   scenario 'visitor can sign up' do
-    sign_up_form.
+    SignUpForm.
       visit_page.
       fill_in_with(
         first_name: 'Mohammad',
@@ -20,7 +18,7 @@ feature 'create a new account' do
   end
 
   scenario 'visitor can not sign up with invalid data' do
-    sign_up_form.
+    SignUpForm.
       visit_page.
       fill_in_with(
         first_name: ''

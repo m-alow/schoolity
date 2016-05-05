@@ -6,7 +6,6 @@ feature 'view school class' do
   let(:unauthorized_user) { create(:user) }
   let(:school) { create(:active_school) }
   let(:school_class) { create(:school_class, school: school) }
-  let(:school_class_page) { SchoolClassPage.new }
 
   background do
     school.administrators << authorized_user
@@ -15,7 +14,7 @@ feature 'view school class' do
   scenario 'authorized user can view school class' do
     sign_in_user authorized_user
 
-    school_class_page.visit_page(school_class)
+    SchoolClassPage.visit_page(school_class)
 
     expect(page).to have_content school_class.name
   end

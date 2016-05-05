@@ -2,7 +2,6 @@ require 'rails_helper'
 require_relative '../capybara'
 
 feature 'view schools listing' do
-  let(:dashboard) { DashboardIndexPage.new }
   let(:user) { create :user }
   let(:another_user) { create :user }
 
@@ -11,7 +10,7 @@ feature 'view schools listing' do
     another_school = create(:school, owner: another_user, active: true)
 
     sign_in_user user
-    dashboard.visit_schools_listing
+    DashboardIndexPage.visit_schools_listing
 
     expect(page).to have_content school.name
     expect(page).to have_content another_school.name
@@ -22,7 +21,7 @@ feature 'view schools listing' do
     another_non_activated_school = create(:school, owner: another_user)
 
     sign_in_user user
-    dashboard.visit_schools_listing
+    DashboardIndexPage.visit_schools_listing
 
     expect(page).to have_content school.name
     expect(page).not_to have_content another_non_activated_school.name

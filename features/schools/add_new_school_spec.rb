@@ -2,12 +2,12 @@ require 'rails_helper'
 require_relative '../capybara'
 
 feature 'Add new school' do
-  let(:new_school_form) { NewSchoolForm.new }
   let(:user) { create(:user) }
 
   scenario 'user can add new school' do
     sign_in_user user
-    new_school_form.
+
+    NewSchoolForm.
       visit_page.
       fill_in_with(
         name: 'The school'
@@ -19,7 +19,7 @@ feature 'Add new school' do
 
   scenario 'user can not add new school with invalid information'  do
     sign_in_user user
-    new_school_form.
+    NewSchoolForm.
       visit_page.
       fill_in_with(
         name: ''

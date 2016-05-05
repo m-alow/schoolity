@@ -5,7 +5,7 @@ feature 'edit school class' do
   let(:user) { create(:user) }
   let(:school) { create(:active_school) }
   let(:school_class) { create(:school_class, school: school) }
-  let(:form) { EditSchoolClassForm.new }
+  let(:form) { EditSchoolClassForm }
 
   background do
     school.administrators << user
