@@ -3,23 +3,30 @@ class ClassroomsController < ApplicationController
   before_action :set_school_class_from_params, only: [:index, :new, :create]
   before_action :set_school_class, only: [:show, :edit, :update, :destroy]
   before_action :set_school
+  after_action :verify_authorized, except: :index
 
   def index
-    @classrooms = Classroom.all
+    ClassroomPolicy.new(current_user, @school).authorize_action(:index?)
+
+    @classrooms = @school_class.classrooms
   end
 
   def show
+    authorize @classroom
   end
 
   def new
     @classroom = @school_class.classrooms.build
+    authorize @classroom
   end
 
   def edit
+    authorize @classroom
   end
 
   def create
     @classroom = @school_class.classrooms.build(classroom_params)
+    authorize @classroom
 
     if @classroom.save
       redirect_to @classroom, notice: 'Classroom was successfully added.'
@@ -29,6 +36,7 @@ class ClassroomsController < ApplicationController
   end
 
   def update
+    authorize @classroom
     if @classroom.update(classroom_params)
       redirect_to @classroom, notice: 'Classroom was successfully updated.'
     else
@@ -37,6 +45,7 @@ class ClassroomsController < ApplicationController
   end
 
   def destroy
+    authorize @classroom
     @classroom.destroy
     respond_to do |format|
       format.html { redirect_to school_class_classrooms_url(@school_class), notice: 'Classroom was successfully destroyed.' }

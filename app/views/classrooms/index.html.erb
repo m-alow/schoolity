@@ -1,22 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Classrooms</h1>
+<h1>Listing Classrooms in <%= @school_class.name %></h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>School class</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @classrooms.each do |classroom| %>
       <tr>
-        <td><%= classroom.school_class %></td>
-        <td><%= classroom.name %></td>
-        <td><%= link_to 'Show', classroom %></td>
+        <td><%= link_to classroom.name, classroom %></td>
         <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
         <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
