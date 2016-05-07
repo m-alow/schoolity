@@ -6,6 +6,6 @@ feature 'visiting about page' do
     visit '/'
     click_on 'About'
 
-    expect(page).to have_css('h1', 'About')
+    expect(page).to have_css('h1', text: 'About')
   end
 end
