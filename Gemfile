@@ -30,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise', '~> 3.5.6'
+gem 'devise', '~> 4.1.0'
 gem 'pundit', '~> 1.1.0'
 
 gem 'bootstrap-sass', '~> 3.3.6'
