@@ -38,7 +38,7 @@ class SchoolPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       else
-        scope.where('active = "t" or user_id = ?', user)
+        scope.where("active = 't' or user_id = ?", user)
       end
     end
   end
