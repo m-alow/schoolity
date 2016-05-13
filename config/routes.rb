@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   resources :schools, shallow: true do
     put 'activation', action: :activate, on: :member
     resources :school_classes do
-      resources :classrooms
+      resources :classrooms do
+        resources :students, only: [:index, :new, :create], controller: 'classrooms/students'
+      end
+    end
+    resources :students do
+      resources :studyings
     end
     resources :school_administrations, except: [:edit, :update]
   end

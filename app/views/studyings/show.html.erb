@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Classroom:</strong>
+  <%= @studying.classroom.name %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @studying.student.name %>
+</p>
+
+<p>
+  <strong>Beginning date:</strong>
+  <%= @studying.beginning_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @studying.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_studying_path(@studying) %> |
+<%= link_to 'Back', student_studyings_path(@student) %>

@@ -1,0 +1,30 @@
+<h1>Listing Studyings</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Classroom</th>
+      <th>Student</th>
+      <th>Beginning date</th>
+      <th>End date</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @studyings.each do |studying| %>
+      <tr>
+        <td><%= link_to studying.classroom.name, studying, id: "studying-#{studying.id}" %></td>
+        <td><%= studying.student.name %></td>
+        <td><%= studying.beginning_date %></td>
+        <td><%= studying.end_date %></td>
+        <td><%= link_to 'Edit', edit_studying_path(studying) %></td>
+        <td><%= link_to 'Destroy', studying, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Studying', new_student_studying_path(@student) %>

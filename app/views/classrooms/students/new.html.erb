@@ -1,0 +1,29 @@
+<div class="row row-centered">
+  <div class="col-md-offset-4 col-md-4 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-heading">New Student</div>
+
+      <div class="panel-body">
+	<%= simple_form_for [@classroom, @student] do |f| %>
+	<%= f.error_notification %>
+	<%= f.input :first_name, autofocus: true %>
+	<%= f.input :last_name %>
+	<%= f.input :father_name %>
+	<%= f.input :mother_name %>
+	<%= f.input :birthdate, start_year: 1980, end_year: Date.today.year - 4 %>
+	<div class="form-group">
+	  <%= label_tag :begining_date, 'Beginning Date', class: 'string control-label' %>
+	  <div class='form-control data'>
+	    <%= select_date Date.today, prefix: :beginning_date, start_year: 1980 %>
+	  </div>
+	</div>
+	<%= f.button :submit, 'Submit' %>
+	<% end %>
+      </div>
+
+      <div class="panel-footer">
+	<%= link_to 'Back', classroom_students_path(@classroom) %>
+      </div>
+    </div>
+  </div>
+</div>

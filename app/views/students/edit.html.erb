@@ -1,0 +1,16 @@
+<div class="row row-centered">
+  <div class="col-md-offset-4 col-md-4 col-centered">
+    <div class="panel panel-default">
+      <div class="panel-heading">Edit Student</div>
+
+      <div class="panel-body">
+	<%= render 'edit_form' %>
+      </div>
+
+      <div class="panel-footer">
+	<%= link_to 'Show', @student %> |
+	<%= link_to 'Back', school_students_path(@school) %>
+      </div>
+    </div>
+  </div>
+</div>

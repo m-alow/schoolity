@@ -1,0 +1,4 @@
+<%= f.association :classroom, collection: @student.school.classrooms %>
+<%= f.input :beginning_date, include_blank: true %>
+<%= f.input :end_date, include_blank: true %>
+<%= f.button :submit, 'Submit' %>

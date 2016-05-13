@@ -1,0 +1,7 @@
+<%= f.error_notification %>
+<%= f.input :first_name, autofocus: true %>
+<%= f.input :last_name %>
+<%= f.input :father_name %>
+<%= f.input :mother_name %>
+<%= f.input :birthdate, start_year: 1980, end_year: Date.today.year - 4 %>
+<%= f.button :submit, 'Submit' %>
