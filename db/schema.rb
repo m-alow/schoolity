@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507200927) do
+ActiveRecord::Schema.define(version: 20160514110929) do
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "school_class_id"
@@ -75,6 +81,15 @@ ActiveRecord::Schema.define(version: 20160507200927) do
 
   add_index "studyings", ["classroom_id"], name: "index_studyings_on_classroom_id"
   add_index "studyings", ["student_id"], name: "index_studyings_on_student_id"
+
+  create_table "subjects", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "school_class_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "subjects", ["school_class_id"], name: "index_subjects_on_school_class_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

@@ -23,4 +23,6 @@ RSpec.describe SchoolClass, type: :model do
     duplicate_class = build(:school_class, school: another_school, name: 'A-1')
     expect(duplicate_class).to be_valid
   end
+
+  it { should have_many :subjects }
 end
