@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @teaching.teacher.name %>
+</p>
+
+<p>
+  <strong>Classroom:</strong>
+  <%= @teaching.classroom.name %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @teaching.subject.name if @teaching.subject %>
+</p>
+
+<p>
+  <strong>All subjects:</strong>
+  <%= @teaching.all_subjects %>
+</p>
+
+<%= link_to 'Edit', edit_teaching_path(@teaching) %> |
+<%= link_to 'Teachers', classroom_teachings_path(@classroom) %>

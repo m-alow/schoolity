@@ -21,4 +21,6 @@ RSpec.describe User, type: :model do
     user = build(:user, first_name: 'Mohammad', last_name: 'Alow')
     expect(user.name).to eq 'Mohammad Alow'
   end
+
+  it { should have_many :teachings }
 end

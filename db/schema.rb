@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514110929) do
+ActiveRecord::Schema.define(version: 20160514170923) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
@@ -90,6 +90,19 @@ ActiveRecord::Schema.define(version: 20160514110929) do
   end
 
   add_index "subjects", ["school_class_id"], name: "index_subjects_on_school_class_id"
+
+  create_table "teachings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "classroom_id"
+    t.integer  "subject_id"
+    t.boolean  "all_subjects"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "teachings", ["classroom_id"], name: "index_teachings_on_classroom_id"
+  add_index "teachings", ["subject_id"], name: "index_teachings_on_subject_id"
+  add_index "teachings", ["user_id"], name: "index_teachings_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

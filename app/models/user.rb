@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :schools
   has_many :school_administrations
   has_many :administrated_schools, through: :school_administrations, class_name: 'School', foreign_key: 'school_id'
+  has_many :teachings
 
   validates :first_name, presence: true
   validates :last_name, presence: true

@@ -13,4 +13,6 @@
 <%= link_to 'Edit', edit_classroom_path(@classroom) %> |
 <%= link_to 'Back', school_class_classrooms_path(@school_class) %> |
 <%= link_to 'Students', classroom_students_path(@classroom) %> |
-<%= link_to 'Add student', new_classroom_student_path(@classroom) %>
+<%= link_to 'Add student', new_classroom_student_path(@classroom) %> |
+<%= link_to 'Teachers', classroom_teachings_path(@classroom) %> |
+<%= link_to 'Add teacher', new_classroom_teaching_path(@classroom) %>

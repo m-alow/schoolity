@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Teachings</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Teacher</th>
+      <th>Classroom</th>
+      <th>Subject</th>
+      <th>All subjects</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachings.each do |teaching| %>
+      <tr>
+        <td><%= link_to teaching.teacher.name, teaching %></td>
+        <td><%= teaching.classroom.name %></td>
+        <td><%= teaching.subject.name if teaching.subject %></td>
+        <td><%= teaching.all_subjects %></td>
+        <td><%= link_to 'Edit', edit_teaching_path(teaching) %></td>
+        <td><%= link_to 'Destroy', teaching, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Teaching', new_classroom_teaching_path(@classroom) %>

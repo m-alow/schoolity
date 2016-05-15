@@ -23,4 +23,6 @@ RSpec.describe Classroom, type: :model do
     other_classroom = build(:classroom, school_class: other_school_class, name: '10')
     expect(other_classroom).to be_valid
   end
+
+  it { should have_many :teachings }
 end

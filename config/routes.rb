@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :school_classes do
       resources :classrooms do
         resources :students, only: [:index, :new, :create], controller: 'classrooms/students'
+        resources :teachings
       end
       resources :subjects
     end
