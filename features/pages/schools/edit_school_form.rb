@@ -13,7 +13,7 @@ class EditSchoolForm
   end
 
   def self.submit
-    click_on 'Submit'
+    click_on 'Update School'
     self
   end
 end

@@ -1,6 +1,10 @@
-<h1>Editing School Administration</h1>
+<% provide :form_title, 'Editing School Administration' %>
 
-<%= render 'form' %>
+<% content_for :form_footer do %>
+  <%= link_to 'Show', @school_administration %> |
+  <%= link_to 'Back', school_administrations_path %>
+<% end %>
 
-<%= link_to 'Show', @school_administration %> |
-<%= link_to 'Back', school_administrations_path %>
+<%= render layout: 'simple_form' do %>
+  <%= render 'form' %>
+<% end %>

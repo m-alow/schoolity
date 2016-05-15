@@ -1,15 +1,9 @@
-<div class="row row-centered">
-  <div class="col-md-offset-4 col-md-4 col-centered">
-    <div class="panel panel-default">
-      <div class="panel-heading">New Student</div>
+<% provide :form_title, 'Add student' %>
 
-      <div class="panel-body">
-	<%= render 'new_form' %>
-      </div>
+<% content_for :form_footer do %>
+  <%= link_to 'Students', school_students_path(@school) %>
+<% end %>
 
-      <div class="panel-footer">
-	<%= link_to 'Back', school_students_path(@school) %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render layout: 'simple_form' do %>
+<%= render 'new_form' %>
+<% end %>

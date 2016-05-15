@@ -13,7 +13,7 @@ class NewClassroomForm
   end
 
   def self.submit
-    click_on 'Submit'
+    click_on 'Create Classroom'
     self
   end
 end

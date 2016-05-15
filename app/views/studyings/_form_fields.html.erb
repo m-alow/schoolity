@@ -1,4 +1,11 @@
-<%= f.association :classroom, collection: @student.school.classrooms %>
-<%= f.input :beginning_date, include_blank: true %>
-<%= f.input :end_date, include_blank: true %>
-<%= f.button :submit, 'Submit' %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.association :classroom, collection: @student.school.classrooms %>
+  <%= f.input :beginning_date, include_blank: true %>
+  <%= f.input :end_date, include_blank: true %>
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, 'Submit' %>
+</div>

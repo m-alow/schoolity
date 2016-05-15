@@ -1,6 +1,10 @@
-<h1>Editing School Class</h1>
+<% provide :form_title, 'Edit school class' %>
 
-<%= render 'edit_form' %>
+<% content_for :form_footer do %>
+  <%= link_to 'Show', @school_class %> |
+  <%= link_to 'Back', school_school_classes_path(@school)%>
+<% end %>
 
-<%= link_to 'Show', @school_class %> |
-<%= link_to 'Back', school_school_classes_path(@school)%>
+<%= render layout: 'simple_form' do %>
+  <%= render 'edit_form' %>
+<% end %>

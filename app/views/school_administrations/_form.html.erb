@@ -1,12 +1,11 @@
-<%= form_for([@school, @school_administration]) do |f| %>
-
+<%= simple_form_for([@school, @school_administration]) do |f| %>
   <%= render 'shared/error_messages', resource: @school_administration %>
 
-  <div class="field">
+  <div class="form-inputs">
     <%= label_tag :email %><br>
     <%= email_field_tag :email %>
   </div>
-  <div class="actions">
-    <%= f.submit 'Submit' %>
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit' %>
   </div>
 <% end %>

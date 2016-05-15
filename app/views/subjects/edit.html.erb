@@ -1,16 +1,10 @@
-<div class="row row-centered">
-  <div class="col-md-offset-4 col-md-4 col-centered">
-    <div class="panel panel-default">
-      <div class="panel-heading">New Subjet</div>
+<% provide :form_title, 'Edit subject' %>
 
-      <div class="panel-body">
-	<%= render 'edit_form' %>
-      </div>
+<% content_for :form_footer do %>
+  <%= link_to 'Show', @subject %> |
+  <%= link_to 'Subjects', school_class_subjects_path(@school_class) %>
+<% end %>
 
-      <div class="panel-footer">
-	<%= link_to 'Show', @subject %> |
-	<%= link_to 'Subjects', school_class_subjects_path(@school_class) %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render layout: 'simple_form' do %>
+  <%= render 'edit_form' %>
+<% end %>

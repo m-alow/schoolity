@@ -1,29 +1,28 @@
-<div class="row row-centered">
-  <div class="col-md-offset-4 col-md-4 col-centered">
-    <div class="panel panel-default">
-      <div class="panel-heading">New Student</div>
+<% provide :form_title, 'New Student' %>
 
-      <div class="panel-body">
-	<%= simple_form_for [@classroom, @student] do |f| %>
-	<%= f.error_notification %>
-	<%= f.input :first_name, autofocus: true %>
-	<%= f.input :last_name %>
-	<%= f.input :father_name %>
-	<%= f.input :mother_name %>
-	<%= f.input :birthdate, start_year: 1980, end_year: Date.today.year - 4 %>
-	<div class="form-group">
-	  <%= label_tag :begining_date, 'Beginning Date', class: 'string control-label' %>
-	  <div class='form-control data'>
-	    <%= select_date Date.today, prefix: :beginning_date, start_year: 1980 %>
-	  </div>
+<% content_for :form_footer do %>
+  <%= link_to 'Back', classroom_students_path(@classroom) %>
+<% end %>
+
+<%= render layout: 'simple_form' do %>
+  <%= simple_form_for [@classroom, @student] do |f| %>
+    <%= f.error_notification %>
+    <div class="form-inputs">
+      <%= f.input :first_name, autofocus: true %>
+      <%= f.input :last_name %>
+      <%= f.input :father_name %>
+      <%= f.input :mother_name %>
+      <%= f.input :birthdate, start_year: 1980, end_year: Date.today.year - 4 %>
+      <div class="form-group date">
+	<%= label_tag :begining_date, 'Beginning Date', class: 'date control-label' %>
+	<div class='form-inline'>
+	  <%= select_date Date.today, prefix: :beginning_date, start_year: 1980, class: 'form-control' %>
 	</div>
-	<%= f.button :submit, 'Submit' %>
-	<% end %>
-      </div>
-
-      <div class="panel-footer">
-	<%= link_to 'Back', classroom_students_path(@classroom) %>
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="form-actions">
+      <%= f.button :submit, 'Submit' %>
+    </div>
+  <% end %>
+<% end %>
