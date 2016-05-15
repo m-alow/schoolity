@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe SchoolPolicy do
   subject { SchoolPolicy }
 
-  let(:user) { build_stubbed(:user) }
-  let(:admin) { build_stubbed(:admin) }
-  let(:school_owner) { build_stubbed(:user) }
-  let(:school) { build_stubbed(:school, owner: school_owner) }
+  let(:user) { build(:user) }
+  let(:admin) { build(:admin) }
+  let(:school_owner) { build(:user) }
+  let(:school) { build(:school, owner: school_owner) }
 
   permissions :index? do
     it 'allows access for a user' do
@@ -16,7 +16,7 @@ RSpec.describe SchoolPolicy do
 
   permissions :show? do
     context 'activated school' do
-      let(:school) { build_stubbed(:school, active: true, owner: school_owner) }
+      let(:school) { build(:school, active: true, owner: school_owner) }
 
       it 'allows access for a user' do
         expect(subject).to permit(user, school)
@@ -30,7 +30,7 @@ RSpec.describe SchoolPolicy do
     end
 
     context 'non-activated school' do
-      let(:school) { build_stubbed(:school, active: false, owner: school_owner) }
+      let(:school) { build(:school, active: false, owner: school_owner) }
 
       it 'prevents users from seeing the school' do
         expect(subject).not_to permit(user, school)
@@ -89,10 +89,10 @@ RSpec.describe SchoolPolicy do
   end
 
   describe 'scope' do
-    let(:user) { create(:user) }
-    let(:another_user) { create(:user) }
-    let(:admin) { create(:admin) }
-    let(:owner) { create(:user) }
+    let(:user) { build(:user) }
+    let(:another_user) { build(:user) }
+    let(:admin) { build(:admin) }
+    let(:owner) { build(:user) }
 
     let(:owned_active_schools) { @owned_active_schools }
     let(:owned_non_active_schools) { @owned_non_active_schools }

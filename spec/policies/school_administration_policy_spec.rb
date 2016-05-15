@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe SchoolAdministrationPolicy do
   subject { described_class }
 
-  let(:user) { create(:user) }
-  let(:admin) { create(:admin) }
-  let(:owner) { create(:user) }
-  let(:school) { create(:active_school, owner: owner) }
-  let(:other_school) { create(:active_school) }
-  let(:school_administration) { create(:school_administration, administrated_school: school) }
-  let(:other_school_administration) { create(:school_administration, administrated_school: other_school) }
+  let(:user) { build(:user) }
+  let(:admin) { build(:admin) }
+  let(:owner) { build(:user) }
+  let(:school) { build(:active_school, owner: owner) }
+  let(:other_school) { build(:active_school) }
+  let(:school_administration) { build(:school_administration, administrated_school: school) }
+  let(:other_school_administration) { build(:school_administration, administrated_school: other_school) }
 
   permissions :index? do
     it 'allows admin' do

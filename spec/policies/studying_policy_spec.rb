@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe StudyingPolicy do
-  let(:school) { create(:active_school, owner: owner) }
-  let(:student) { create(:student, school: school) }
-  let(:school_class) { create(:school_class, school: school) }
-  let(:studying) { create(:studying, student: student, classroom: create(:classroom, school_class: school_class)) }
-  let(:admin) { create(:admin) }
-  let(:owner) { create(:user) }
+  let(:school) { build(:active_school, owner: owner) }
+  let(:student) { build(:student, school: school) }
+  let(:school_class) { build(:school_class, school: school) }
+  let(:studying) { build(:studying, student: student, classroom: build(:classroom, school_class: school_class)) }
+  let(:admin) { build(:admin) }
+  let(:owner) { build(:user) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
-  let(:user) { create(:user) }
-  let(:other_school) { create(:active_school) }
-  let(:other_school_class) {create(:school_class, school: other_school) }
-  let(:other_student) { create(:student) }
-  let(:other_studying) { create(:studying, student: other_student, classroom: create(:classroom, school_class: other_school_class)) }
+  let(:user) { build(:user) }
+  let(:other_school) { build(:active_school) }
+  let(:other_school_class) {build(:school_class, school: other_school) }
+  let(:other_student) { build(:student) }
+  let(:other_studying) { build(:studying, student: other_student, classroom: build(:classroom, school_class: other_school_class)) }
 
   subject { described_class }
 

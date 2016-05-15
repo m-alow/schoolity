@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe StudentPolicy do
-  let(:school) { create(:active_school, owner: owner) }
-  let(:student) { create(:student, school: school) }
-  let(:admin) { create(:admin) }
-  let(:owner) { create(:user) }
+  let(:school) { build(:active_school, owner: owner) }
+  let(:student) { build(:student, school: school) }
+  let(:admin) { build(:admin) }
+  let(:owner) { build(:user) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
-  let(:user) { create(:user) }
-  let(:other_school) { create(:active_school) }
-  let(:other_student) { create(:student) }
+  let(:user) { build(:user) }
+  let(:other_school) { build(:active_school) }
+  let(:other_student) { build(:student) }
+
   subject { described_class }
 
   permissions :index? do

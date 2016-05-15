@@ -4,7 +4,7 @@ RSpec.describe TeachingPolicy do
   let(:school) { build(:active_school, owner: owner) }
   let(:school_class) { build(:school_class, school: school) }
   let(:classroom) { build(:classroom, school_class: school_class) }
-  let(:another_classroom) { build(:classroom, school_class: create(:school_class)) }
+  let(:another_classroom) { build(:classroom, school_class: build(:school_class)) }
   let(:teaching) { build(:teaching, classroom: classroom) }
   let(:another_teaching) { build(:teaching, classroom: another_classroom) }
 
