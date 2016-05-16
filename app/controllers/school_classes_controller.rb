@@ -6,7 +6,7 @@ class SchoolClassesController < ApplicationController
 
   def index
     SchoolClassPolicy.new(current_user, @school).authorize_action(:index?)
-    @school_classes = SchoolClass.all
+    @school_classes = @school.school_classes
   end
 
   def show

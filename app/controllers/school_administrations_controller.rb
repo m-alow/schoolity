@@ -7,7 +7,7 @@ class SchoolAdministrationsController < ApplicationController
   # GET /schools/1/school_administrations
   def index
     SchoolAdministrationPolicy.new(current_user, @school).authorize_action(:index?)
-    @school_administrations = SchoolAdministration.all
+    @school_administrations = @school.school_administrations
   end
 
   # GET /school_administrations/1
