@@ -16,5 +16,6 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+//= require trix
 
 Turbolinks.enableProgressBar();

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514170923) do
+ActiveRecord::Schema.define(version: 20160516235117) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20160514170923) do
     t.integer  "school_class_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "description"
   end
 
   add_index "subjects", ["school_class_id"], name: "index_subjects_on_school_class_id"

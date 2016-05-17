@@ -10,5 +10,9 @@
   <%= @subject.school_class.name %>
 </p>
 
+<p>
+  <%= sanitize @subject.description %>
+</p>
+
 <%= link_to 'Edit', edit_subject_path(@subject) %> |
 <%= link_to 'Subjects', school_class_subjects_path(@school_class) %>
