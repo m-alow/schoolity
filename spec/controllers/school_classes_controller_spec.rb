@@ -130,28 +130,28 @@ RSpec.describe SchoolClassesController, type: :controller do
       describe 'GET #index' do
         it 'succeed' do
           get :index, school_id: school
-          expect(response.status).to equal 200
+          expect(response).to have_http_status :success
         end
       end
 
       describe 'GET #show' do
         it 'succeed' do
           get :show, id: school_class
-          expect(response.status).to equal 200
+          expect(response).to have_http_status :success
         end
       end
 
       describe 'GET #new' do
         it 'succeed' do
           get :new, school_id: school
-          expect(response.status).to equal 200
+          expect(response).to have_http_status :success
         end
       end
 
       describe 'GET #edit' do
         it 'succeed' do
           get :edit, id: school_class
-          expect(response.status).to equal 200
+          expect(response).to have_http_status :success
         end
       end
 

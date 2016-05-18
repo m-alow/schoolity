@@ -9,14 +9,14 @@ RSpec.describe SchoolsController, type: :controller do
     describe 'GET #index' do
       it 'succeed' do
         get :index
-        expect(response.status).to equal 200
+        expect(response).to have_http_status :success
       end
     end
 
     describe 'GET #new' do
       it 'succeed' do
         get :new
-        expect(response.status).to equal 200
+        expect(response).to have_http_status :success
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe SchoolsController, type: :controller do
     describe 'GET #show' do
       it 'succeed' do
         get :show, id: school
-        expect(response.status).to equal 200
+        expect(response).to have_http_status :success
       end
     end
   end
@@ -210,7 +210,7 @@ RSpec.describe SchoolsController, type: :controller do
       describe 'GET #edit' do
         it 'succeed' do
           get :edit, id: school
-          expect(response.status).to equal 200
+          expect(response).to have_http_status :success
         end
       end
 
