@@ -16,9 +16,9 @@
        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <%= f.input :password %> <i>(leave blank if you don't want to change it)</i>
+      <%= f.input :password, hint: "leave blank if you don't want to change it" %>
       <%= f.input :password_confirmation %>
-      <%= f.input :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.input :current_password, hint: 'we need your current password to confirm your changes' %>
     </div>
 
     <div class="form-actions">
