@@ -6,5 +6,7 @@
 <% end %>
 
 <%= render layout: 'wide_form' do %>
-  <%= render 'edit_form' %>
+  <%= simple_form_for @subject do |f| %>
+    <%= render 'form_fields', f: f %>
+  <% end %>
 <% end %>

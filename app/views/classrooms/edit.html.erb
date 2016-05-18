@@ -6,5 +6,7 @@
 <% end %>
 
 <%= render layout: 'simple_form' do %>
-  <%= render 'edit_form' %>
+  <%= simple_form_for(@classroom) do |f| %>
+    <%= render 'form_fields', f: f %>
+  <% end %>
 <% end %>

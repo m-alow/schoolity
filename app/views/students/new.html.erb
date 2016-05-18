@@ -5,5 +5,7 @@
 <% end %>
 
 <%= render layout: 'simple_form' do %>
-<%= render 'new_form' %>
+  <%= simple_form_for [@school, @student] do |f| %>
+    <%= render 'form_fields', f: f %>
+  <% end %>
 <% end %>
