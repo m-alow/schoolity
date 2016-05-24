@@ -7,4 +7,8 @@ class Classroom < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }
+
+  def following_codes
+    FollowingCode.where(student_id: students)
+  end
 end

@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516235117) do
+ActiveRecord::Schema.define(version: 20160521080818) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "school_class_id"
@@ -27,6 +29,17 @@ ActiveRecord::Schema.define(version: 20160516235117) do
   end
 
   add_index "classrooms", ["school_class_id"], name: "index_classrooms_on_school_class_id"
+
+  create_table "following_codes", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "code"
+    t.datetime "expire_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "following_codes", ["code"], name: "index_following_codes_on_code"
+  add_index "following_codes", ["student_id"], name: "index_following_codes_on_student_id"
 
   create_table "school_administrations", force: :cascade do |t|
     t.integer  "user_id"

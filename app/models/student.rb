@@ -1,6 +1,7 @@
 class Student < ActiveRecord::Base
   belongs_to :school
   has_many :studyings
+  has_many :following_codes
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true

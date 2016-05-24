@@ -197,6 +197,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.4)
+    timecop (0.8.1)
     trix (0.9.7)
       rails
     turbolinks (2.5.3)
@@ -243,6 +244,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sqlite3
+  timecop
   trix
   turbolinks
   tzinfo-data

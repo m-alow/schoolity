@@ -12,11 +12,13 @@ Rails.application.routes.draw do
       resources :classrooms do
         resources :students, only: [:index, :new, :create], controller: 'classrooms/students'
         resources :teachings
+        resources :following_codes, only: [:index, :create], controller: 'classrooms/following_codes'
       end
       resources :subjects
     end
     resources :students do
       resources :studyings
+      resources :following_codes, only: [:index, :show, :create, :destroy], controller: 'students/following_codes'
     end
     resources :school_administrations, except: [:edit, :update]
   end

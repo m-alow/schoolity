@@ -45,4 +45,6 @@
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', school_students_path(@school) %> |
 <%= link_to 'Studyings', student_studyings_path(@student) %>
-<%= link_to 'Add studying', new_student_studying_path(@student) %>
+<%= link_to 'Add studying', new_student_studying_path(@student) %> |
+<%= link_to 'Following codes', student_following_codes_path(@student) %> |
+<%= link_to 'Generate following code', student_following_codes_path(@student), method: :post %>
