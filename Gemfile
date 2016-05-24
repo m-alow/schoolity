@@ -60,6 +60,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'simplecov', require: false
 end
 
 group :production do
