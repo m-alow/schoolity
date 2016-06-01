@@ -22,4 +22,6 @@ Rails.application.routes.draw do
     end
     resources :school_administrations, except: [:edit, :update]
   end
+
+  resources :followings, except: [:edit, :update]
 end

@@ -1,0 +1,27 @@
+<% provide :panel_title, 'Follow a student' %>
+
+<% content_for :panel_footer do %>
+
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= simple_form_for(@following) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <div class="form-group">
+        <%= label_tag :following_code, nil, class: 'control-label' %>
+        <%= text_field_tag :following_code, nil, class: 'form-control', autofocus: true %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :student_full_name, nil, class: 'control-label' %>
+        <%= text_field_tag :student_full_name, nil, class: 'form-control' %>
+      </div>
+      <%= f.input :relationship %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+<% end %>

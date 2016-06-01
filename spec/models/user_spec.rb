@@ -23,4 +23,34 @@ RSpec.describe User, type: :model do
   end
 
   it { should have_many :teachings }
+
+  describe 'follows a student' do
+    let(:user) { build(:user) }
+    let(:student) { build(:student) }
+    let(:following_code) { @following_code }
+
+    before { @following_code = FollowingCode.make! student }
+
+    it 'is valid' do
+      following = user.follow_student(code: following_code.code, relationship: 'Parent', full_name: student.full_name)
+      expect(following).to be_valid
+    end
+
+    it 'is invalid with an expired following code' do
+      Timecop.travel(Time.now + 100.hours) do
+        following = user.follow_student(code: following_code.code, relationship: 'Parent', full_name: student.full_name)
+        expect(following).to be_invalid
+      end
+    end
+
+    it 'is invalid with a mismatching student full name' do
+      following = user.follow_student(code: following_code.code, relationship: 'Parent', full_name: 'a')
+      expect(following).to be_invalid
+    end
+
+    it 'is invalid with a wrong following code' do
+      following = user.follow_student(code: "wrong#{following_code.code}", relationship: 'Parent', full_name: student.full_name)
+      expect(following).to be_invalid
+    end
+  end
 end

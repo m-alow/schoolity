@@ -1,0 +1,28 @@
+<% provide :panel_title, 'Listing Followings' %>
+
+<% content_for :panel_footer do %>
+  <%= link_to 'Follow a student', new_following_path %>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Relationship</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @followings.each do |following| %>
+      <tr>
+        <td><%= link_to following.student.name, following %></td>
+        <td><%= following.relationship %></td>
+        <td><%= link_to 'Unfollow', following, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% end %>
