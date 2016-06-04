@@ -5,15 +5,9 @@ feature 'view classrooms listing' do
   let(:school) { create(:active_school) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:school_class) { create(:school_class, school: school) }
-  let(:classroom1) { @classroom1 }
-  let(:classroom2) { @classroom2 }
-  let(:outer_classroom) { @outer_classroom }
-
-  background do
-    @classroom1 = create(:classroom, school_class: school_class)
-    @classroom2 = create(:classroom, school_class: school_class)
-    @outer_classroom = create(:classroom)
-  end
+  let!(:classroom1) { create(:classroom, school_class: school_class) }
+  let!(:classroom2) { create(:classroom, school_class: school_class) }
+  let!(:outer_classroom) { create(:classroom) }
 
   scenario 'school admin views classrooms' do
     sign_in_user school_admin

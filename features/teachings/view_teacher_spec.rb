@@ -8,11 +8,7 @@ feature 'view teachers list' do
   let(:another_classroom) { create(:classroom, school_class: school_class) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:subject) { create(:subject, school_class: school_class) }
-  let(:teacher) { @teacher }
-
-  background do
-    @teacher = create(:teaching, classroom: classroom, subject: subject).teacher
-  end
+  let!(:teacher) { create(:teaching, classroom: classroom, subject: subject).teacher }
 
   scenario 'school admin views teachers in a classroom' do
     sign_in_user school_admin

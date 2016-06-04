@@ -27,9 +27,7 @@ RSpec.describe User, type: :model do
   describe 'follows a student' do
     let(:user) { build(:user) }
     let(:student) { build(:student) }
-    let(:following_code) { @following_code }
-
-    before { @following_code = FollowingCode.make! student }
+    let!(:following_code) { FollowingCode.make! student }
 
     it 'is valid' do
       following = user.follow_student(code: following_code.code, relationship: 'Parent', full_name: student.full_name)

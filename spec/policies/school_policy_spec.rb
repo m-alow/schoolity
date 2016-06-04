@@ -94,20 +94,14 @@ RSpec.describe SchoolPolicy do
     let(:admin) { build(:admin) }
     let(:owner) { build(:user) }
 
-    let(:owned_active_schools) { @owned_active_schools }
-    let(:owned_non_active_schools) { @owned_non_active_schools }
-    let(:other_active_schools) { @other_active_schools }
-    let(:other_non_active_schools) { @other_non_active_schools }
+    let!(:owned_active_schools) { 2.times.map { create(:active_school, owner: owner) } }
+    let!(:owned_non_active_schools) { 2.times.map { create(:non_active_school, owner: owner) } }
+    let!(:other_active_schools) { 2.times.map {create(:active_school, owner: create(:user)) } }
+    let!(:other_non_active_schools) { 2.times.map { create(:non_active_school, owner: create(:user)) } }
     let(:active_schools) { owned_active_schools + other_active_schools }
     let(:non_active_schools) { owned_non_active_schools + other_non_active_schools }
     let(:all_schools) { active_schools + non_active_schools }
     let(:owned_schools) { owned_active_schools + owned_non_active_schools }
-    before do
-      @owned_active_schools = [ create(:active_school, owner: owner), create(:active_school, owner: owner) ]
-      @owned_non_active_schools = [ create(:non_active_school, owner: owner), create(:non_active_school, owner: owner) ]
-      @other_active_schools = [ create(:active_school, owner: create(:user)), create(:active_school, owner: create(:user)) ]
-      @other_non_active_schools = [ create(:non_active_school, owner: create(:user)), create(:non_active_school, owner: create(:user)) ]
-    end
 
     context 'admin' do
       subject { Pundit::policy_scope(admin, School) }

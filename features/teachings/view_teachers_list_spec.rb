@@ -8,21 +8,12 @@ feature 'view teachers list' do
   let(:another_classroom) { create(:classroom, school_class: school_class) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:teacher) { create(:user) }
-  let(:subject1) { @subject1 }
-  let(:subject2) { @subject2 }
-  let(:another_subject) { @another_subject }
-  let(:teacher1) { @teacher1 }
-  let(:teacher2) { @teacher2 }
-  let(:another_teacher) { @another_teacher }
-
-  background do
-    @subject1 = create(:subject, school_class: school_class)
-    @subject2 = create(:subject, school_class: school_class)
-    @another_subject = create(:subject, school_class: school_class)
-    @teacher1 = create(:teaching, classroom: classroom, subject: subject1).teacher
-    @teacher2 = create(:teaching, classroom: classroom, subject: subject2).teacher
-    @another_teacher = create(:teaching, classroom: another_classroom, subject: another_subject).teacher
-  end
+  let!(:subject1) { create(:subject, school_class: school_class) }
+  let!(:subject2) { create(:subject, school_class: school_class) }
+  let!(:another_subject) { create(:subject, school_class: school_class) }
+  let!(:teacher1) { create(:teaching, classroom: classroom, subject: subject1).teacher }
+  let!(:teacher2) { create(:teaching, classroom: classroom, subject: subject2).teacher }
+  let!(:another_teacher) { create(:teaching, classroom: another_classroom, subject: another_subject).teacher }
 
   scenario 'school admin views teachers in a classroom' do
     sign_in_user school_admin

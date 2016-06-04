@@ -2,12 +2,9 @@ require 'rails_helper'
 require_relative '../capybara'
 
 feature 'viewing followed students list' do
-  let(:parent) { create(:user) }
-
-  before do
-  end
 
   scenario 'parent can' do
+    parent = create(:user)
     student = create(:following, user: parent).student
     another_student = create(:following).student
 

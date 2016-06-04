@@ -6,16 +6,9 @@ feature 'view subjects list' do
   let(:school_class) { create(:school_class, school: school) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:another_school_class) { create(:school_class, school: school) }
-
-  let(:subject1) { @subject1 }
-  let(:subject2) { @subject2 }
-  let(:another_subject) { @another_subject }
-
-  background do
-    @subject1 = create(:subject, school_class: school_class)
-    @subject2 = create(:subject, school_class: school_class)
-    @another_subject = create(:subject, school_class: another_school_class)
-  end
+  let!(:subject1) { create(:subject, school_class: school_class) }
+  let!(:subject2) { create(:subject, school_class: school_class) }
+  let!(:another_subject) { create(:subject, school_class: another_school_class) }
 
   scenario 'school admin views subjects' do
 

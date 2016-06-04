@@ -5,16 +5,10 @@ feature 'view school classes listing' do
   let(:owner) { create(:user) }
   let(:school) { create(:active_school, owner: owner) }
   let(:another_school) { create(:active_school) }
-  let(:school_class) { @school_class }
-  let(:second_school_class) { @second_school_class }
-  let(:another_school_class) { @another_school_class }
+  let!(:school_class) { create(:school_class, school: school) }
+  let!(:second_school_class) { create(:school_class, school: school) }
+  let!(:another_school_class) { create(:school_class, school: another_school) }
   let(:other_user) { create(:user) }
-
-  background do
-    @school_class = create(:school_class, school: school)
-    @second_school_class = create(:school_class, school: school)
-    @another_school_class = create(:school_class, school: another_school)
-  end
 
   scenario 'owner sees all school classes in his school' do
     sign_in_user owner

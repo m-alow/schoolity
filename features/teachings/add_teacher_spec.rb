@@ -7,11 +7,7 @@ feature 'add teacher' do
   let(:classroom) { create(:classroom, school_class: school_class) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:teacher) { create(:user) }
-  let(:a_subject) { @a_subject }
-
-  background do
-    @a_subject = create(:subject, school_class: school_class)
-  end
+  let!(:a_subject) { create(:subject, school_class: school_class) }
 
   scenario 'school admin adds teacher to a classroom' do
     sign_in_user school_admin
