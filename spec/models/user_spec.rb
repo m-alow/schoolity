@@ -51,4 +51,44 @@ RSpec.describe User, type: :model do
       expect(following).to be_invalid
     end
   end
+
+  describe 'teaches' do
+    let(:school) { build(:active_school) }
+    let(:school_class) { build(:school_class, school: school) }
+    let!(:classroom) { build(:classroom, school_class: school_class) }
+    let(:teacher) { create(:teaching, classroom: classroom).teacher }
+    let(:student) { create(:studying, classroom: classroom).student }
+
+    it 'in his classroom' do
+      expect(teacher.teaches_in_classroom? classroom).to be true
+    end
+
+    it 'not in other classrooms' do
+      expect(teacher.teaches_in_classroom? build(:classroom)).to be false
+    end
+
+    it 'in school class' do
+      expect(teacher.teaches_in_school_class? school_class).to be true
+    end
+
+    it 'not in other school classes' do
+      expect(teacher.teaches_in_school_class? build(:school_class)).to be false
+    end
+
+    it 'in school' do
+      expect(teacher.teaches_in_school? school).to be true
+    end
+
+    it 'not in other schools' do
+      expect(teacher.teaches_in_school? build(:school)).to be false
+    end
+
+    it 'a student' do
+      expect(teacher.teaches_student? student).to be true
+    end
+
+    it 'not other students' do
+      expect(teacher.teaches_student? build(:student)).to be false
+    end
+  end
 end

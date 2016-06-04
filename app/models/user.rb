@@ -27,6 +27,22 @@ class User < ActiveRecord::Base
     followings.exists? student: student
   end
 
+  def teaches_in_classroom? classroom
+    teachings.exists? classroom: classroom
+  end
+
+  def teaches_in_school_class? school_class
+    teachings.exists? classroom: school_class.classrooms
+  end
+
+  def teaches_in_school? school
+    teachings.exists? classroom: school.classrooms
+  end
+
+  def teaches_student? student
+    teaches_in_classroom? student.classroom
+  end
+
   def follow_student(code:, relationship:, full_name:)
     following_code = FollowingCode.find_by(code: code)
     if following_code.nil? || following_code.expired?
