@@ -221,20 +221,17 @@ RSpec.describe TeachingsController, type: :controller do
         end
       end
 
-      # describe 'DELETE #destroy' do
-      #   it 'destroys the requested teaching' do
-      #     teaching = Teaching.create! valid_attributes
-      #     expect do
-      #       delete :destroy, { id: teaching.to_param }, valid_session
-      #     end.to change(Teaching, :count).by(-1)
-      #   end
+      describe 'DELETE #destroy' do
+        it 'destroys the requested teaching' do
+          delete :destroy, id: teaching
+          expect(Teaching.exists?(teaching.id)).to be false
+        end
 
-      #   it 'redirects to the teachings list' do
-      #     teaching = Teaching.create! valid_attributes
-      #     delete :destroy, { id: teaching.to_param }, valid_session
-      #     expect(response).to redirect_to(teachings_url)
-      #   end
-      # end
+        it 'redirects to the teachings list' do
+          delete :destroy, id: teaching
+          expect(response).to redirect_to(classroom_teachings_url(classroom))
+        end
+      end
     end
   end
 end

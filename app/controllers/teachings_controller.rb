@@ -57,7 +57,8 @@ class TeachingsController < ApplicationController
   def destroy
     authorize @teaching
     @teaching.destroy
-    redirect_to teachings_url, notice: 'Teaching was successfully destroyed.'
+
+    redirect_to classroom_teachings_url(@classroom), notice: 'Teaching was successfully destroyed.'
   end
 
   private
