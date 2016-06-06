@@ -4,7 +4,7 @@ class FollowingPolicy < ApplicationPolicy
   end
 
   def show?
-    user.follows? record
+    user.follows? record.student
   end
 
   def create?
