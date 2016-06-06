@@ -37,11 +37,6 @@ RSpec.describe StudyingPolicy do
       expect(subject).not_to permit(school_admin, other_school)
     end
 
-    it 'prevents teacher' do
-      pending
-      expect(subject).not_to permit(teacher, school)
-    end
-
     it 'prevents other users' do
       expect(subject).not_to permit(user, school)
     end
@@ -67,11 +62,6 @@ RSpec.describe StudyingPolicy do
 
     it 'prevents school admin form accessing students in other schools' do
       expect(subject).not_to permit(school_admin, other_studying)
-    end
-
-    it 'prevents teacher' do
-      pending
-      expect(subject).not_to permit(teacher, studying)
     end
 
     it 'prevents other users' do
