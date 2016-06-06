@@ -1,10 +1,10 @@
-<% provide :form_title, 'Add teacher' %>
+<% provide :panel_title, 'Add teacher' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Teachers', classroom_teachings_path(@classroom) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Teachers', classroom_teachings_path(@classroom) %></li>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for [@classroom, @teaching] do |f| %>
     <%= render 'form_fields', f: f %>
   <% end %>

@@ -1,7 +1,7 @@
 <% provide :panel_title, "Following codes for #{@classroom.name}" %>
 
-<% content_for :panel_footer do %>
-  <%= link_to 'Classroom', @classroom %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Classroom', @classroom %></li>
 <% end %>
 
 <%= render layout: 'wide_panel' do %>

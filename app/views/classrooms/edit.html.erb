@@ -1,11 +1,11 @@
-<% provide :form_title, 'Edit classroom' %>
+<% provide :panel_title, 'Edit classroom' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Show', @classroom %> |
-  <%= link_to 'Back', school_class_classrooms_path(@school_class) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Show', @classroom %></li>
+  <li><%= link_to 'Classrooms', school_class_classrooms_path(@school_class) %></li>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for(@classroom) do |f| %>
     <%= render 'form_fields', f: f %>
   <% end %>

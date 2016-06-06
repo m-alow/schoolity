@@ -1,9 +1,9 @@
-<% provide :form_title, 'New School Administration' %>
+<% provide :panel_title, 'New School Admin' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Back', school_school_administrations_path(@school) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'School admins', school_school_administrations_path(@school) %></li>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= render 'form' %>
 <% end %>

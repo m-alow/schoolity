@@ -1,0 +1,13 @@
+<% if content_for?(:actions_list) %>
+  <ul class="dropdown nav nav-pills nav-stacked pull-right">
+    <li>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	Actions <span class="caret"></span>
+      </a>
+
+      <ul class="dropdown-menu dropdown-menu-right">
+	<%= yield :actions_list %>
+      </ul>
+    </li>
+  </ul>
+<% end %>

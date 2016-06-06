@@ -1,10 +1,10 @@
 <% provide :panel_title, "#{@following.student.name} (#{@following.relationship})" %>
 
-<% content_for :panel_footer do %>
-  <%= link_to 'Followings', followings_path %> |
-  <%= link_to 'Unfollow', @following, method: :delete, data: { confirm: 'Sure?' } %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Followings', followings_path %></li>
+  <li><%= link_to 'Unfollow', @following, method: :delete, data: { confirm: 'Sure?' } %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
-
+ ' HEY '
 <% end %>

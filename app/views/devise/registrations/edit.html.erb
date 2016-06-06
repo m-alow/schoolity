@@ -1,11 +1,11 @@
-<% provide :form_title, "Edit #{resource_name.to_s.humanize}" %>
+<% provide :panel_title, "Edit #{resource_name.to_s.humanize}" %>
 
 <% content_for :form_footer do %>
   <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
   <%= link_to "Back", :back %>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= f.error_notification %>
 

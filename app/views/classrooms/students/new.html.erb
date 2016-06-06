@@ -1,10 +1,10 @@
-<% provide :form_title, 'New Student' %>
+<% provide :panel_title, 'New Student' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Back', classroom_students_path(@classroom) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Students', classroom_students_path(@classroom) %></li>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for [@classroom, @student] do |f| %>
     <%= f.error_notification %>
     <div class="form-inputs">

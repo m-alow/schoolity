@@ -1,7 +1,7 @@
 <% provide :panel_title, 'Listing Followings' %>
 
-<% content_for :panel_footer do %>
-  <%= link_to 'Follow a student', new_following_path %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Follow a student', new_following_path %></li>
 <% end %>
 
 <%= render layout: 'wide_panel' do %>

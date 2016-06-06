@@ -1,11 +1,11 @@
-<% provide :form_title, 'Edit subject' %>
+<% provide :panel_title, 'Edit subject' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Show', @subject %> |
-  <%= link_to 'Subjects', school_class_subjects_path(@school_class) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Show', @subject %></li>
+  <li><%= link_to 'Subjects', school_class_subjects_path(@school_class) %></li>
 <% end %>
 
-<%= render layout: 'wide_form' do %>
+<%= render layout: 'wide_panel' do %>
   <%= simple_form_for @subject do |f| %>
     <%= render 'form_fields', f: f %>
   <% end %>

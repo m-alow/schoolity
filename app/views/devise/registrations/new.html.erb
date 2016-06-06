@@ -1,10 +1,10 @@
-<% provide :form_title, 'Sign up' %>
+<% provide :panel_title, 'Sign up' %>
 
-<% content_for :form_footer do %>
+<% content_for :actions_list do %>
   <%= render "devise/shared/links" %>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
 

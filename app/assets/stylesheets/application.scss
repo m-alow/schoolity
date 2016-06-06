@@ -35,6 +35,7 @@ body { padding-top: $navbar-height + 25; }
     .panel-heading {
 	h5 {
 	    color: white;
+	    display: inline-block;
 	}
     }
 }

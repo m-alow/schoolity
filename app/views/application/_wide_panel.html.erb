@@ -1,7 +1,10 @@
 <div class="row row-centered">
   <div class="col-sm-offset-2 col-sm-8 col-centered">
     <div class="panel panel-primary">
-      <div class="panel-heading"><h5><%= yield :panel_title %></h5></div>
+      <div class="panel-heading">
+	<h5><%= yield :panel_title %></h5>
+      	<%= render 'shared/actions_list' %>
+      </div>
 
       <div class="panel-body">
 	<%= yield %>

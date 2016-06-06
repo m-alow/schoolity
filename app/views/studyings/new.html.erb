@@ -1,10 +1,10 @@
-<% provide :form_title, 'Add studying' %>
+<% provide :panel_title, 'Add studying' %>
 
-<% content_for :form_footer do %>
-  <%= link_to 'Back', student_studyings_path(@student) %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Back', student_studyings_path(@student) %></li>
 <% end %>
 
-<%= render layout: 'simple_form' do %>
+<%= render layout: 'simple_panel' do %>
   <%= simple_form_for [@student, @studying] do |f| %>
     <%= render 'form_fields', f: f %>
   <% end %>
