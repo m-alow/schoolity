@@ -1,11 +1,11 @@
 class StudentPolicy < ApplicationPolicy
   def index?
     raise unless record.is_a? School
-    user.admin? || user.owns?(record) || user.administrates?(record)
+    user.admin? || user.owns?(record) || user.administrates?(record) || user.teaches_in_school?(record)
   end
 
   def show?
-    user.admin? || user.owns?(record.school) || user.administrates?(record.school)
+    user.admin? || user.owns?(record.school) || user.administrates?(record.school) || user.teaches_student?(record)
   end
 
   def new?

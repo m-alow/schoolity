@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe StudentPolicy do
   let(:school) { build(:active_school, owner: owner) }
+  let(:classroom) { build(:classroom, school_class: build(:school_class, school: school)) }
   let(:student) { build(:student, school: school) }
   let(:admin) { build(:admin) }
   let(:owner) { build(:user) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
+  let(:teacher) { create(:teaching, classroom: classroom).teacher }
   let(:user) { build(:user) }
   let(:other_school) { build(:active_school) }
   let(:other_student) { build(:student) }
@@ -34,13 +36,11 @@ RSpec.describe StudentPolicy do
     end
 
     it 'allows teacher' do
-      pending
       expect(subject).to permit(teacher, school)
     end
 
     it 'prevents teacher from accessing students not in his classrooms' do
-      pending
-      expect(subject).to permit(teacher, other_school)
+      expect(subject).not_to permit(teacher, other_school)
     end
 
     it 'prevents other users' do
@@ -71,12 +71,11 @@ RSpec.describe StudentPolicy do
     end
 
     it 'allows teacher' do
-      pending
+      create(:studying, student: student, classroom: classroom)
       expect(subject).to permit(teacher, student)
     end
 
     it 'prevents teacher from accessing students not in his classrooms' do
-      pending
       expect(subject).not_to permit(teacher, other_student)
     end
 
@@ -107,7 +106,6 @@ RSpec.describe StudentPolicy do
     end
 
     it 'prevents teacher' do
-      pending
       expect(subject).not_to permit(teacher, student)
     end
 
