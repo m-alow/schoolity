@@ -1,7 +1,11 @@
 class ClassroomPolicy < ApplicationPolicy
   def index?
-    reails unless record.is_a? School
-    user.admin? || user.owns?(record) || user.administrates?(record)
+    raise unless record.is_a? School
+    user.admin? || user.owns?(record) || user.administrates?(record) || user.teaches_in_school?(record)
+  end
+
+  def show?
+    user.admin? || user.owns?(record.school) || user.administrates?(record.school) || user.teaches_in_classroom?(record)
   end
 
   def new?
@@ -12,5 +16,4 @@ class ClassroomPolicy < ApplicationPolicy
   alias_method :edit?, :new?
   alias_method :update?, :new?
   alias_method :destroy?, :new?
-  alias_method :show?, :new?
 end

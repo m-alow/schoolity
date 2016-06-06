@@ -11,6 +11,7 @@ RSpec.describe ClassroomPolicy do
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:classroom) { build(:classroom, school_class: build(:school_class, school: school)) }
   let(:other_classroom) { build(:classroom) }
+  let(:teacher) { create(:teaching, classroom: classroom).teacher }
 
   permissions :index? do
     it 'allows admin' do
@@ -33,12 +34,20 @@ RSpec.describe ClassroomPolicy do
       expect(subject).not_to permit(school_admin, other_school)
     end
 
+    it 'allows teacher' do
+      expect(subject).to permit(teacher, school)
+    end
+
+    it 'prevents teacher from accessing classrooms in other schools' do
+      expect(subject).not_to permit(teacher, other_school)
+    end
+
     it 'prevents other users' do
       expect(subject).not_to permit(user, school)
     end
   end
 
-  permissions :show?, :new?, :create?, :edit?, :update?, :destroy? do
+  shared_examples_for 'common access' do
     it 'allows admin' do
       expect(subject).to permit(admin, classroom)
     end
@@ -61,6 +70,26 @@ RSpec.describe ClassroomPolicy do
 
     it 'prevents other users' do
       expect(subject).not_to permit(user, classroom)
+    end
+  end
+
+  permissions :show? do
+    it_behaves_like 'common access'
+
+    it 'allows teacher' do
+      expect(subject).to permit(teacher, classroom)
+    end
+
+    it 'prevents teacher from accessing classrooms he is not teaching' do
+      expect(subject).not_to permit(teacher, other_classroom)
+    end
+  end
+
+  permissions :new?, :create?, :edit?, :update?, :destroy? do
+    it_behaves_like 'common access'
+
+    it 'prevents teacher' do
+      expect(subject).not_to permit(teacher, classroom)
     end
   end
 end
