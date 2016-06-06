@@ -5,7 +5,7 @@ class StudentPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || user.owns?(record.school) || user.administrates?(record.school) || user.teaches_student?(record)
+    user.admin? || user.owns?(record.school) || user.administrates?(record.school) || user.teaches_student?(record) || user.follows?(record)
   end
 
   def new?

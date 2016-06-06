@@ -8,6 +8,7 @@ RSpec.describe StudentPolicy do
   let(:owner) { build(:user) }
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
   let(:teacher) { create(:teaching, classroom: classroom).teacher }
+  let(:parent) { create(:following, student: student).user }
   let(:user) { build(:user) }
   let(:other_school) { build(:active_school) }
   let(:other_student) { build(:student) }
@@ -77,6 +78,14 @@ RSpec.describe StudentPolicy do
 
     it 'prevents teacher from accessing students not in his classrooms' do
       expect(subject).not_to permit(teacher, other_student)
+    end
+
+    it 'allows parent' do
+      expect(subject).to permit(parent ,student)
+    end
+
+    it 'prevents from accessing students he is not following' do
+      expect(subject).not_to permit(parent, other_student)
     end
 
     it 'prevents other users' do
