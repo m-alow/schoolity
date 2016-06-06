@@ -67,17 +67,6 @@ RSpec.describe SchoolClassPolicy do
       expect(subject).not_to permit(school_admin, other_school_class)
     end
 
-    context 'teacher' do
-      it 'allows access when teaching a classroom in the school class' do
-        skip
-        expect(subject).to permit(teacher, school_class)
-      end
-
-      it 'prevents access whitout teaching a classroom in the school class' do
-        skip
-      end
-    end
-
     it 'pervents other users from accessing it' do
       expect(subject).not_to permit(user, school_class)
     end
@@ -105,11 +94,6 @@ RSpec.describe SchoolClassPolicy do
         expect(subject).not_to permit(school_admin, other_school_class)
       end
 
-      it 'prevents school teachers' do
-        skip
-        expect(subject).not_to permit(teacher, school_class)
-      end
-
       it 'prevents other users' do
         expect(subject).not_to permit(user, school_class)
       end
@@ -128,11 +112,6 @@ RSpec.describe SchoolClassPolicy do
 
       it 'prevents the school administrator' do
         expect(subject).not_to permit(school_admin, school_class)
-      end
-
-      it 'prevents school teachers' do
-        skip
-        expect(subject).not_to permit(teacher, school_class)
       end
 
       it 'prevents other users' do
