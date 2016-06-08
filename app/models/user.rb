@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :validatable, :lockable
+         :validatable, :lockable, :trackable
 
   has_many :schools
   has_many :school_administrations
