@@ -1,0 +1,16 @@
+<div class="panel panel-default" >
+  <div class="panel-heading" >
+    <h4 class="panel-title" >
+      <a data-toggle="collapse"
+       data-parent="#<%= yield(:accordion_id).blank? ? 'accordion' : yield(:accordion_id) %>"
+       href="#<%= id %>">
+	<%= title %>
+      </a>
+    </h4>
+  </div>
+  <div id="<%= id %>" class="panel-collapse collapse <%= show ? 'in' : '' %>" >
+    <div class="panel-body" >
+      <%= yield %>
+    </div>
+  </div>
+</div>
