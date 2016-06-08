@@ -1,24 +1,28 @@
-<h1>Listing Classrooms in <%= @school_class.name %></h1>
+<% provide :panel_title, "Classrooms in #{@school_class.name}" %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+<% content_for :actions_list do %>
+  <li><%= link_to 'New Classroom', new_school_class_classroom_path(@school_class) %></li>
+  <li><%= link_to 'Class', @school_class %></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
 
-  <tbody>
-    <% @classrooms.each do |classroom| %>
+<%= render layout: 'wide_panel' do%>
+  <table class="table table-responsive table-striped">
+    <thead>
       <tr>
-        <td><%= link_to classroom.name, classroom %></td>
-        <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
-        <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<th>Classroom</th>
+	<th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Classroom', new_school_class_classroom_path(@school_class) %>
+    <tbody>
+      <% @classrooms.each do |classroom| %>
+	<tr>
+          <td><%= link_to classroom.name, classroom %></td>
+          <td><%= link_to 'Edit', edit_classroom_path(classroom) %></td>
+          <td><%= link_to 'Destroy', classroom, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

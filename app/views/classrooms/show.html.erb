@@ -1,22 +1,46 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, "Classroom: #{@classroom.name}" %>
 
-<p>
-  <strong>School class:</strong>
-  <%= @classroom.school_class.name %>
-</p>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Class', @school_class %></li>
+  <li><%= link_to 'School', @school_class.school %></li>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @classroom.name %>
-</p>
+<%= render layout: 'simple_panel' do %>
+  <%= render layout: 'accordion' do %>
 
-<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
-<%= link_to 'Back', school_class_classrooms_path(@school_class) %> |
-<%= link_to 'Students', classroom_students_path(@classroom) %> |
-<%= link_to 'Add student', new_classroom_student_path(@classroom) %> |
-<%= link_to 'Teachers', classroom_teachings_path(@classroom) %> |
-<%= link_to 'Add teacher', new_classroom_teaching_path(@classroom) %> |
-<%= link_to 'Following codes', classroom_following_codes_path(@classroom) %> |
-<%= link_to 'Generate following codes', classroom_following_codes_path(@classroom), method: :post %> |
-<%= link_to 'Timetables', classroom_timetables_path(@classroom) %> |
-<%= link_to 'Create timetable', initialize_new_classroom_timetable_path(@classroom) %>
+    <%= render layout: 'accordion_section', locals: { title: 'Classroom', id: 'classroom_actions', show: true } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Edit', edit_classroom_path(@classroom) %></li>
+	<li><%= link_to 'Classrooms list', school_class_classrooms_path(@school_class) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Students', id: 'students_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Students list', classroom_students_path(@classroom) %></li>
+	<li><%= link_to 'Add student', new_classroom_student_path(@classroom) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Teachers', id: 'teachers_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Teachers list', classroom_teachings_path(@classroom) %></li>
+	<li><%= link_to 'Add teacher', new_classroom_teaching_path(@classroom) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Timetables', id: 'timetables_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Timetables list', classroom_timetables_path(@classroom) %></li>
+	<li><%= link_to 'Create timetable', initialize_new_classroom_timetable_path(@classroom) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Following Codes', id: 'following_codes_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Following codes', classroom_following_codes_path(@classroom) %></li>
+	<li><%= link_to 'Generate following codes', classroom_following_codes_path(@classroom), method: :post %></li>
+      </ul>
+    <% end%>
+  <% end %>
+<% end %>
