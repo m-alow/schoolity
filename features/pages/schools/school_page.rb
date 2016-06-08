@@ -9,7 +9,7 @@ class SchoolPage
 
   def self.visit_add_school_class(school)
     visit_page(school)
-    click_on 'Add school class'
+    click_on 'Add class'
     self
   end
 

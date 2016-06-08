@@ -3,7 +3,7 @@ class SubjectsIndexPage
 
   def self.visit_page(school_class)
     SchoolClassPage.visit_page(school_class)
-    click_on 'Subjects'
+    click_on 'Subjects list'
     self
   end
 end

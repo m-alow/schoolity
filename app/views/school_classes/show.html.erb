@@ -1,18 +1,31 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, "Class: #{@school_class.name}" %>
 
-<p>
-  <strong>School:</strong>
-  <%= @school.name %>
-</p>
+<% content_for :actions_list do %>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @school_class.name %>
-</p>
+<%= render layout: 'simple_panel' do %>
+  <%= render layout: 'accordion' do %>
 
-<%= link_to 'Edit', edit_school_class_path(@school_class) %> |
-<%= link_to 'Back', school_school_classes_path(@school) %> |
-<%= link_to 'Add classroom', new_school_class_classroom_path(@school_class) %> |
-<%= link_to 'Classrooms', school_class_classrooms_path(@school_class) %> |
-<%= link_to 'Subjects', school_class_subjects_path(@school_class) %> |
-<%= link_to 'Add subject', new_school_class_subject_path(@school_class) %>
+    <%= render layout: 'accordion_section', locals: { title: 'Class', id: 'school_class_actions', show: true } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Edit', edit_school_class_path(@school_class) %></li>
+	<li><%= link_to 'Classes list', school_school_classes_path(@school) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Classrooms', id: 'classrooms_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Classrooms list', school_class_classrooms_path(@school_class) %></li>
+	<li><%= link_to 'Add classroom', new_school_class_classroom_path(@school_class) %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Subjects', id: 'subjects_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Subjects list', school_class_subjects_path(@school_class) %></li>
+	<li><%= link_to 'Add subject', new_school_class_subject_path(@school_class) %></li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>

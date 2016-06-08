@@ -1,7 +1,8 @@
-<% provide :panel_title, 'New school class' %>
+<% provide :panel_title, 'New Class' %>
 
 <% content_for :actions_list do %>
-  <li><%= link_to 'School classes', school_school_classes_path %></li>
+  <li><%= link_to 'Classes list', school_school_classes_path %></li>
+  <li><%= link_to 'School', @school %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>

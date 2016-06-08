@@ -10,10 +10,10 @@
       </ul>
     <% end %>
 
-    <%= render layout: 'accordion_section', locals: { id: 'school_classes_actions', title: 'School Classes', show: false } do %>
+    <%= render layout: 'accordion_section', locals: { id: 'school_classes_actions', title: 'Classes', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
-	<li><%= link_to 'School classes', school_school_classes_path(@school) %></li>
-	<li><%= link_to 'Add school class', new_school_school_class_path(@school) %></li>
+	<li><%= link_to 'Classes list', school_school_classes_path(@school) %></li>
+	<li><%= link_to 'Add class', new_school_school_class_path(@school) %></li>
       </ul>
     <% end %>
 
