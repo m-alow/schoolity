@@ -1,7 +1,7 @@
 class TimetablesController < ApplicationController
   before_action :set_timetable, only: [:show, :edit, :update, :destroy]
   before_action :set_classroom, only: [:show, :edit, :update, :destroy]
-  before_action :set_classroom_from_params, only: [:index, :init, :new, :create]
+  before_action :set_classroom_from_params, only: [:index, :current, :init, :new, :create]
   after_action :verify_authorized, except: :index
 
   # GET /classrooms/1/timetables
@@ -14,6 +14,16 @@ class TimetablesController < ApplicationController
   def show
     authorize @timetable
     @periods = @timetable.periods_hash
+  end
+
+  def current
+    @timetable = @classroom.current_timetable || @classroom.timetables.build
+    authorize @timetable
+    if @timetable.persisted?
+      @periods = @timetable.periods_hash
+    else
+      redirect_to classroom_timetables_url(@classroom), notice: 'There is no current timetable for this classroom.'
+    end
   end
 
   # GET /classrooms/1/new/init

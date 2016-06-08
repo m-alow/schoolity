@@ -18,6 +18,8 @@ class TimetablePolicy < ApplicationPolicy
     user.owns?(school) || user.administrates?(school)
   end
 
+  alias_method :current?, :show?
+
   alias_method :init?, :new?
   alias_method :create?, :new?
   alias_method :destroy?, :new?

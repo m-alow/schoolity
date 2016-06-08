@@ -18,6 +18,7 @@ class Classroom < ActiveRecord::Base
   end
 
   def current_timetable
-    timetables.order(active: :desc, updated_at: :desc).first
+    timetable = timetables.order(active: :desc, updated_at: :desc).first
+    timetable&.active? ? timetable : nil
   end
 end

@@ -23,7 +23,14 @@ RSpec.describe TimetablesController, type: :controller do
 
     describe 'GET #show' do
       it 'requires login' do
-        get :show, id: Timetable
+        get :show, id: timetable
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #current' do
+      it 'requires login' do
+        get :current, classroom_id: classroom
         expect(response).to require_login
       end
     end
@@ -73,6 +80,7 @@ RSpec.describe TimetablesController, type: :controller do
 
   context 'authenticated user' do
     context 'non authorized' do
+
       before { sign_in non_authorized_user }
 
       describe 'GET #index' do
@@ -86,6 +94,23 @@ RSpec.describe TimetablesController, type: :controller do
         it 'requires authorization' do
           get :show, id: timetable
           expect(response).to require_authorization
+        end
+      end
+
+      describe 'GET #current' do
+        context 'where current timetable exists' do
+          it 'requires authorization' do
+            classroom.timetables.create!(periods_number: 1, active: true)
+            get :current, classroom_id: classroom
+            expect(response).to require_authorization
+          end
+        end
+
+        context 'where current timetable does not exist' do
+          it 'requires authorization' do
+            get :current, classroom_id: classroom
+            expect(response).to require_authorization
+          end
         end
       end
 
@@ -139,6 +164,23 @@ RSpec.describe TimetablesController, type: :controller do
         it 'assigns the requested timetable as @timetable' do
           get :show, id: timetable
           expect(response).to have_http_status :success
+        end
+      end
+
+      describe 'GET #current' do
+        context 'where current timetable exists' do
+          it 'succeed' do
+            classroom.timetables.create!(periods_number: 1, active: true)
+            get :current, classroom_id: classroom
+            expect(response).to have_http_status :success
+          end
+        end
+
+        context 'where current timetable does not exist' do
+          it 'redirects to timetables index page' do
+            get :current, classroom_id: classroom
+            expect(response).to redirect_to classroom_timetables_url(classroom)
+          end
         end
       end
 

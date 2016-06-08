@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered table-hover table-responsive">
+  <thead>
+    <tr>
+      <th></th>
+      <% timetable.periods_number.times do |period| %>
+	<th><%= (period + 1).ordinalize %> Lesson</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <% periods.each do |day, periods| %>
+    <tr>
+      <th><%= day %></th>
+      <% periods.each do |order, period| %>
+        <td>
+	  <% if period.subject %>
+	    <%= link_to period.subject.name, period.subject %>
+	  <% end %>
+	</td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

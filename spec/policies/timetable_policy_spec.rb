@@ -37,7 +37,7 @@ RSpec.describe TimetablePolicy do
     end
   end
 
-  permissions :show? do
+  permissions :show?, :current? do
     it 'allows school owner' do
       expect(subject).to permit(owner, timetable)
     end

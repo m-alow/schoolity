@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         resources :following_codes, only: [:index, :create], controller: 'classrooms/following_codes'
         resources :timetables do
           get 'initialize' => 'timetables#init', on: :new
+          get 'current', on: :collection
         end
       end
       resources :subjects

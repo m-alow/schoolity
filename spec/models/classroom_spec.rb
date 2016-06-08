@@ -38,5 +38,14 @@ RSpec.describe Classroom, type: :model do
 
       expect(classroom.current_timetable).to eq t2
     end
+
+    it 'returns nil when there is no timetable' do
+      expect(classroom.current_timetable).to be_nil
+    end
+
+    it 'returns nil when there is no active timetable' do
+      create(:timetable, classroom: classroom, active: false)
+      expect(classroom.current_timetable).to be_nil
+    end
   end
 end

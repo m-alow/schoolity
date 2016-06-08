@@ -2,6 +2,8 @@
 
 <% content_for :actions_list do %>
   <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Current timetable', current_classroom_timetables_path(@classroom) %></li>
+  <li><%= link_to 'Timetables list', classroom_timetables_path(@classroom) %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>

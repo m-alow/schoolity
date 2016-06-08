@@ -2,11 +2,12 @@
 
 <% content_for :actions_list do %>
   <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Current timetable', current_classroom_timetables_path(@classroom) %></li>
   <li><%= link_to 'Create timetable', initialize_new_classroom_timetable_path(@classroom) %></li>
 <% end %>
 
 <%= render layout: 'wide_panel' do %>
-  <p>Current timetable is the most active updated one.</p>
+  <div class="well">Current timetable is the most active updated one.</div>
   <table class="table table-responsive table-striped">
     <thead>
       <tr>
