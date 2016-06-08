@@ -21,12 +21,14 @@
       </tr>
     </thead>
 
-    <% @timetable.study_days.each do |day| %>
+    <% @periods.each do |day, periods| %>
       <tr>
         <th><%= day %></th>
-	<% @timetable.periods_number.times do |period| %>
+	<% periods.each do |order, period| %>
           <td>
-	    <%= @periods[day][period + 1].subject&.name %>
+	    <% if period.subject %>
+	      <%= link_to period.subject.name, period.subject %>
+	    <% end %>
 	  </td>
 	<% end %>
       </tr>
