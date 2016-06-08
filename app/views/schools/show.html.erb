@@ -1,18 +1,35 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, "School: #{@school.name}" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @school.name %>
-</p>
+<%= render layout: 'simple_panel' do %>
+  <%= render layout: 'accordion' do %>
 
-<%= link_to 'Edit', edit_school_path(@school) %> |
-<%= link_to 'Back', schools_path %>
+    <%= render layout: 'accordion_section', locals: { id: 'school_actions', title: 'School', show: true } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Edit', edit_school_path(@school) %></li>
+	<li><%= link_to 'Schools list', schools_path %></li>
+      </ul>
+    <% end %>
 
-<%= link_to 'School classes', school_school_classes_path(@school) %>
-<%= link_to 'Add school class', new_school_school_class_path(@school) %>
+    <%= render layout: 'accordion_section', locals: { id: 'school_classes_actions', title: 'School Classes', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'School classes', school_school_classes_path(@school) %></li>
+	<li><%= link_to 'Add school class', new_school_school_class_path(@school) %></li>
+      </ul>
+    <% end %>
 
-<%= link_to 'School admins', school_school_administrations_path(@school) %>
-<%= link_to 'Add school admin', new_school_school_administration_path(@school) %>
+    <%= render layout: 'accordion_section', locals: { id: 'school_admins_actinos', title: 'School Admins', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'School admins', school_school_administrations_path(@school) %></li>
+	<li><%= link_to 'Add school admin', new_school_school_administration_path(@school) %></li>
+      </ul>
+    <% end %>
 
-<%= link_to 'Students', school_students_path(@school) %>
-<%= link_to 'Add student', new_school_student_path(@school) %>
+    <%= render layout: 'accordion_section', locals: { id: 'students_actions', title: 'Students', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Students list', school_students_path(@school) %></li>
+	<li><%= link_to 'Add student', new_school_student_path(@school) %></li>
+      </ul>
+    <% end %>
+
+  <% end %>
+<% end %>
