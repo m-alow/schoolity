@@ -1,18 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, "Subject: #{@subject.name}" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @subject.name %>
-</p>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Edit', edit_subject_path(@subject) %></li>
+  <li><%= link_to 'Subjects list', school_class_subjects_path(@school_class) %></li>
+  <li><%= link_to 'Class', @school_class %></li>
+  <li><%= link_to 'School', @school_class.school %></li>
+<% end %>
 
-<p>
-  <strong>School class:</strong>
-  <%= @subject.school_class.name %>
-</p>
+<%= render layout: 'simple_panel' do %>
+<div class="well">
+  <strong>Teached in:</strong>
+  <%= link_to @school_class.name, @school_class %>
+</div>
 
-<p>
-  <%= sanitize @subject.description %>
-</p>
-
-<%= link_to 'Edit', edit_subject_path(@subject) %> |
-<%= link_to 'Subjects', school_class_subjects_path(@school_class) %>
+<div class="well">
+  <strong>Description:</strong>
+  <% unless @subject.description.blank? %>
+    <%= sanitize @subject.description %>
+  <% else %>
+    <p>
+      No description is given.
+    </p>
+  <% end %>
+</div>
+<% end %>
