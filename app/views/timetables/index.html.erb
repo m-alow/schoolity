@@ -1,0 +1,31 @@
+<% provide :panel_title, "Timetables for #{@classroom.name}" %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Create timetable', initialize_new_classroom_timetable_path(@classroom) %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <table class="table table-responsive table-striped">
+    <thead>
+      <tr>
+	<th>Last update</th>
+	<th>Created at</th>
+	<th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @timetables.each do |timetable| %>
+	<tr class="<%= timetable.current? ? 'success': '' %>">
+          <td><%= link_to time_ago_in_words(timetable.updated_at), timetable %><%= timetable.current? ? ' (current timetable)' : '' %></td>
+          <td><%= time_tag timetable.created_at.to_date %></td>
+	  <td><%= link_to 'Show', timetable , id: "show-#{timetable.id}"%></td>
+          <td><%= link_to 'Edit', edit_timetable_path(timetable) %></td>
+          <td><%= link_to 'Destroy', timetable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>

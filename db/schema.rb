@@ -11,15 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524192839) do
+ActiveRecord::Schema.define(version: 20160607072822) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "ar_internal_metadata", ["key"], name: "sqlite_autoindex_ar_internal_metadata_1", unique: true
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "school_class_id"
@@ -51,6 +49,18 @@ ActiveRecord::Schema.define(version: 20160524192839) do
 
   add_index "followings", ["student_id"], name: "index_followings_on_student_id"
   add_index "followings", ["user_id"], name: "index_followings_on_user_id"
+
+  create_table "periods", force: :cascade do |t|
+    t.integer  "timetable_id"
+    t.integer  "subject_id"
+    t.string   "day"
+    t.integer  "order"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "periods", ["subject_id"], name: "index_periods_on_subject_id"
+  add_index "periods", ["timetable_id"], name: "index_periods_on_timetable_id"
 
   create_table "school_administrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -128,6 +138,17 @@ ActiveRecord::Schema.define(version: 20160524192839) do
   add_index "teachings", ["classroom_id"], name: "index_teachings_on_classroom_id"
   add_index "teachings", ["subject_id"], name: "index_teachings_on_subject_id"
   add_index "teachings", ["user_id"], name: "index_teachings_on_user_id"
+
+  create_table "timetables", force: :cascade do |t|
+    t.integer  "classroom_id"
+    t.boolean  "active"
+    t.text     "weekends"
+    t.integer  "periods_number"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "timetables", ["classroom_id"], name: "index_timetables_on_classroom_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

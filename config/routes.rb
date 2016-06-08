@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         resources :students, only: [:index, :new, :create], controller: 'classrooms/students'
         resources :teachings
         resources :following_codes, only: [:index, :create], controller: 'classrooms/following_codes'
+        resources :timetables do
+          get 'initialize' => 'timetables#init', on: :new
+        end
       end
       resources :subjects
     end

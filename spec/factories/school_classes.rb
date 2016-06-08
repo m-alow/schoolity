@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :school_class do
-    school
+    association :school, factory: :active_school
     name { Faker::Name.name }
 
     factory :invalid_school_class do

@@ -1,0 +1,39 @@
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <%= f.input :active, input_html: { checked: @timetable.persisted? ? @timetable.active? : true } %>
+
+  <div class="form-group">
+    <table class="table table-striped table-bordered table-hover table-responsive">
+      <thead>
+	<tr>
+	  <th></th>
+	  <% @timetable.periods_number.times do |period| %>
+	    <th><%= (period + 1).ordinalize %> Lesson</th>
+	  <% end %>
+	</tr>
+      </thead>
+
+      <% @timetable.study_days.each do |day| %>
+        <tr>
+          <th><%= day %></th>
+	  <%= fields_for day do |day_fields| %>
+	    <% @timetable.periods_number.times do |period| %>
+              <td>
+		<%= day_fields.fields_for (period + 1).to_s do |period_field| %>
+		  <%= period_field.simple_fields_for @periods[day][period + 1] do |subject_field| %>
+		    <%= subject_field.association :subject, collection: @classroom.school_class.subjects, label: false %>
+		  <% end %>
+		<% end %>
+	      </td>
+	    <% end %>
+	  <% end %>
+	</tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, 'Submit' %>
+</div>

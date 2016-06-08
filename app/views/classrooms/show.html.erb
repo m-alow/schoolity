@@ -17,4 +17,6 @@
 <%= link_to 'Teachers', classroom_teachings_path(@classroom) %> |
 <%= link_to 'Add teacher', new_classroom_teaching_path(@classroom) %> |
 <%= link_to 'Following codes', classroom_following_codes_path(@classroom) %> |
-<%= link_to 'Generate following codes', classroom_following_codes_path(@classroom), method: :post %>
+<%= link_to 'Generate following codes', classroom_following_codes_path(@classroom), method: :post %> |
+<%= link_to 'Timetables', classroom_timetables_path(@classroom) %> |
+<%= link_to 'Create timetable', initialize_new_classroom_timetable_path(@classroom) %>

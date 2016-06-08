@@ -4,11 +4,20 @@ class Classroom < ActiveRecord::Base
   has_many :students, through: :studyings
   delegate :school, to: :school_class
   has_many :teachings
+  has_many :timetables
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }
 
   def following_codes
     FollowingCode.where(student_id: students)
+  end
+
+  def current_timetables
+    timetables.order(active: :desc, updated_at: :desc)
+  end
+
+  def current_timetable
+    timetables.order(active: :desc, updated_at: :desc).first
   end
 end

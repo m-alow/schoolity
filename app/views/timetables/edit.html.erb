@@ -1,0 +1,13 @@
+<% provide :panel_title, 'Edit Timetable' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Show', @timetable %></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Timetables list', classroom_timetables_path(@classroom) %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= simple_form_for [@timetable] do |f| %>
+    <%= render 'form_fields', f: f %>
+  <% end %>
+<% end %>

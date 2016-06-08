@@ -1,0 +1,38 @@
+<% provide :panel_title, "Timetable for #{@classroom.name}" %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Edit', edit_timetable_path(@timetable) %></li>
+  <li><%= link_to 'Timetables', classroom_timetables_path(@classroom) %></li>
+  <li><%= link_to 'Classroom', classroom_path(@classroom) %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <% if @timetable.current? %>
+    <p>Current timetable.</p>
+  <% end %>
+
+  <table class="table table-striped table-bordered table-hover table-responsive">
+    <thead>
+      <tr>
+	<th></th>
+	<% @timetable.periods_number.times do |period| %>
+	  <th><%= (period + 1).ordinalize %> Lesson</th>
+	<% end %>
+      </tr>
+    </thead>
+
+    <% @timetable.study_days.each do |day| %>
+      <tr>
+        <th><%= day %></th>
+	<% @timetable.periods_number.times do |period| %>
+          <td>
+	    <%= @periods[day][period + 1].subject&.name %>
+	  </td>
+	<% end %>
+      </tr>
+    <% end %>
+  </table>
+
+
+
+<% end %>

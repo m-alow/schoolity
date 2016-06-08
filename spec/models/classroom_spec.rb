@@ -25,4 +25,18 @@ RSpec.describe Classroom, type: :model do
   end
 
   it { should have_many :teachings }
+  it { should have_many :timetables }
+
+  describe '.current_timetables' do
+    let(:classroom) { create(:classroom) }
+
+    it 'returns the most updated active timetable' do
+      t0 = create(:timetable, classroom: classroom, active: false)
+      t1 = create(:timetable, classroom: classroom, active: true)
+      t2 = create(:timetable, classroom: classroom, active: true)
+      t3 = create(:timetable, classroom: classroom, active: false)
+
+      expect(classroom.current_timetable).to eq t2
+    end
+  end
 end

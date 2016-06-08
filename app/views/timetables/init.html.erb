@@ -1,0 +1,29 @@
+<% provide :panel_title, 'New Timetable' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Classroom', @classroom %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= simple_form_for([@classroom, @timetable], url: { action: :new }, method: :get) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :periods_number, autofocus: true %>
+      <%= f.label 'Weekends' %>
+
+      <% date = Date.current
+	 days = (date.beginning_of_week..date.end_of_week).map { |day| day.strftime('%A') } %>
+      <% days.each do |day| %>
+        <div class="form-group">
+	  <%= check_box_tag day, day, (true if ['Friday', 'Saturday'].include?(day)) %>
+	  <%= label_tag day, day, class: 'control-label' %>
+	</div>
+      <% end %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, 'Submit' %>
+    </div>
+  <% end %>
+<% end %>
