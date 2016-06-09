@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608154326) do
+ActiveRecord::Schema.define(version: 20160609034539) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20160608154326) do
   end
 
   add_index "classrooms", ["school_class_id"], name: "index_classrooms_on_school_class_id"
+
+  create_table "days", force: :cascade do |t|
+    t.integer  "classroom_id"
+    t.date     "date"
+    t.string   "content_type"
+    t.text     "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "following_codes", force: :cascade do |t|
     t.integer  "student_id"
@@ -49,6 +58,19 @@ ActiveRecord::Schema.define(version: 20160608154326) do
 
   add_index "followings", ["student_id"], name: "index_followings_on_student_id"
   add_index "followings", ["user_id"], name: "index_followings_on_user_id"
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer  "day_id"
+    t.integer  "subject_id"
+    t.integer  "order"
+    t.string   "content_type"
+    t.text     "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "lessons", ["day_id"], name: "index_lessons_on_day_id"
+  add_index "lessons", ["subject_id"], name: "index_lessons_on_subject_id"
 
   create_table "periods", force: :cascade do |t|
     t.integer  "timetable_id"
