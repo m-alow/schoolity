@@ -1,0 +1,42 @@
+<% provide :panel_title, "Agenda" %>
+
+<% content_for :actions_list do %>
+  <% if classroom_staff? @classroom %>
+    <li><%= link_to 'Edit', edit_agenda_path(id: @day.id) %></li>
+    <li class="divider"></li>
+  <% end %>
+  <li><%= link_to 'Agendas list', classroom_agendas_path(@classroom) %></li>
+  <li><%= link_to 'Timetable', current_classroom_timetables_path(@classroom) %></li>
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well well-sm">
+    Agenda of <%= link_to @classroom.name, @classroom %> on <%= time_tag @date %>
+  </div>
+  <div class="well">
+    <%= render 'days/content', day: @day %>
+  </div>
+  <table class="table table-responsive table-striped">
+    <thead>
+      <tr>
+	<th>#</th>
+	<th>Subject</th>
+	<th width="60%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @day.lessons.includes(:subject).each do |lesson| %>
+	<tr>
+	  <td><%= lesson.order.ordinalize %></td>
+	  <td><%= lesson.subject&.name %></td>
+	  <td><%= render 'lessons/content', lesson: lesson %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

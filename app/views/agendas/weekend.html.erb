@@ -1,0 +1,16 @@
+<% provide :panel_title, 'Warning' %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="alert alert-warning">
+    Today is a weekend.
+  </div>
+  Would you visit:
+  <ul class="nav nav-pills nav-stacked text-center">
+    <li><%= link_to 'Agendas list', classroom_agendas_path(@classroom) %></li>
+    <li><%= link_to 'Current timetable', current_classroom_timetables_path(@classroom) %></li>
+
+    <li><%= link_to 'Classroom', @classroom %></li>
+    <li><%= link_to 'Class', @classroom.school_class %></li>
+    <li><%= link_to 'School', @classroom.school %></li>
+  </ul>
+<% end %>

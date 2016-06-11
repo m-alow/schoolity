@@ -19,4 +19,18 @@ class Day < ActiveRecord::Base
     extend TYPE_TO_ROLE[content_type]
     initialize_content
   end
+
+  def self.make classroom: nil, date:, **content_params
+    new(classroom: classroom, date: date, content_type: 'basic').tap do |day|
+      day.update_content content_params
+    end
+  end
+
+  def self.make_with_lessons classroom:, date:, **day_params
+    self.make(classroom: classroom, date: date, **day_params).tap do |day|
+      day.lessons << classroom.current_timetable.periods_in(date).map do |period|
+        Lesson.make(day: day, subject: period.subject, order: period.order)
+      end
+    end
+  end
 end

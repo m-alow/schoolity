@@ -29,11 +29,14 @@ class Timetable < ActiveRecord::Base
   end
 
   def study_days
-    Date.current.all_week.map do |day|
-      day.strftime('%A')
-    end.reject do |day|
-      weekends.include? day
-    end
+    Date.current.all_week
+      .reject { |day| weekend? day }
+      .map { |day| day.strftime('%A') }
+  end
+
+  def periods_in date
+    return [] if weekend?(date)
+    periods.where(day: date.strftime('%A'))
   end
 
   def periods_hash
@@ -48,6 +51,11 @@ class Timetable < ActiveRecord::Base
   def current?
     active? && self == classroom.current_timetable
   end
+
+  def weekend? date
+    weekends.include? date.strftime('%A')
+  end
+
   private
 
   def weekends_must_be_array_of_days

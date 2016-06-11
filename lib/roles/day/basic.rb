@@ -13,6 +13,12 @@ module Roles
       def summary= summary
         content[:summary] = summary
       end
+
+      def update_content **params
+        tap do |day|
+          day.summary = params[:summary] if params[:summary]
+        end
+      end
     end
   end
 end

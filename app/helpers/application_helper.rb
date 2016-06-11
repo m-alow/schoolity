@@ -7,6 +7,14 @@ module ApplicationHelper
     "alert alert-#{type}"
   end
 
+  def lesson_content_layout lesson
+    "lessons/#{lesson.content_type}_content"
+  end
+
+  def day_content_layout day
+    "days/#{day.content_type}_content"
+  end
+
   def admin?
     current_user.admin?
   end
@@ -21,5 +29,13 @@ module ApplicationHelper
 
   def owner_or_administrator? school
     owner?(school) || administrator?(school)
+  end
+
+  def classroom_teacher? classroom
+    current_user.teaches_in_classroom? classroom
+  end
+
+  def classroom_staff? classroom
+    owner_or_administrator?(classroom.school) || classroom_teacher?(classroom)
   end
 end

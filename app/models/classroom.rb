@@ -5,6 +5,7 @@ class Classroom < ActiveRecord::Base
   delegate :school, to: :school_class
   has_many :teachings
   has_many :timetables
+  has_many :days
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }
@@ -20,5 +21,9 @@ class Classroom < ActiveRecord::Base
   def current_timetable
     timetable = timetables.order(active: :desc, updated_at: :desc).first
     timetable&.active? ? timetable : nil
+  end
+
+  def day_at date
+    days.find_by date: date
   end
 end

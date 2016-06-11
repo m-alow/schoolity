@@ -11,7 +11,7 @@ class TimetablePolicy < ApplicationPolicy
   end
 
   def show?
-    user.owns?(school) || user.administrates?(school) || user_follows_student_in_classroom?
+    user.owns?(school) || user.administrates?(school) || user.follows_student_in_classroom?(record.classroom)
   end
 
   def new?
@@ -30,9 +30,5 @@ class TimetablePolicy < ApplicationPolicy
 
   def school
     record.classroom.school
-  end
-
-  def user_follows_student_in_classroom?
-    record.classroom.students.exists? id: user.followings.select(:student_id)
   end
 end

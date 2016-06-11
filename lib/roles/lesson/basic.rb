@@ -21,6 +21,14 @@ module Roles
       def summary= summary
         content[:summary] = summary
       end
+
+
+      def update_content **params
+        tap do |lesson|
+          lesson.title = params[:title] if params[:title]
+          lesson.summary = params[:summary] if params[:summary]
+        end
+      end
     end
   end
 end

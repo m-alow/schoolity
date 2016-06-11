@@ -26,6 +26,7 @@ RSpec.describe Classroom, type: :model do
 
   it { should have_many :teachings }
   it { should have_many :timetables }
+  it { should have_many :days }
 
   describe '.current_timetables' do
     let(:classroom) { create(:classroom) }

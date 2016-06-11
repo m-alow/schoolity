@@ -34,6 +34,28 @@ RSpec.describe Timetable, type: :model do
     end
   end
 
+  describe '.periods_in' do
+    let(:timetable) { create(:timetable, periods_number: 2) }
+    let(:date) { instance_double 'Date' }
+
+    before do
+      @period_1_in = timetable.periods.create(day: 'Monday', order: 1)
+      @period_2_in = timetable.periods.create(day: 'Monday', order: 2)
+      @period_out = timetable.periods.create(day: 'Sunday', order: 1)
+    end
+
+    it 'returns the periods corresponding to the given date' do
+      allow(date).to receive(:strftime).with('%A').and_return('Monday')
+      expect(timetable).to be_valid
+      expect(timetable.periods_in(date).to_a).to match [@period_1_in, @period_2_in]
+    end
+
+    it "returns empty array when the date corresponds to a weekend" do
+      allow(date).to receive(:strftime).with('%A').and_return('Friday')
+      expect(timetable.periods_in(date)).to eq []
+    end
+  end
+
   describe '.periods_hash' do
     let(:math) { build(:subject, name: 'Math') }
     let(:physics) { build(:subject, name: 'Physics') }
@@ -130,6 +152,21 @@ RSpec.describe Timetable, type: :model do
       expect {
         update_periods! timetable, [ { day: 'Monday', order: 1, subject_id: math.id } ]
       }.to change(timetable, :updated_at)
+    end
+  end
+
+  describe '.weekend?' do
+    let(:timetable) { build(:timetable, weekends: ['Friday', 'Wednesday']) }
+    let(:date) { instance_double Date }
+
+    it 'returns true if date is a weekend' do
+      allow(date).to receive(:strftime).and_return 'Friday'
+      expect(timetable.weekend?(date)).to be true
+    end
+
+    it 'returns false if dates is a study day' do
+      allow(date).to receive(:strftime).and_return 'Monday'
+      expect(timetable.weekend?(date)).to be false
     end
   end
 end

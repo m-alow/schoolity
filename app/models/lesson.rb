@@ -21,4 +21,9 @@ class Lesson < ActiveRecord::Base
     initialize_content
   end
 
+  def self.make day: nil, subject: nil, order:, **content_params
+    new(day: day, subject: subject, order: order, content_type: 'basic').tap do |lesson|
+      lesson.update_content content_params
+    end
+  end
 end

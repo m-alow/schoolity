@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     followings.exists? student: student
   end
 
+  def follows_student_in_classroom? classroom
+    classroom.students.exists? id: self.followings.select(:student_id)
+  end
+
   def teaches_in_classroom? classroom
     teachings.exists? classroom: classroom
   end
