@@ -22,7 +22,7 @@
     <%= render layout: 'accordion_section', locals: { title: 'Agendas', id: 'agendas_actions', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to "Today's agenda", today_classroom_agendas_path(@classroom) %></li>
-	<li><%= link_to 'Agendas list', classroom_agendas_path(@classroom) %></li>
+	<li><%= link_to 'Agendas calendar', classroom_agendas_path(@classroom) %></li>
       </ul>
     <% end %>
 

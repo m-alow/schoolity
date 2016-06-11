@@ -75,12 +75,12 @@ RSpec.describe AgendasController, type: :controller do
     context 'non authorized user' do
       before { sign_in non_authorized_user }
 
-      # describe 'GET #index' do
-      #   it 'require authorization' do
-      #     get :index, classroom_id: classroom
-      #     expect(response).to require_authorization
-      #   end
-      # end
+      describe 'GET #index' do
+        it 'require authorization' do
+          get :index, classroom_id: classroom
+          expect(response).to require_authorization
+        end
+      end
 
       describe 'GET #show_by_date' do
         it 'require authorization' do
@@ -127,6 +127,13 @@ RSpec.describe AgendasController, type: :controller do
 
     context 'authorized user' do
       before { sign_in authorized_user }
+
+      describe 'GET #index' do
+        it 'succeed' do
+          get :index, classroom_id: classroom
+          expect(response).to have_http_status :success
+        end
+      end
 
       describe 'GET #show_by_date' do
         context 'classroom has a current timetable' do

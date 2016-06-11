@@ -1,0 +1,19 @@
+<div class="row row-centered">
+  <div class="col-sm-offset-1 col-sm-10 col-centered">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+	<h5><%= yield :panel_title %></h5>
+      	<%= render 'shared/actions_list' %>
+      </div>
+
+      <div class="panel-body">
+	<%= yield %>
+      </div>
+
+      <div class="panel-footer">
+	<%= yield :panel_footer %>
+      </div>
+    </div>
+  </div>
+  <div class='col-sm-1'></div>
+</div>

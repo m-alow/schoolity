@@ -12,6 +12,7 @@
  * file per style scope.
  *
  *= require trix
+ *= require simple_calendar
  */
 
 
@@ -54,5 +55,50 @@ html.turbolinks-progress-bar::before {
     display: block;
     &:hover {
 	text-decoration: none;
+    }
+}
+
+
+.simple-calendar {
+    th {
+	text-align: center;
+    }
+
+
+
+    .day {
+	padding: 10px;
+	text-align: left;
+	transition: background-color 0.8s;
+
+	.calendar_link {
+	    display: block;
+	    height: 100%;
+	    font-size: 120%;
+	}
+
+	&:hover {
+	    background-color: #005;
+	    .calendar_link {
+		text-decoration: none;
+		font-size: 160%;
+		color: #eee;
+		transition: font-size 0.5s, color 0.5s;
+	    }
+	}
+
+	&:active {
+	    background-color: #00B;
+	}
+    }
+
+    .calendar-heading {
+	text-align: center;
+	font-size: 175%;
+	a {
+	    &:hover {
+		text-decoration: none;
+	    }
+	}
     }
 }

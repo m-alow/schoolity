@@ -5,7 +5,7 @@ class AgendasController < ApplicationController
 
   # GET /classrooms/1/agendas
   def index
-    @agendas = Agenda.all
+    DayPolicy.new(current_user, @classroom).authorize_action(:index?)
   end
 
   # GET /classrooms/1/agendas/2010/10/10
@@ -22,10 +22,10 @@ class AgendasController < ApplicationController
           @day = Day.make_with_lessons(classroom: @classroom, date: @date).tap { |d| d.save! }
         end
       else
-        render :weekend, notice: 'Today is a weekend.'
+        render :weekend
       end
     else
-      render :no_timetable, notice: 'There is no timetable for this classroom.'
+      render :no_timetable
     end
   end
 

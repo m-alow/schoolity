@@ -1,25 +1,19 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'Agendas Calendar' %>
 
-<h1>Listing Agendas</h1>
+<% content_for :actions_list do %>
+  <li><%= link_to "Today's Agenda", today_classroom_agendas_path(@classroom) %></li>
+  <li><%= link_to 'Current Timetable', current_classroom_timetables_path(@classroom) %></li>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
 
-  <tbody>
-    <% @agendas.each do |agenda| %>
-      <tr>
-        <td><%= link_to 'Show', agenda %></td>
-        <td><%= link_to 'Edit', edit_agenda_path(agenda) %></td>
-        <td><%= link_to 'Destroy', agenda, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Agenda', new_agenda_path %>
+<%= render layout: 'wider_panel' do %>
+  <%= month_calendar do |date| %>
+      <% if current_month? date %>
+	<%= day_link date %>
+      <% end %>
+  <% end %>
+<% end %>
