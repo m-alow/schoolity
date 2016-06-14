@@ -46,7 +46,7 @@ body { padding-top: $navbar-height + 25; }
     padding-bottom: 1em;
 }
 
-html.turbolinks-progress-bar::before {
+.turbolinks-progress-bar {
     background-color: lighten($brand-primary, 40%) !important;
     height: 5px !important;
 }
