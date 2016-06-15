@@ -3,7 +3,7 @@ FactoryGirl.define do
     association :day
     association :subject
     order { Faker::Number.rand_in_range 1, 5 }
-    content_type "hash_only"
-    content ""
+    content_type "base"
+    content { {} }
   end
 end

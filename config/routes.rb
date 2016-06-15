@@ -17,9 +17,10 @@ Rails.application.routes.draw do
           get 'initialize' => 'timetables#init', on: :new
           get 'current', on: :collection
         end
-        resources :agendas, except: [:new, :create, :show] do
+        resources :agendas, except: [:new, :create, :show, :edit] do
           get 'today', on: :collection
-          get '/:year/:month/:day' => 'agendas#show_by_date', on: :collection, as: :date
+          get '/:date' => 'agendas#show_by_date', on: :collection, as: :date
+          get '/:date/edit' => 'agendas#edit', on: :collection, as: :edit
         end
       end
       resources :subjects

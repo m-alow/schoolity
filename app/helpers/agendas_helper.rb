@@ -1,7 +1,7 @@
 module AgendasHelper
   def day_link date
     link_to date.day,
-            date_classroom_agendas_path(classroom_id: @classroom, year: date.year, month: date.month, day: date.month),
+            date_classroom_agendas_path(classroom_id: @classroom, date: date.to_param),
             class: "calendar_link",
             id: "day-link-#{date.day}"
   end

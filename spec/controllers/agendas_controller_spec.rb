@@ -22,7 +22,7 @@ RSpec.describe AgendasController, type: :controller do
 
     describe 'GET #show_by_date' do
       it 'require login' do
-        get :show_by_date,  classroom_id: classroom, year: day.date.year, month: day.date.month, day: day.date.day
+        get :show_by_date,  classroom_id: classroom, date: day.to_param
         expect(response).to require_login
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe AgendasController, type: :controller do
 
     describe 'GET #edit' do
       it 'require login' do
-        get :edit, id: day
+        get :edit, classroom_id: classroom, date: day.to_param
         expect(response).to require_login
       end
     end
@@ -70,7 +70,6 @@ RSpec.describe AgendasController, type: :controller do
     end
   end
 
-
   context 'authenticated user' do
     context 'non authorized user' do
       before { sign_in non_authorized_user }
@@ -84,7 +83,7 @@ RSpec.describe AgendasController, type: :controller do
 
       describe 'GET #show_by_date' do
         it 'require authorization' do
-          get :show_by_date, classroom_id: classroom, year: 2010, month: 10, day: 10
+          get :show_by_date, classroom_id: classroom, date: '2010-10-10'
           expect(response).to require_authorization
         end
       end
@@ -96,12 +95,12 @@ RSpec.describe AgendasController, type: :controller do
       #   end
       # end
 
-      # describe 'GET #edit' do
-      #   it 'require authorization' do
-      #     get :edit, id: day
-      #     expect(response).to require_authorization
-      #   end
-      # end
+      describe 'GET #edit' do
+        it 'require authorization' do
+          get :edit, classroom_id: classroom, date: day.to_param
+          expect(response).to require_authorization
+        end
+      end
 
       # describe 'POST #create' do
       #   it 'require authorization' do
@@ -110,19 +109,19 @@ RSpec.describe AgendasController, type: :controller do
       #   end
       # end
 
-      # describe 'PUT #update' do
-      #   it 'require authorization' do
-      #     put :update, id: day, agenda: valid_attributes
-      #     expect(response).to require_authorization
-      #   end
-      # end
+      describe 'PUT #update' do
+        it 'require authorization' do
+          put :update, id: day, agenda: valid_attributes
+          expect(response).to require_authorization
+        end
+      end
 
-      # describe 'DELETE #destroy' do
-      #   it 'require authorization' do
-      #     delete :destroy, id: day
-      #     expect(response).to require_authorization
-      #   end
-      # end
+      describe 'DELETE #destroy' do
+        it 'require authorization' do
+          delete :destroy, id: day
+          expect(response).to require_authorization
+        end
+      end
     end
 
     context 'authorized user' do
@@ -136,43 +135,42 @@ RSpec.describe AgendasController, type: :controller do
       end
 
       describe 'GET #show_by_date' do
-        context 'classroom has a current timetable' do
-          let!(:timetable) { create(:timetable, classroom: classroom, periods_number: 2, active: true, weekends: ['Friday']) }
-          context 'date is a study day' do
-            let(:date) { Date.new 2016, 6, 9 }
-            it 'renders :show_by_date' do
-              day = Day.make(classroom: classroom, date: date).save!
-              get :show_by_date, classroom_id: classroom, year: date.year, month: date.month, day: date.day
-              expect(response).to render_template :show_by_date
-            end
+        context 'day is persisted' do
+          let(:date) { Date.new 2016, 6, 9 }
 
-            context 'day is not present' do
-              it 'renders :show_by_date' do
-                get :show_by_date, classroom_id: classroom, year: date.year, month: date.month, day: date.day
-                expect(response).to render_template :show_by_date
-              end
-
-              it 'creates a new day' do
-                expect {
-                  get :show_by_date, classroom_id: classroom, year: date.year, month: date.month, day: date.day
-                }.to change(Day, :count)
-              end
-            end
-          end
-
-          context 'date is a weekend' do
-            it 'renders :weekend' do
-              expect(timetable).to be_valid
-              get :show_by_date, classroom_id: classroom, year: '2016', month: '6', day: '10'
-              expect(response).to render_template :weekend
-            end
+          it 'renders :show_by_date' do
+            Day.make(classroom: classroom, date: date).save!
+            get :show_by_date, classroom_id: classroom, date: date.to_param
+            expect(response).to render_template :show_by_date
           end
         end
 
-        context 'classroom has no current timetable' do
-          it 'renders :no_timetable' do
-            get :show_by_date, classroom_id: classroom, year: 2010, month: 10, day: 10
-            expect(response).to render_template :no_timetable
+        context 'day is not persisted' do
+          context 'classroom has a current timetable' do
+            let!(:timetable) { create(:timetable, classroom: classroom, periods_number: 2, active: true, weekends: ['Friday']) }
+
+            context 'date is a study day' do
+              let(:date) { Date.new 2016, 6, 9 }
+
+              it 'renders :show_by_date' do
+                get :show_by_date, classroom_id: classroom, date: date.to_param
+                expect(response).to render_template :show_by_date
+              end
+            end
+
+            context 'date is a weekend' do
+              it 'renders :weekend' do
+                get :show_by_date, classroom_id: classroom, date: '2016-6-10'
+                expect(response).to render_template :weekend
+              end
+            end
+          end
+
+          context 'classroom has no current timetable' do
+            it 'renders :no_timetable' do
+              get :show_by_date, classroom_id: classroom, date: '2010-10-10'
+              expect(response).to render_template :no_timetable
+            end
           end
         end
       end
@@ -181,7 +179,7 @@ RSpec.describe AgendasController, type: :controller do
         it 'redirects to #show_by_date' do
           Timecop.travel Date.new(2010, 10, 5) do
             get :today, classroom_id: classroom
-            expect(response).to redirect_to date_classroom_agendas_url(classroom_id: classroom.id, year: 2010, month: 10, day: 5)
+            expect(response).to redirect_to date_classroom_agendas_url(classroom_id: classroom.id, date: '2010-10-05')
           end
         end
       end

@@ -2,7 +2,7 @@
 
 <% content_for :actions_list do %>
   <% if classroom_staff? @classroom %>
-    <li><%= link_to 'Edit', edit_agenda_path(id: @day.id) %></li>
+    <li><%= link_to 'Edit', edit_classroom_agendas_path(classroom_id: @classroom, date: @date.to_param) %></li>
     <li class="divider"></li>
   <% end %>
   <li><%= link_to 'Agendas Calendar', classroom_agendas_path(@classroom) %></li>
@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @day.lessons.includes(:subject).each do |lesson| %>
+      <% @day.lessons.each do |lesson| %>
 	<tr>
 	  <td><%= lesson.order.ordinalize %></td>
 	  <td><%= lesson.subject&.name %></td>

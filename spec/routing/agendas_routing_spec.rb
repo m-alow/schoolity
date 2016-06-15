@@ -19,12 +19,12 @@ RSpec.describe AgendasController, type: :routing do
     # end
 
     it 'routes to #show_by_date' do
-      expect(get: '/classrooms/1/agendas/2010/10/10').to route_to('agendas#show_by_date',
-                                                                  classroom_id: '1' , year: '2010', month: '10', day: '10')
+      expect(get: '/classrooms/1/agendas/2010-10-10').to route_to('agendas#show_by_date',
+                                                                  classroom_id: '1' , date: '2010-10-10')
     end
 
     it 'routes to #edit' do
-      expect(get: '/agendas/1/edit').to route_to('agendas#edit', id: '1')
+      expect(get: '/classrooms/1/agendas/2010-10-10/edit').to route_to('agendas#edit', classroom_id: '1', date: '2010-10-10')
     end
 
     # it 'routes to #create' do
