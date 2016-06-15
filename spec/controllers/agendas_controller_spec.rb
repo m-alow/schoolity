@@ -183,126 +183,89 @@ RSpec.describe AgendasController, type: :controller do
           end
         end
       end
+
+      describe 'GET #edit' do
+        context 'day is persisted' do
+          it 'succeed' do
+            date = Date.current
+            Day.make(classroom: classroom, date: date).tap { |d| d.save! }
+            get :edit, classroom_id: classroom.id, date: date.to_param
+            expect(response).to have_http_status :success
+            expect(response).to render_template :edit
+          end
+        end
+
+        context 'day is not persisted' do
+          context 'classrooms has a timetable' do
+            let!(:timetable) { create(:timetable, classroom: classroom, periods_number: 2, active: true, weekends: ['Friday']) }
+
+            context 'study day' do
+              let(:date) { Date.new 2016, 6, 15 }
+
+              it 'succeed' do
+                get :edit, classroom_id: classroom.id, date: date.to_param
+                expect(response).to have_http_status :success
+                expect(response).to render_template :edit
+              end
+
+              it 'creates a new day' do
+                expect {
+                  get :edit, classroom_id: classroom.id, date: date.to_param
+                }.to change(Day, :count).by(1)
+              end
+            end
+
+            context 'weekend' do
+              it 'renders :weekend' do
+                date = Date.new 2016, 6, 17
+                get :edit, classroom_id: classroom.id, date: date.to_param
+                expect(response).to render_template :weekend
+              end
+            end
+          end
+
+          context 'classroom has no timetable' do
+            it 'renders :no_timetable' do
+              get :edit, classroom_id: classroom.id, date: Date.current.to_param
+              expect(response).to render_template :no_timetable
+            end
+          end
+        end
+      end
+
+      describe 'PUT #update' do
+        let(:date) { Date.current }
+        let(:day) { Day.make(classroom: classroom, date: date).tap { |d| d.save! } }
+
+        it 'updates the requested day' do
+          expect {
+            put :update, id: day, day: { summary: 'OK' }
+            day.reload
+          }.to change(day, :updated_at)
+          expect(day.summary).to eq 'OK'
+        end
+
+        it 'redirects to edit form' do
+          put :update, id: day, day: { summary: 'OK' }
+          expect(response).to redirect_to edit_classroom_agendas_url(classroom_id: classroom, date: date.to_param)
+        end
+
+        context 'with ajax' do
+          it 'updates the requested day' do
+            expect {
+              xhr :put, :update, id: day, day: { summary: 'OK' }
+              day.reload
+            }.to change(day, :updated_at)
+            expect(day.summary).to eq 'OK'
+          end
+
+          it 'does not redirect to edit form' do
+            xhr :put, :update, id: day, day: { summary: 'OK' }
+            expect(response).not_to redirect_to edit_classroom_agendas_url(classroom_id: classroom, date: date.to_param)
+            expect(response).to have_http_status :success
+          end
+        end
+      end
     end
   end
-
-  # describe 'GET #index' do
-  #   it 'assigns all agendas as @agendas' do
-  #     agenda = Agenda.create! valid_attributes
-  #     get :index, {}, valid_session
-  #     expect(assigns(:agendas)).to eq([agenda])
-  #   end
-  # end
-
-  # describe 'GET #show' do
-  #   it 'assigns the requested agenda as @agenda' do
-  #     agenda = Agenda.create! valid_attributes
-  #     get :show, { id: agenda.to_param }, valid_session
-  #     expect(assigns(:agenda)).to eq(agenda)
-  #   end
-  # end
-
-  # describe 'GET #new' do
-  #   it 'assigns a new agenda as @agenda' do
-  #     get :new, {}, valid_session
-  #     expect(assigns(:agenda)).to be_a_new(Agenda)
-  #   end
-  # end
-
-  # describe 'GET #edit' do
-  #   it 'assigns the requested agenda as @agenda' do
-  #     agenda = Agenda.create! valid_attributes
-  #     get :edit, { id: agenda.to_param }, valid_session
-  #     expect(assigns(:agenda)).to eq(agenda)
-  #   end
-  # end
-
-  # describe 'POST #create' do
-  #   context 'with valid params' do
-  #     it 'creates a new Agenda' do
-  #       expect do
-  #         post :create, { agenda: valid_attributes }, valid_session
-  #       end.to change(Agenda, :count).by(1)
-  #     end
-
-  #     it 'assigns a newly created agenda as @agenda' do
-  #       post :create, { agenda: valid_attributes }, valid_session
-  #       expect(assigns(:agenda)).to be_a(Agenda)
-  #       expect(assigns(:agenda)).to be_persisted
-  #     end
-
-  #     it 'redirects to the created agenda' do
-  #       post :create, { agenda: valid_attributes }, valid_session
-  #       expect(response).to redirect_to(Agenda.last)
-  #     end
-  #   end
-
-  #   context 'with invalid params' do
-  #     it 'assigns a newly created but unsaved agenda as @agenda' do
-  #       post :create, { agenda: invalid_attributes }, valid_session
-  #       expect(assigns(:agenda)).to be_a_new(Agenda)
-  #     end
-
-  #     it "re-renders the 'new' template" do
-  #       post :create, { agenda: invalid_attributes }, valid_session
-  #       expect(response).to render_template('new')
-  #     end
-  #   end
-  # end
-
-  # describe 'PUT #update' do
-  #   context 'with valid params' do
-  #     let(:new_attributes) do
-  #       skip('Add a hash of attributes valid for your model')
-  #     end
-
-  #     it 'updates the requested agenda' do
-  #       agenda = Agenda.create! valid_attributes
-  #       put :update, { id: agenda.to_param, agenda: new_attributes }, valid_session
-  #       agenda.reload
-  #       skip('Add assertions for updated state')
-  #     end
-
-  #     it 'assigns the requested agenda as @agenda' do
-  #       agenda = Agenda.create! valid_attributes
-  #       put :update, { id: agenda.to_param, agenda: valid_attributes }, valid_session
-  #       expect(assigns(:agenda)).to eq(agenda)
-  #     end
-
-  #     it 'redirects to the agenda' do
-  #       agenda = Agenda.create! valid_attributes
-  #       put :update, { id: agenda.to_param, agenda: valid_attributes }, valid_session
-  #       expect(response).to redirect_to(agenda)
-  #     end
-  #   end
-
-  #   context 'with invalid params' do
-  #     it 'assigns the agenda as @agenda' do
-  #       agenda = Agenda.create! valid_attributes
-  #       put :update, { id: agenda.to_param, agenda: invalid_attributes }, valid_session
-  #       expect(assigns(:agenda)).to eq(agenda)
-  #     end
-
-  #     it "re-renders the 'edit' template" do
-  #       agenda = Agenda.create! valid_attributes
-  #       put :update, { id: agenda.to_param, agenda: invalid_attributes }, valid_session
-  #       expect(response).to render_template('edit')
-  #     end
-  #   end
-  # end
-
-  # describe 'DELETE #destroy' do
-  #   it 'destroys the requested agenda' do
-  #     agenda = Agenda.create! valid_attributes
-  #     expect do
-  #       delete :destroy, { id: agenda.to_param }, valid_session
-  #     end.to change(Agenda, :count).by(-1)
-  #   end
-
-  #   it 'redirects to the agendas list' do
-  #     agenda = Agenda.create! valid_attributes
-  #     delete :destroy, { id: agenda.to_param }, valid_session
-  #     expect(response).to redirect_to(agendas_url)
-  #   end
-  # end
 end

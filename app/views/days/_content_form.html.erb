@@ -1,0 +1,9 @@
+<%= simple_form_for :day, url: agenda_path(day), method: :put, remote: true do |f| %>
+  <div class="form-inputs">
+    <%= render day_content_fields_layout(day), day: day, f: f %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit', data: { disable_with: "Updating.." } %>
+  </div>
+<% end  %>

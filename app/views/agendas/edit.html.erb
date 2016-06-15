@@ -1,6 +1,53 @@
-<h1>Editing Agenda</h1>
+<% provide :panel_title, 'Edit Agenda' %>
 
-<%= render 'form' %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Show', date_classroom_agendas_path(classroom_id: @classroom.id, date: @date.to_param) %></li>
 
-<%= link_to 'Show', @agenda %> |
-<%= link_to 'Back', agendas_path %>
+  <li class="divider"></li>
+  <li><%= link_to "Today's Agenda", today_classroom_agendas_path(classroom_id: @classroom.id) %></li>
+  <li><%= link_to "Agenda Calendar", classroom_agendas_path(classroom_id: @classroom.id) %></li>
+  <li><%= link_to "Current Timetable", current_classroom_timetables_path(classroom_id: @classroom.id) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end  %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well">
+    Agenda for classroom <%= link_to @classroom.name, @classroom %> on <%= time_tag @date %>.
+  </div>
+
+  <div class="well well-sm"><h6>Day Summary</h6></div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="day-summary-form" class="well">
+	<%= render 'days/content_form', day: @day %>
+      </div>
+    </div>
+
+    <div class ="col-sm-6">
+      <div id="day-summary"class="well">
+	<%= render 'days/content', day: @day %>
+      </div>
+    </div>
+  </div>
+
+  <% @day.lessons.includes(:subject).each do |lesson| %>
+    <div class="well well-sm"><h6>Lesson #<%= lesson.order %>: <%= lesson.subject&.name %></h6></div>
+    <div class="row">
+      <div class="col-sm-6">
+	<div id="lesson-<%= lesson.id %>-form" class="well">
+	  <%= render 'lessons/content_form', lesson: lesson %>
+	</div>
+      </div>
+
+      <div class ="col-sm-6">
+	<div id="lesson-<%= lesson.id %>"class="well">
+	  <%= render 'lessons/content', lesson: lesson %>
+	</div>
+      </div>
+    </div>
+  <% end %>
+<% end  %>

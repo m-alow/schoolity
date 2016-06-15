@@ -45,50 +45,32 @@ class AgendasController < ApplicationController
     @day = @classroom.days.build
     authorize @day
 
-    # @date = params[:date].to_date
-    # @day = @classroom.day_at @date
+    @date = params[:date].to_date
+    @day = @classroom.day_at @date
 
-    # if @day.present?
-
-    # else
-    #   current_timetable = @classroom.current_timetable
-    #   if current_timetable.present?
-    #     unless current_timetable.weekend? @date
-    #       @day = Day.make_with_lessons(classroom: @classroom, date: @date).tap { |day| day.save! }
-    #     else
-    #       render :weekend
-    #     end
-    #   else
-    #     render :no_timetable
-    #   end
-    # end
+    unless @day.present?
+      timetable = @classroom.current_timetable
+      if timetable.present?
+        unless timetable.weekend? @date
+          @day = Day.make_with_lessons(classroom: @classroom, date: @date).tap { |day| day.save! }
+        else
+          render :weekend
+        end
+      else
+        render :no_timetable
+      end
+    end
   end
-
-  # # POST /agendas
-  # def create
-  #   @agenda = Agenda.new(agenda_params)
-
-  #   respond_to do |format|
-  #     if @agenda.save
-  #       format.html { redirect_to @agenda, notice: 'Agenda was successfully created.' }
-  #       format.json { render :show, status: :created, location: @agenda }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @agenda.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PATCH/PUT /agendas/1
   def update
     authorize @day
-    redirect_to today_classroom_agendas_url(@classroom)
 
-    # if @agenda.update(agenda_params)
-    #   redirect_to @agenda, notice: 'Agenda was successfully updated.'
-    # else
-    #   render :edit
-    # end
+    @day.update_content(params[:day].deep_symbolize_keys).save!
+    respond_to do |format|
+      format.html { redirect_to edit_classroom_agendas_url(classroom_id: @classroom, date: @day.date.to_param) }
+      format.js
+    end
   end
 
   # DELETE /agendas/1

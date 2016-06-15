@@ -11,8 +11,16 @@ module ApplicationHelper
     "lessons/#{lesson.content_type}_content"
   end
 
+  def lesson_content_fields_layout lesson
+    "lessons/#{lesson.content_type}_content_fields"
+  end
+
   def day_content_layout day
     "days/#{day.content_type}_content"
+  end
+
+  def day_content_fields_layout day
+    "days/#{day.content_type}_content_fields"
   end
 
   def admin?
