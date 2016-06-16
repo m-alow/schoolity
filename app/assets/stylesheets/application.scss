@@ -62,6 +62,12 @@ body { padding-top: $navbar-height + 25; }
     background: white;
 }
 
+.well-title {
+    margin-bottom: 3px;
+    background: $gray-light;
+    font-weight: bold;
+}
+
 .simple-calendar {
     th {
 	text-align: center;

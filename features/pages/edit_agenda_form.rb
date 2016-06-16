@@ -13,8 +13,23 @@ class EditAgendaForm
     self
   end
 
+  def self.fill_in_lesson_with lesson, params = {}
+    within "#lesson-#{lesson.id}-form" do
+      fill_in 'Title', with: params[:title]
+      fill_in 'Summary', with: params[:summary]
+    end
+    self
+  end
+
   def self.submit
     within '#day-summary-form' do
+      click_on 'Submit'
+    end
+    self
+  end
+
+  def self.submit_lesson lesson
+    within "#lesson-#{lesson.id}-form" do
       click_on 'Submit'
     end
     self

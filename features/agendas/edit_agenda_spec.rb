@@ -8,6 +8,7 @@ feature 'edit agenda' do
   let(:timetable) { create(:timetable, classroom: classroom, active: true, periods_number: 2, weekends: []) }
   let(:math) { create(:subject, school_class: classroom.school_class, name: 'Math') }
   let(:physics) { create(:subject, school_class: classroom.school_class, name: 'Physics') }
+  let(:teacher) { create(:teaching, subject: math, classroom: classroom).teacher }
 
   before do
     periods = timetable.study_days.map do |day|
@@ -18,7 +19,7 @@ feature 'edit agenda' do
     timetable.save!
   end
 
-  scenario 'school admin edits agenda' do
+  scenario 'school admin edits day summary' do
     sign_in_user school_admin
 
     EditAgendaForm
@@ -28,6 +29,20 @@ feature 'edit agenda' do
 
     within '#day-summary' do
       expect(page).to have_content 'It was a good day.'
+    end
+  end
+
+  scenario 'teacher edits lesson content' do
+    sign_in_user teacher
+
+    EditAgendaForm
+      .visit_page(day)
+      .fill_in_lesson_with(day.lessons.first, { title: 'Sum', summary: '1 + 1 = 6' })
+      .submit_lesson(day.lessons.first)
+
+    within "#lesson-#{day.lessons.first.id}" do
+      expect(page).to have_content 'Sum'
+      expect(page).to have_content '1 + 1 = 6'
     end
   end
 end

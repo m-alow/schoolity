@@ -1,0 +1,2 @@
+$("#lesson-<%= @lesson.id %>").html("<%= j render('lessons/content', lesson: @lesson) %>")
+			      .effect("highlight", 1500);

@@ -19,7 +19,7 @@
     Agenda for classroom <%= link_to @classroom.name, @classroom %> on <%= time_tag @date %>.
   </div>
 
-  <div class="well well-sm"><h6>Day Summary</h6></div>
+  <div class="well well-sm well-title">Day Summary</div>
   <div class="row">
     <div class="col-sm-6">
       <div id="day-summary-form" class="well">
@@ -28,26 +28,28 @@
     </div>
 
     <div class ="col-sm-6">
-      <div id="day-summary"class="well">
+      <div id="day-summary" class="well">
 	<%= render 'days/content', day: @day %>
       </div>
     </div>
   </div>
 
   <% @day.lessons.includes(:subject).each do |lesson| %>
-    <div class="well well-sm"><h6>Lesson #<%= lesson.order %>: <%= lesson.subject&.name %></h6></div>
-    <div class="row">
-      <div class="col-sm-6">
-	<div id="lesson-<%= lesson.id %>-form" class="well">
-	  <%= render 'lessons/content_form', lesson: lesson %>
+    <% if subject_teacher? lesson.subject, @classroom %>
+      <div class="well well-sm well-title">Lesson #<%= lesson.order %>: <%= lesson.subject&.name %></div>
+      <div class="row">
+	<div class="col-sm-6">
+	  <div id="lesson-<%= lesson.id %>-form" class="well">
+	    <%= render 'lessons/content_form', lesson: lesson %>
+	  </div>
 	</div>
-      </div>
 
-      <div class ="col-sm-6">
-	<div id="lesson-<%= lesson.id %>"class="well">
-	  <%= render 'lessons/content', lesson: lesson %>
+	<div class ="col-sm-6">
+	  <div id="lesson-<%= lesson.id %>"class="well">
+	    <%= render 'lessons/content', lesson: lesson %>
+	  </div>
 	</div>
       </div>
-    </div>
-  <% end %>
-<% end  %>
+    <% end %>
+  <% end  %>
+<% end %>

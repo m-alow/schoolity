@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
     teachings.exists? classroom: classroom
   end
 
+  def teaches_subject_in_classroom? subject, classroom
+    teachings.exists?(classroom: classroom, subject: subject) || teachings.exists?(classroom: classroom, all_subjects: true)
+  end
+
   def teaches_in_school_class? school_class
     teachings.exists? classroom: school_class.classrooms
   end

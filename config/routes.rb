@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   end
 
   resources :followings, except: [:edit, :update]
+  resources :lessons, only: [:update]
 end

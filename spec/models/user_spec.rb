@@ -56,6 +56,8 @@ RSpec.describe User, type: :model do
     let(:school) { build(:active_school) }
     let(:school_class) { build(:school_class, school: school) }
     let!(:classroom) { build(:classroom, school_class: school_class) }
+    let(:math) { create(:subject, school_class: school_class, name: 'Math') }
+    let(:another_subject) { create(:subject, school_class: school_class) }
     let(:teacher) { create(:teaching, classroom: classroom).teacher }
     let(:student) { create(:studying, classroom: classroom).student }
 
@@ -65,6 +67,27 @@ RSpec.describe User, type: :model do
 
     it 'not in other classrooms' do
       expect(teacher.teaches_in_classroom? build(:classroom)).to be false
+    end
+
+    it 'a subject in classroom' do
+      teacher.teachings.create subject: math, classroom: classroom
+      expect(teacher.teaches_subject_in_classroom? math, classroom).to be true
+    end
+
+    it 'a subject in classroom if he is teaching all subjects' do
+      teacher.teachings.create classroom: classroom, all_subjects: true
+      expect(teacher.teaches_subject_in_classroom? math, classroom).to be true
+    end
+
+    it 'not another subject in classroom' do
+      expect(teacher.teaches_subject_in_classroom? another_subject, classroom).to be false
+    end
+
+    it 'not a subject in another classroom even he is teaching all subjects somewhere else' do
+      teacher.teachings.create classroom: classroom, all_subjects: true
+      another_classroom = create(:classroom, school_class: school_class)
+      another_subject = create(:subject, school_class: another_classroom.school_class)
+      expect(teacher.teaches_subject_in_classroom? another_subject, another_classroom).to be false
     end
 
     it 'in school class' do

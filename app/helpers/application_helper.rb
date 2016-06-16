@@ -46,4 +46,8 @@ module ApplicationHelper
   def classroom_staff? classroom
     owner_or_administrator?(classroom.school) || classroom_teacher?(classroom)
   end
+
+  def subject_teacher? subject, classroom
+    current_user.teaches_subject_in_classroom? subject, classroom
+  end
 end
