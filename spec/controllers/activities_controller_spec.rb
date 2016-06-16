@@ -9,6 +9,20 @@ RSpec.describe ActivitiesController, type: :controller do
   let(:lesson) { Lesson.make(day: day, subject: math, order: 1).tap { |l| l.save! } }
 
   context 'guest' do
+    describe 'GET #index' do
+      it 'requires login' do
+        get :index, lesson_id: lesson
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'requires login' do
+        get :edit, lesson_id: lesson
+        expect(response).to require_login
+      end
+    end
+
     describe 'PUT #upadte' do
       it 'requires login' do
         put :update, lesson_id: lesson, student_id: student
@@ -23,6 +37,20 @@ RSpec.describe ActivitiesController, type: :controller do
       let(:non_authorized_user) { create(:user) }
       before { sign_in non_authorized_user }
 
+      describe 'GET #index' do
+        it 'requires authorization' do
+          get :index, lesson_id: lesson
+          expect(response).to require_authorization
+        end
+      end
+
+      describe 'GET #edit' do
+        it 'requires authorization' do
+          get :edit, lesson_id: lesson
+          expect(response).to require_authorization
+        end
+      end
+
       describe 'PUT #upadte' do
         it 'requires authorization' do
           put :update, lesson_id: lesson, student_id: student
@@ -34,6 +62,20 @@ RSpec.describe ActivitiesController, type: :controller do
     context 'authorized' do
       let(:authorized_user) { create(:teaching, classroom: classroom, subject: math).teacher }
       before { sign_in authorized_user }
+
+      describe 'GET #index' do
+        it 'succeed' do
+          get :index, lesson_id: lesson
+          expect(response).to have_http_status :success
+        end
+      end
+
+      describe 'GET #edit' do
+        it 'succeed' do
+          get :edit, lesson_id: lesson
+          expect(response).to have_http_status :success
+        end
+      end
 
       describe 'PUT #upadte' do
         context 'activity is present' do

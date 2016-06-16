@@ -1,4 +1,17 @@
 class ActivitiesController < ApplicationController
+  def index
+    @lesson = Lesson.find(params[:lesson_id])
+    ActivityPolicy.new(current_user, @lesson).authorize_action(:index?)
+  end
+
+  def edit
+    @lesson = Lesson.find(params[:lesson_id])
+    ActivityPolicy.new(current_user, @lesson).authorize_action(:edit?)
+
+    @classroom = @lesson.day.classroom
+    @students = @classroom.students
+  end
+
   def update
     @lesson = Lesson.find(params[:lesson_id])
     @student = Student.find(params[:student_id])
