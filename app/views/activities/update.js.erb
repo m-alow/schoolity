@@ -1,2 +1,2 @@
-<h1>Activities#update</h1>
-<p>Find me in app/views/activities/update.html.erb</p>
+$("#student-<%= @student.id %>-activity").html("<%= j render('activities/content', activity: @activity)%>")
+					 .effect('highlight', 1500);

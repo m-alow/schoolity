@@ -1,0 +1,46 @@
+<% provide :panel_title, 'Edit Students Activities' %>
+
+<% content_for :actions_list do  %>
+  <li><%= link_to 'Activities', lesson_activities_path(lesson_id: @lesson) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Agenda', date_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+  <li><%= link_to 'Edit Agenda', edit_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= render 'shared/lesson_header', lesson: @lesson %>
+
+  <div class="row">
+    <div id="students-list" class="col-sm-4">
+      <div class="well well-sm well-title">Students</div>
+      <ul class="nav nav-pills nav-stacked">
+	<% @students.each do |student| %>
+	  <li><%= link_to student.name, "#activity-tab-#{student.id}", 'data-toggle' => 'pill'  %></li>
+	<% end %>
+      </ul>
+    </div>
+
+    <div id="forms-list" class="col-sm-8">
+      <div class="tab-content">
+	<% @students.each do |student| %>
+	  <% activity = student.activity_in(@lesson) || Activity.make(student: student, lesson: @lesson) %>
+	  <div id="activity-tab-<%= student.id %>" class="tab-pane fade">
+	    <div class="well well-sm well-title"><%= student.full_name %></div>
+	    <div id="student-<%= student.id  %>-activity-form" class="well">
+	      <%= render 'activities/content_form', activity: activity %>
+	    </div>
+	    <div id="student-<%= student.id  %>-activity" class="well">
+	      <%= render 'activities/content', activity: activity %>
+	    </div>
+	  </div>
+	<% end  %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-4">
+    <div class="well well-sm close-well">
+      lesson# <%= lesson.order%>
+    </div>
+    <div class="well well-sm close-well">
+      <%= lesson.subject&.name%>
+    </div>
+    <div class="well well-sm close-well">
+      <%= time_tag lesson.day.date%>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="well" id="lesson-content">
+      <%= render 'lessons/content', lesson: lesson %>
+    </div>
+  </div>
+</div>

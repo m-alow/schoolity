@@ -31,10 +31,21 @@
     </thead>
     <tbody>
       <% @day.lessons.each do |lesson| %>
-	<tr>
+	<tr id="lesson-<%= lesson.order %>">
 	  <td><%= lesson.order.ordinalize %></td>
 	  <td><%= lesson.subject&.name %></td>
-	  <td><%= render 'lessons/content', lesson: lesson %></td>
+	  <td>
+	    <%= render 'lessons/content', lesson: lesson %>
+
+	    <% if lesson.persisted? %>
+	      <span class="pull-right">
+		<% if subject_teacher? lesson.subject, @classroom %>
+		  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
+		<% end %>
+		<%= link_to 'Activities', lesson_activities_path(lesson) %>
+	      </span>
+	    <% end  %>
+	  </td>
 	</tr>
       <% end %>
     </tbody>

@@ -1,0 +1,31 @@
+<% provide :panel_title, 'Students Activities' %>
+
+<% content_for :actions_list do  %>
+  <% if subject_teacher? @lesson.subject, @classroom %>
+    <li><%= link_to 'Edit', edit_lesson_activities_path(@lesson) %></li>
+    <li class="divider"></li>
+  <% end  %>
+
+  <li><%= link_to 'Agenda', date_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+  <li><%= link_to 'Edit Agenda', edit_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well">Classroom <%= @classroom.name %></div>
+
+  <%= render 'shared/lesson_header', lesson: @lesson %>
+
+  <% @activities.each do |activity| %>
+    <div class="well">
+      <div class="well well-sm well-title">
+	<%= activity.student.full_name %>
+      </div>
+      <%= render 'activities/content', activity: activity %>
+    </div>
+  <% end %>
+<% end  %>

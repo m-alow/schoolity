@@ -3,6 +3,7 @@ class Student < ActiveRecord::Base
   has_many :studyings
   has_many :following_codes
   has_many :followings
+  has_many :activities
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true
@@ -11,6 +12,10 @@ class Student < ActiveRecord::Base
 
   def classroom
     studyings.order(:beginning_date).last&.classroom
+  end
+
+  def activity_in lesson
+    activities.find_by lesson: lesson
   end
 
   def followed_by? user

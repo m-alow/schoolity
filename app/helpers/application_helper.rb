@@ -23,6 +23,14 @@ module ApplicationHelper
     "days/#{day.content_type}_content_fields"
   end
 
+  def activity_content_layout activity
+    "activities/#{activity.content_type}_content"
+  end
+
+  def activity_content_fields_layout activity
+    "activities/#{activity.content_type}_content_fields"
+  end
+
   def admin?
     current_user.admin?
   end

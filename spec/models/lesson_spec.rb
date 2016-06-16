@@ -7,6 +7,7 @@ RSpec.describe Lesson, type: :model do
 
   it { should belong_to :day }
   it { should belong_to :subject }
+  it { should have_many :activities }
 
   it { should validate_presence_of :day }
   it { should_not validate_presence_of :subject }

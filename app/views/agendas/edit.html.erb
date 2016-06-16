@@ -36,7 +36,13 @@
 
   <% @day.lessons.includes(:subject).each do |lesson| %>
     <% if subject_teacher? lesson.subject, @classroom %>
-      <div class="well well-sm well-title">Lesson #<%= lesson.order %>: <%= lesson.subject&.name %></div>
+      <div class="well well-sm well-title">
+	Lesson #<%= lesson.order %>: <%= lesson.subject&.name %>
+	<span id="lesson-<%= lesson.id %>-actions" class="pull-right">
+	  <%= link_to 'Activities', lesson_activities_path(lesson) %> |
+	  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %>
+	</span>
+      </div>
       <div class="row">
 	<div class="col-sm-6">
 	  <div id="lesson-<%= lesson.id %>-form" class="well">

@@ -3,6 +3,7 @@ require 'roles/lesson'
 class Lesson < ActiveRecord::Base
   belongs_to :day
   belongs_to :subject
+  has_many :activities
 
   serialize :content
 

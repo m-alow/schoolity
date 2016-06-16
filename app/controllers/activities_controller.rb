@@ -2,6 +2,9 @@ class ActivitiesController < ApplicationController
   def index
     @lesson = Lesson.find(params[:lesson_id])
     ActivityPolicy.new(current_user, @lesson).authorize_action(:index?)
+    @classroom = @lesson.day.classroom
+
+    @activities = @lesson.activities.includes(:student)
   end
 
   def edit
