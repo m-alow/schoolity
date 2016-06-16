@@ -83,7 +83,7 @@ RSpec.describe User, type: :model do
       expect(teacher.teaches_subject_in_classroom? another_subject, classroom).to be false
     end
 
-    it 'not a subject in another classroom even he is teaching all subjects somewhere else' do
+    it 'not a subject in another classroom even if he is teaching all subjects somewhere else' do
       teacher.teachings.create classroom: classroom, all_subjects: true
       another_classroom = create(:classroom, school_class: school_class)
       another_subject = create(:subject, school_class: another_classroom.school_class)
@@ -112,6 +112,26 @@ RSpec.describe User, type: :model do
 
     it 'not other students' do
       expect(teacher.teaches_student? build(:student)).to be false
+    end
+
+    it 'student a subject' do
+      teacher.teachings.create classroom: classroom, subject: math
+      expect(teacher.teaches_student_a_subject?(student, math)).to be true
+    end
+
+    it 'student a subject if he is teaching all subjects' do
+      teacher.teachings.create classroom: classroom, all_subjects: true
+      expect(teacher.teaches_student_a_subject?(student, math)).to be true
+    end
+
+    it 'not student a subject he is not teaching' do
+      teacher.teachings.create classroom: classroom, subject: math
+      expect(teacher.teaches_student_a_subject?(student, another_subject)).to be false
+    end
+
+    it 'not student a subject if student is not in classroom' do
+      teacher.teachings.create classroom: create(:classroom, school_class: school_class), subject: math
+      expect(teacher.teaches_student_a_subject?(student, another_subject)).to be false
     end
   end
 end

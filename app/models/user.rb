@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
     teaches_in_classroom? student.classroom
   end
 
+  def teaches_student_a_subject? student, subject
+    teaches_subject_in_classroom?(subject, student.classroom)
+  end
+
   def follow_student(code:, relationship:, full_name:)
     following_code = FollowingCode.find_by(code: code)
     if following_code.nil? || following_code.expired?

@@ -19,7 +19,7 @@ module Roles
       end
 
       def rating= rating
-        content[:rating] = rating
+        content[:rating] = rating.to_i
       end
 
 
