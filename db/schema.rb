@@ -11,13 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609034539) do
+ActiveRecord::Schema.define(version: 20160616032615) do
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "activities", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "lesson_id"
+    t.string   "content_type"
+    t.text     "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
+
+  add_index "activities", ["lesson_id"], name: "index_activities_on_lesson_id"
+  add_index "activities", ["student_id"], name: "index_activities_on_student_id"
 
   create_table "classrooms", force: :cascade do |t|
     t.integer  "school_class_id"
