@@ -6,7 +6,8 @@ class Student < ActiveRecord::Base
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true
-  validates :first_name, :last_name, :father_name, :mother_name, length: { minimum: 2 }
+  validates :first_name, :last_name, :father_name, length: { minimum: 2 }
+  validates :mother_name, length: { minimum: 2 }, allow_blank: true
 
   def classroom
     studyings.order(:beginning_date).last&.classroom
