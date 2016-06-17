@@ -22,6 +22,8 @@ Rails.application.routes.draw do
           get '/:date' => 'agendas#show_by_date', on: :collection, as: :date
           get '/:date/edit' => 'agendas#edit', on: :collection, as: :edit
         end
+
+        resources :exams, shallow: false
       end
       resources :subjects
     end

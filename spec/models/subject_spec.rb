@@ -11,4 +11,5 @@ RSpec.describe Subject, type: :model do
   it { should_not validate_presence_of :description }
   it { should belong_to :school_class }
   it { should have_many :teachings }
+  it { should have_many :exams }
 end

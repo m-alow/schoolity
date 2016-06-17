@@ -6,6 +6,7 @@ class Classroom < ActiveRecord::Base
   has_many :teachings
   has_many :timetables
   has_many :days
+  has_many :exams
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }
