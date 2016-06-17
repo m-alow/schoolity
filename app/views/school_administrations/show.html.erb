@@ -1,18 +1,28 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'School Admin' %>
 
-<p>
-  <strong>User:</strong>
-  <%= @school_administration.administrator.name %>
-</p>
+<% content_for :actions_list do %>
+  <li><%= link_to 'School Admins', school_school_administrations_path(@school) %></li>
+  <li><%= link_to 'Add New Admin', new_school_school_administration_path(@school) %></li>
 
-<p>
-  <strong>Email:</strong>
-  <%= @school_administration.administrator.email %>
-</p>
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
 
-<p>
-  <strong>School:</strong>
-  <%= @school_administration.administrated_school.name %>
-</p>
+<%= render layout: 'simple_panel' do %>
+  <div class="well well-sm close-well">
+    <%= @school_administration.administrator.name %>
+  </div>
 
-<%= link_to 'Back', school_school_administrations_path(@school) %>
+  <div class="well well-sm close-well">
+    <%= @school_administration.administrator.email %>
+  </div>
+
+  <div class="well well-sm close-well">
+    Admin at <%= link_to @school_administration.administrated_school.name, @school %>
+  </div>
+
+  <div class="well well-sm close-well">
+    Added since <%= time_ago_in_words @school_administration.created_at %>
+  </div>
+
+<% end %>

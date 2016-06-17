@@ -2,9 +2,11 @@
   <%= render 'shared/error_messages', resource: @school_administration %>
 
   <div class="form-inputs">
-    <%= label_tag :email, nil, class: 'control-label' %><br>
-    <%= email_field_tag :email, nil, class: 'form-control' %>
+    <%= simple_fields_for :administrator do |admin_fields| %>
+      <%= admin_fields.input :email, autofocus: true %>
+    <% end %>
   </div>
+
   <div class="form-actions">
     <%= f.button :submit, 'Submit' %>
   </div>

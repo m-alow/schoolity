@@ -25,7 +25,8 @@ class SchoolAdministrationsController < ApplicationController
   def create
     @school_administration = @school.school_administrations.build
     authorize @school_administration
-    @school_administration.administrator = User.find_by(email: params[:email])
+
+    @school_administration.administrator = User.find_by(email: params[:administrator][:email])
 
     if @school_administration.save
       redirect_to @school_administration, notice: 'School administration was successfully added.'

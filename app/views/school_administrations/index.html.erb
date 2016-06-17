@@ -1,7 +1,13 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'School Admins' %>
 
-<h1>Listing School Administrations</h1>
+<% content_for :actions_list do  %>
+  <li><%= link_to 'Add new admin', new_school_school_administration_path(@school) %></li>
 
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
 <table class="table">
   <thead>
     <tr>
@@ -22,7 +28,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New School administration', new_school_school_administration_path(@school) %>
+<% end %>

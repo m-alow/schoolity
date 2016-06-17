@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe SchoolAdministrationsController, type: :controller do
-  let(:valid_attributes) {  user.email }
-  let(:invalid_attributes) { 'non-existent@mail.com' }
+  let(:valid_attributes) { { email: user.email } }
+  let(:invalid_attributes) { { email: 'non-existent@mail.com' } }
 
   let(:school_administration) { create(:school_administration, administrated_school: school, administrator: school_admin) }
   let(:school) { create(:school, owner: owner) }
@@ -50,9 +50,7 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
 
   context 'authenticated user' do
     context 'not authorized' do
-      before do
-        sign_in user
-      end
+      before { sign_in user }
 
       describe 'GET #index' do
         it 'requires authorization' do
@@ -91,9 +89,7 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
     end
 
     context 'authorized' do
-      before do
-        sign_in owner
-      end
+      before { sign_in owner }
 
       describe 'GET #index' do
         it 'succeed' do
@@ -120,12 +116,12 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
         context 'with valid params' do
           it 'creates a new school administration' do
             expect {
-              post :create, school_id: school, email: valid_attributes
+              post :create, school_id: school, administrator: valid_attributes
             }.to change(SchoolAdministration, :count).by(1)
           end
 
           it 'redirects to the created school_class' do
-            post :create, school_id: school, email: valid_attributes
+            post :create, school_id: school, administrator: valid_attributes
             expect(response).to redirect_to(SchoolAdministration.last)
           end
         end
@@ -133,12 +129,12 @@ RSpec.describe SchoolAdministrationsController, type: :controller do
         context 'with invalid params' do
           it 'does not change the database' do
             expect {
-              post :create, school_id: school, email: invalid_attributes
+              post :create, school_id: school, administrator: invalid_attributes
             }.not_to change(SchoolAdministration, :count)
           end
 
           it "re-renders the 'new' template" do
-            post :create, school_id: school, email: invalid_attributes
+            post :create, school_id: school, administrator: invalid_attributes
             expect(response).to render_template('new')
           end
         end

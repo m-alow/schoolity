@@ -2,6 +2,9 @@
 
 <% content_for :actions_list do %>
   <li><%= link_to 'School admins', school_school_administrations_path(@school) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
