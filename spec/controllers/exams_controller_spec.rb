@@ -6,8 +6,8 @@ RSpec.describe ExamsController, type: :controller do
   let(:exam) { create :exam, classroom: classroom, subject: math }
   let(:student) { create(:studying, classroom: classroom).student }
 
-  let(:valid_attributes) { attributes_for(:exam).merge({ subject_id: math.id, grades: { '1' => { score: '5', student_id: student.id }} }) }
-  let(:invalid_attributes) { attributes_for(:exam, score: -1).merge({ subject_id: math.id, grades: { '1' => { score: '5', student_id: student.id }} }) }
+  let(:valid_attributes) { attributes_for(:exam).merge({ subject_id: math.id, grades_attributes: { '1' => { score: '5', student_id: student.id }} }) }
+  let(:invalid_attributes) { attributes_for(:exam, score: -1).merge({ subject_id: math.id, grades_attributes: { '1' => { score: '5', student_id: student.id }} }) }
 
   context 'guest' do
     describe 'GET #index' do
@@ -186,7 +186,7 @@ RSpec.describe ExamsController, type: :controller do
 
       describe 'PUT #update' do
         context 'with valid params' do
-          let(:new_attributes) { attributes_for(:exam, score: 20).merge({ subject_id: math.id , grades: {} }) }
+          let(:new_attributes) { attributes_for(:exam, score: 20).merge({ subject_id: math.id , grades_attributes: {} }) }
 
           it 'updates the requested exam' do
             put :update, id: exam, exam: new_attributes
@@ -196,7 +196,7 @@ RSpec.describe ExamsController, type: :controller do
 
           it 'updates the requested grades' do
             grade = exam.grades.create!(score: 12, student: student)
-            put :update, id: exam, exam: new_attributes.merge({ grades: { '1' => { score: 10, student_id: student.id } } })
+            put :update, id: exam, exam: new_attributes.merge({ grades_attributes: { '1' => { score: 10, student_id: student.id } } })
             grade.reload
             expect(grade.score).to eq 10
           end
@@ -209,13 +209,13 @@ RSpec.describe ExamsController, type: :controller do
 
         context 'with invalid params' do
           it 'does not updates the requested exam' do
-            put :update, id: exam, exam: invalid_attributes.merge({ score: 20, minimum_score: -2 , grades: {} })
+            put :update, id: exam, exam: invalid_attributes.merge({ score: 20, minimum_score: -2 , grades_attributes: {} })
             exam.reload
             expect(exam.score).not_to eq 20
           end
 
           it "re-renders the 'edit' template" do
-            put :update, id: exam, exam: invalid_attributes.merge({ grades: {} })
+            put :update, id: exam, exam: invalid_attributes.merge({ grades_attributes: {} })
             expect(response).to render_template('edit')
           end
         end

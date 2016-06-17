@@ -1,25 +1,21 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'Exams list' %>
 
-<h1>Listing Exams</h1>
+<% content_for :actions_list do  %>
+  <% if classroom_teacher? @classroom %>
+    <li><%= link_to 'New Exam', new_classroom_exam_path(@classroom) %></li>
+    <li class="divider"></li>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @exams.each do |exam| %>
-      <tr>
-        <td><%= link_to 'Show', exam %></td>
-        <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
-        <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
 
-<br>
-
-<%= link_to 'New Exam', new_exam_path %>
+<%= render layout: 'simple_panel' do %>
+  <% @exams.each do |exam| %>
+    <div class="well well-sm close-well">
+      <%= link_to exam.subject.name, exam %> <span class="pull-right"><%= time_tag exam.date %></span>
+    </div>
+  <% end %>
+<% end %>

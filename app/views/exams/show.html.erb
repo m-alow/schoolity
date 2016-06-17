@@ -1,4 +1,44 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'Exam' %>
 
-<%= link_to 'Edit', edit_exam_path(@exam) %> |
-<%= link_to 'Back', exams_path %>
+<% content_for :actions_list do  %>
+  <% if subject_teacher? @exam.subject, @classroom %>
+    <li><%= link_to 'Edit', edit_exam_path(@exam) %></li>
+    <li><%= link_to 'New Exam', new_classroom_exam_path(@classroom) %></li>
+    <li><%= link_to 'Delete', @exam, method: :delete, data: { confirm: 'Sure?' } %></li>
+    <li class="divider"></li>
+  <% end %>
+
+  <li><%= link_to 'Exams list', classroom_exams_path(@classroom) %></li>
+  <li class="divider"></li>
+
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="well well-sm well-title">Exam for classroom <%= @classroom.name%></div>
+  <div class="well well-sm close-well">On <%= time_tag @exam.date %></div>
+  <div class="well well-sm close-well">Subject: <%= @exam.subject.name %></div>
+  <div class="well well-sm close-well">Score: <%= @exam.score %></div>
+  <div class="well well-sm close-well">Minimum Score:  <%= @exam.minimum_score %></div>
+  <% unless @exam.description.nil? %>
+    <div class="well well-sm"><%= @exam.description.html_safe %></div>
+  <% end %>
+
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Score</th>
+    </thead>
+
+    <tbody>
+      <% @exam.grades.each do |grade| %>
+	<tr <%= grade.fail? ? "class=danger" : "" %>>
+	  <td><%= grade.student.name %></td>
+	  <td><%= grade.score %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

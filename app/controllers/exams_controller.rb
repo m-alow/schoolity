@@ -18,6 +18,8 @@ class ExamsController < ApplicationController
   def new
     @exam = @classroom.exams.build
     authorize @exam
+
+    @classroom.students.each { |student| @exam.grades.build student: student }
   end
 
   # GET /exams/1/edit
@@ -27,12 +29,12 @@ class ExamsController < ApplicationController
 
   # POST /classrooms/1/exams
   def create
-    @exam = @classroom.exams.build(exam_params)
+    @exam = @classroom.exams.build(create_exam_params)
     authorize @exam
 
-    params[:exam][:grades].each do |_, grade|
+    params[:exam][:grades_attributes].each do |_, grade|
       student = @classroom.students.find grade[:student_id]
-      @exam.grades.build score: grade[:score], student: student
+      @exam.grades << Grade.new(exam: @exam, score: grade[:score], student: student)
     end
 
     if @exam.save
@@ -46,15 +48,13 @@ class ExamsController < ApplicationController
   def update
     authorize @exam
 
-    @exam.transaction do
-      @exam.update exam_params
-      params[:exam][:grades].each do |_, grade|
-        student = @classroom.students.find grade[:student_id]
-        @exam.grades.find_by(student: student).update(score: grade[:score])
-      end
+    @exam.attributes = update_exam_params
+    params[:exam][:grades_attributes].each do |_, grade|
+      student = @classroom.students.find grade[:student_id]
+      @exam.grades.detect { |g| g.student_id == student.id }.score =  grade[:score]
     end
 
-    if @exam.valid?
+    if @exam.save
       redirect_to @exam, notice: 'Exam was successfully updated.'
     else
       render :edit
@@ -84,7 +84,11 @@ class ExamsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def exam_params
-      params.require(:exam).permit(:subject_id, :score, :minimum_score, :date)
+    def create_exam_params
+      params.require(:exam).permit(:subject_id, :score, :minimum_score, :date, :description)
+    end
+
+    def update_exam_params
+      params.require(:exam).permit(:score, :minimum_score, :date, :description)
     end
 end

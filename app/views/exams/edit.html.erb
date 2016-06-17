@@ -1,6 +1,49 @@
-<h1>Editing Exam</h1>
+<% provide :panel_title, 'Edit Exam' %>
 
-<%= render 'form' %>
+<% content_for :actions_list do  %>
+  <li><%= link_to 'Show', @exam %></li>
+  <li><%= link_to 'Exams list', classroom_exams_path(@classroom) %></li>
+  <li class="divider"></li>
 
-<%= link_to 'Show', @exam %> |
-<%= link_to 'Back', exams_path %>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= simple_form_for @exam do |f| %>
+    <div class="row">
+      <div class="col-sm-12">
+	<div class="well">
+	  <%= f.error_notification %>
+	  <%= f.input :score, autofocus: true %>
+	  <%= f.input :minimum_score%>
+	  <%= f.input :date %>
+	  <%= f.trix_editor :description %>
+	  <div class="form-inputs">
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <%= f.simple_fields_for :grades do |grade| %>
+	<div class="col-sm-12">
+	  <div class="well well-sm close-well">
+	    <%= grade.hidden_field :student_id %>
+	    <%= grade.label grade.object.student.name %>
+	    <%= grade.input :score, label: false %>
+	  </div>
+	</div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+	<div class="form-actions">
+	  <%= f.button :submit %>
+	</div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
