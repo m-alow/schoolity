@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616032615) do
+ActiveRecord::Schema.define(version: 20160617025309) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "student_id"
@@ -43,6 +43,20 @@ ActiveRecord::Schema.define(version: 20160616032615) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "exams", force: :cascade do |t|
+    t.integer  "classroom_id"
+    t.integer  "subject_id"
+    t.integer  "score"
+    t.integer  "minimum_score"
+    t.date     "date"
+    t.text     "description"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "exams", ["classroom_id"], name: "index_exams_on_classroom_id"
+  add_index "exams", ["subject_id"], name: "index_exams_on_subject_id"
+
   create_table "following_codes", force: :cascade do |t|
     t.integer  "student_id"
     t.string   "code"
@@ -64,6 +78,17 @@ ActiveRecord::Schema.define(version: 20160616032615) do
 
   add_index "followings", ["student_id"], name: "index_followings_on_student_id"
   add_index "followings", ["user_id"], name: "index_followings_on_user_id"
+
+  create_table "grades", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "student_id"
+    t.decimal  "score",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "grades", ["exam_id"], name: "index_grades_on_exam_id"
+  add_index "grades", ["student_id"], name: "index_grades_on_student_id"
 
   create_table "lessons", force: :cascade do |t|
     t.integer  "day_id"
