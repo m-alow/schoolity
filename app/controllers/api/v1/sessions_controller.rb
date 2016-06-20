@@ -1,4 +1,6 @@
 class Api::V1::SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_user_from_token!, only: [:create]
+
   def create
     user = User.find_by(email: params[:user][:email])
     if user.present? && user.valid_password?(params[:user][:password])

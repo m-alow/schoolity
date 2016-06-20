@@ -47,6 +47,10 @@ Rails.application.routes.draw do
       devise_scope :user do
         post '/sign_up' => 'registrations#create'
         post '/sign_in' => 'sessions#create'
+
+        namespace :parent do
+          resources :followings, only: [:index, :create, :destroy]
+        end
       end
     end
   end
