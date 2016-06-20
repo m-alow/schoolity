@@ -4,3 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/m-alow/schoolity/badges/gpa.svg)](https://codeclimate.com/github/m-alow/schoolity)
 
 Schoolity is a communication system between schools and parents.
+
+[Wiki] (../../wiki)
+
+[Json API Documentation] (../../wiki/API)
