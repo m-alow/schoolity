@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+rRails.application.routes.draw do
   get 'dashboard' => 'dashboard#index', as: 'dashboard'
   get 'dashboard' => 'dashboard#index', as: 'user_root'
 
@@ -39,6 +39,14 @@ Rails.application.routes.draw do
     put '/students/:student_id/activity' => 'activities#update', as: :student_activity
     resources :activities, only: [:index] do
       get :edit, on: :collection
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        post '/sign_up' => 'registrations#create'
+      end
     end
   end
 end

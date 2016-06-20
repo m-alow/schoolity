@@ -30,8 +30,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'active_model_serializers', '~> 0.10.0'
+
 gem 'devise', '~> 4.1.0'
 gem 'pundit', '~> 1.1.0'
+gem 'simple_token_authentication', '~> 1.13.0'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
