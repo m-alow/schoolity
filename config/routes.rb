@@ -1,4 +1,4 @@
-rRails.application.routes.draw do
+Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#index', as: 'dashboard'
   get 'dashboard' => 'dashboard#index', as: 'user_root'
 
@@ -46,6 +46,7 @@ rRails.application.routes.draw do
     namespace :v1 do
       devise_scope :user do
         post '/sign_up' => 'registrations#create'
+        post '/sign_in' => 'sessions#create'
       end
     end
   end
