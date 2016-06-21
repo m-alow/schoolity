@@ -1,3 +1,6 @@
+require 'day/on_date'
+require 'day/persisted_on_date'
+
 class AgendasController < ApplicationController
   before_action :set_day, only: [:update, :destroy]
   before_action :set_classroom, only: [:update, :destroy]
@@ -13,18 +16,14 @@ class AgendasController < ApplicationController
     authorize @classroom.days.build
 
     @date = params[:date].to_date
-    @day = @classroom.day_at @date
-    unless @day
-      timetable = @classroom.current_timetable
-      if timetable.present?
-        unless timetable.weekend? @date
-          @day = Day.make_with_lessons(classroom: @classroom, date: @date)
-        else
-          render :weekend
-        end
-      else
-        render :no_timetable
-      end
+    day_result = DayOnDate.new(@classroom).call @date
+    case day_result.status
+    when :study_day
+      @day = day_result.day
+    when :weekend
+      render :weekend
+    when :no_timetable
+      render :no_timetable
     end
   end
 
@@ -34,31 +33,21 @@ class AgendasController < ApplicationController
     redirect_to date_classroom_agendas_url(classroom_id: @classroom.id, date: date.to_param)
   end
 
-
-  # # GET /agendas/new
-  # def new
-  #   @agenda = Agenda.new
-  # end
-
   # GET /classrooms/1/agendas/2010-10-10/edit
   def edit
     @day = @classroom.days.build
     authorize @day
 
     @date = params[:date].to_date
-    @day = @classroom.day_at @date
 
-    unless @day.present?
-      timetable = @classroom.current_timetable
-      if timetable.present?
-        unless timetable.weekend? @date
-          @day = Day.make_with_lessons(classroom: @classroom, date: @date).tap { |day| day.save! }
-        else
-          render :weekend
-        end
-      else
-        render :no_timetable
-      end
+    day_result = PersistedDayOnDate.new(@classroom).call @date
+    case day_result.status
+    when :study_day
+      @day = day_result.day
+    when :weekend
+      render :weekend
+    when :no_timetable
+      render :no_timetable
     end
   end
 
@@ -78,9 +67,6 @@ class AgendasController < ApplicationController
   def destroy
     authorize @day
     redirect_to today_classroom_agendas_url(@classroom)
-
-    # @agenda.destroy
-    # redirect_to agendas_url, notice: 'Agenda was successfully destroyed.'
   end
 
   private
