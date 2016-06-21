@@ -8,7 +8,7 @@ module Api::V1
       date = "#{params[:year]}-#{params[:month]}-#{params[:day]}".to_date
       day_result = DayOnDate.new(student.classroom).call date
 
-      authorize day_result.day
+      authorize Day.new classroom: student.classroom
 
       case day_result.status
       when :study_day
