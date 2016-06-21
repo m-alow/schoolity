@@ -49,7 +49,9 @@ Rails.application.routes.draw do
         post '/sign_in' => 'sessions#create'
 
         namespace :parent do
-          resources :followings, only: [:index, :create, :destroy]
+          resources :followings, only: [:index, :create, :destroy], shallow: true do
+            get 'timetable' => 'timetables#current'
+          end
         end
       end
     end
