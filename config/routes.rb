@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         namespace :parent do
           resources :followings, only: [:index, :create, :destroy], shallow: true do
             get 'timetable' => 'timetables#current'
+            get 'agendas/:year-:month-:day' => 'agendas#show_by_date'
           end
         end
       end
