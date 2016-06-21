@@ -6,7 +6,7 @@ class LessonSerializer < ActiveModel::Serializer
   end
 
   def subject
-    object.subject.name
+    object.subject&.name
   end
 
   def student_id
