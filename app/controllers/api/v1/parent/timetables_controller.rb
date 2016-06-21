@@ -1,9 +1,9 @@
-module Api::V1::Parent
-  class TimetablesController < ::ApplicationController
+module Api::V1
+  class Parent::TimetablesController < ApiController
     def current
       following = Following.find params[:following_id]
       student = following.student
-      authorize student.classroom.timetables.build
+      authorize student.classroom.timetables.build classroom: student.classroom
 
       timetable = student.classroom.current_timetable
       if timetable.present?

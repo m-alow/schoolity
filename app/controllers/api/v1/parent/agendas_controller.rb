@@ -1,5 +1,7 @@
-module Api::V1::Parent
-  class AgendasController < ::ApplicationController
+require 'day/on_date'
+
+module Api::V1
+  class Parent::AgendasController < ApiController
     def show_by_date
       following = Following.find params[:following_id]
       student = following.student

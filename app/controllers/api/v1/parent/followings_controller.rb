@@ -1,5 +1,5 @@
 module Api::V1
-  class Parent::FollowingsController < ApplicationController
+  class Parent::FollowingsController < ApiController
     def index
       respond_to do |format|
         format.json { render json: current_user.followings }
