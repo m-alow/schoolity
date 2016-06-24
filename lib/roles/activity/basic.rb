@@ -24,9 +24,9 @@ module Roles
 
 
       def update_content **params
-        tap do |lesson|
-          lesson.notes = params[:notes] if params[:notes]
-          lesson.rating = params[:rating] if params[:rating]
+        tap do |activity|
+          activity.notes = params[:notes] if params[:notes]
+          activity.rating = params[:rating] if params[:rating]
         end
       end
     end
