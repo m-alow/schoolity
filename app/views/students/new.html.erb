@@ -1,7 +1,8 @@
 <% provide :panel_title, 'Add student' %>
 
 <% content_for :actions_list do %>
-  <li><%= link_to 'Students', school_students_path(@school) %></li>
+  <li><%= link_to 'Students list', school_students_path(@school) %></li>
+  <li><%= link_to 'School', @school %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>

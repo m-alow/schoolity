@@ -9,7 +9,6 @@ class StudentPage
 
   def self.visit_studyings_page(student)
     visit_page(student)
-    click_on 'Studyings'
+    click_on 'Studyings list'
   end
-
 end

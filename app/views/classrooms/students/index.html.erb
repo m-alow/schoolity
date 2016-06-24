@@ -1,31 +1,41 @@
-<h1>Listing Students</h1>
+<% provide :panel_title, 'Students list'  %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Father name</th>
-      <th>Mother name</th>
-      <th>Birthdate</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% content_for :actions_list do %>
+  <li><%= link_to 'New Student', new_classroom_student_path(@classroom) %></li>
 
-  <tbody>
-    <% @students.each do |student| %>
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do  %>
+  <div class="well">
+    <%= pluralize @students.count, 'student' %> in <%= @classroom.name %>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= link_to student.name, student %></td>
-        <td><%= student.father_name %></td>
-        <td><%= student.mother_name %></td>
-        <td><%= student.birthdate %></td>
-        <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<th>Name</th>
+	<th>Father name</th>
+	<th>Mother name</th>
+	<th>Birthdate</th>
+	<th colspan="2"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Student', new_classroom_student_path(@classroom) %>
+    <tbody>
+      <% @students.each do |student| %>
+	<tr>
+          <td><%= link_to student.name, student %></td>
+          <td><%= student.father_name %></td>
+          <td><%= student.mother_name %></td>
+          <td><%= student.birthdate %></td>
+          <td><%= link_to 'Edit', edit_student_path(student) %></td>
+          <td><%= link_to 'Delete', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

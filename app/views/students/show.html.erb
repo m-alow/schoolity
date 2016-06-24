@@ -1,50 +1,67 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, "Student: #{@student.name}" %>
 
-<p>
-  <strong>First name:</strong>
-  <%= @student.first_name %>
-</p>
+<% content_for :actions_list do  %>
+  <li><%= link_to 'Edit', edit_student_path(@student) %></li>
+  <li><%= link_to 'Students list', school_students_path(@school) %></li>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @student.last_name %>
-</p>
+  <li class="divider"></li>
+  <li><%= link_to 'Studyings', student_studyings_path(@student) %></li>
+  <li><%= link_to 'Add studying', new_student_studying_path(@student) %></li>
 
-<p>
-  <strong>Father name:</strong>
-  <%= @student.father_name %>
-</p>
-
-<p>
-  <strong>Mother name:</strong>
-  <%= @student.mother_name %>
-</p>
-
-<p>
-  <strong>Birthdate:</strong>
-  <%= @student.birthdate %>
-</p>
-
-<p>
-  <strong>School:</strong>
-  <%= link_to @student.school.name, @school %>
-</p>
-
-<% if @student.classroom %>
-<p>
-  <strong>Class:</strong>
-  <%= @student.classroom.school_class.name %>
-</p>
-
-<p>
-  <strong>Classroom:</strong>
-  <%= @student.classroom.name %>
-</p>
+  <li class="divider"></li>
+  <li><%= link_to 'Following codes', student_following_codes_path(@student) %></li>
+  <li><%= link_to 'Generate following code', student_following_codes_path(@student), method: :post %></li>
 <% end %>
 
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', school_students_path(@school) %> |
-<%= link_to 'Studyings', student_studyings_path(@student) %>
-<%= link_to 'Add studying', new_student_studying_path(@student) %> |
-<%= link_to 'Following codes', student_following_codes_path(@student) %> |
-<%= link_to 'Generate following code', student_following_codes_path(@student), method: :post %>
+<%= render layout: 'simple_panel' do %>
+  <%= render layout: 'accordion' do %>
+
+    <%= render layout: 'accordion_section', locals: { id: 'student_info', title: 'Student Information', show: true } do %>
+      <div class="well close-well">
+	<%= @student.name %>
+      </div>
+
+      <div class="well close-well">
+	<dl>
+	  <dt>Father name</dt>
+	  <dd><%= @student.father_name %></dd>
+	  <dt>Mother name</dt>
+	  <dd><%= @student.mother_name %></dd>
+      </div>
+
+      <div class="well close-well">
+	<dt>Birthdate</dt>
+	<%= @student.birthdate %>
+      </div>
+
+      <div class="well close-well">
+	<dt>School</dt>
+	<%= link_to @student.school.name, @school %>
+      </div>
+
+      <% if @student.classroom %>
+	<div class="well close-well">
+	  <dt>Class</dt>
+	  <%= link_to @student.classroom.school_class.name, @student.classroom.school_class %>
+
+	  <dt>Classroom</dt>
+	  <%= link_to @student.classroom.name, @student.classroom %>
+	</div>
+      <% end %>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { id: 'following_code', title: 'Following Codes', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Following Codes', student_following_codes_path(@student) %></li>
+	<li><%= link_to 'Generate Following Code', student_following_codes_path(@student), method: :post %></li>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { id: 'studyings', title: 'Studyings', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Studyings list', student_studyings_path(@student) %></li>
+	<li><%= link_to 'Add Studying', new_student_studying_path(@student) %></li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end  %>
