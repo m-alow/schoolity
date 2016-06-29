@@ -7,7 +7,7 @@
     Announcement for
     <% if announcement.for_school? %>
       <%= announcement.announceable.name %>
-    <% elsif anouncement.for_school_class? %>
+    <% elsif announcement.for_school_class? %>
       <%= announcement.announceable.school.name %> > <%= announcement.announceable.name %>
     <% elsif anouncement.for_classroom? %>
       <%= announcement.announceable.school.name %> > <%= announcement.announceable.school_class.name %> > <%= announcement.announceable.name %>

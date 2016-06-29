@@ -7,6 +7,12 @@ class EditAnnouncementForm
     self
   end
 
+  def self.visit_page_from_school_class announcement
+    AnnouncementPage.visit_page_from_school_class announcement
+    click_on 'Edit'
+    self
+  end
+
   def self.fill_in_with params = {}
     fill_in 'Title', with: params[:title]
     fill_in_trix_editor "announcement_body_trix_input_announcement_#{params[:id]}", params[:body]

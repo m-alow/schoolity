@@ -14,6 +14,13 @@
       </ul>
     <% end %>
 
+    <%= render layout: 'accordion_section', locals: { title: 'Announcements', id: 'announcements_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Announcements list', school_class_announcements_path(@school_class) %></li>
+	<li><%= link_to 'New Announcement', new_school_class_announcement_path(@school_class) %></li>
+      </ul>
+    <% end %>
+
     <%= render layout: 'accordion_section', locals: { title: 'Classrooms', id: 'classrooms_actions', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Classrooms list', school_class_classrooms_path(@school_class) %></li>
