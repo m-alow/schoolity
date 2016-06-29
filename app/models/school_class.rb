@@ -6,4 +6,8 @@ class SchoolClass < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_id }
+
+  def current_students
+    Student.where id: Studying.select(:student_id).where(classroom: classrooms)
+  end
 end
