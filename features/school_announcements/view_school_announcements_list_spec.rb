@@ -13,7 +13,7 @@ feature 'viewing school announcements list' do
     a3 = create(:school_announcement, announceable: school)
     another_announcement = create(:school_announcement)
 
-    SchoolAnnouncementsIndexPage.visit_page(school)
+    AnnouncementsIndexPage.visit_page_from_school(school)
 
     expect(page).to have_content a1.title
     expect(page).to have_content a2.title

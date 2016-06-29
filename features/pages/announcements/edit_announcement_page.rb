@@ -1,8 +1,8 @@
-class EditSchoolAnnouncementForm
+class EditAnnouncementForm
   extend Capybara::DSL
 
-  def self.visit_page announcement
-    SchoolAnnouncementPage.visit_page announcement
+  def self.visit_page_from_school announcement
+    AnnouncementPage.visit_page_from_school announcement
     click_on 'Edit'
     self
   end

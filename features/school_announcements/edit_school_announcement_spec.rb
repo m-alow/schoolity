@@ -9,8 +9,8 @@ feature 'edit school announcement' do
   scenario 'school admin can edits announcement' do
     sign_in_user school_admin
 
-    EditSchoolAnnouncementForm
-      .visit_page(announcement)
+    EditAnnouncementForm
+      .visit_page_from_school(announcement)
       .fill_in_with(
         { id: announcement.id,
           title: 'New building.',
@@ -25,8 +25,8 @@ feature 'edit school announcement' do
   scenario 'school admin cannot edit announcement with invalid data' do
     sign_in_user school_admin
 
-    EditSchoolAnnouncementForm
-      .visit_page(announcement)
+    EditAnnouncementForm
+      .visit_page_from_school(announcement)
       .fill_in_with(
         { id: announcement.id,
           title: '',

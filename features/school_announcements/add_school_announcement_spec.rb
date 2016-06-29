@@ -8,8 +8,8 @@ feature 'add school announcement' do
   scenario 'school admin can adds announcement' do
     sign_in_user school_admin
 
-    NewSchoolAnnouncementForm
-      .visit_page(school)
+    NewAnnouncementForm
+      .visit_page_from_school(school)
       .fill_in_with(
         { title: 'New building.',
           body: 'The school building has moved.'})
@@ -23,8 +23,8 @@ feature 'add school announcement' do
   scenario 'school admin cannot add announcement with invalid data' do
     sign_in_user school_admin
 
-    NewSchoolAnnouncementForm
-      .visit_page(school)
+    NewAnnouncementForm
+      .visit_page_from_school(school)
       .fill_in_with(
         { title: '',
           body: 'The school building has moved.'})

@@ -10,7 +10,7 @@ feature 'viewing a school announcement' do
 
     a = create(:school_announcement, announceable: school)
 
-    SchoolAnnouncementPage.visit_page a
+    AnnouncementPage.visit_page_from_school a
 
     expect(page).to have_content a.title
     expect(page).to have_content a.body

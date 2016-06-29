@@ -1,7 +1,7 @@
-class NewSchoolAnnouncementForm
+class NewAnnouncementForm
   extend Capybara::DSL
 
-  def self.visit_page school
+  def self.visit_page_from_school school
     SchoolPage.visit_page school
     click_on 'New Announcement'
     self
