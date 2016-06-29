@@ -1,0 +1,22 @@
+<% provide :panel_title, 'School Announcement'  %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Edit', edit_announcement_path(@announcement) %></li>
+  <li><%= link_to 'Announcements list', announcements_path(@announcement) %></li>
+
+  <li class="divider"></li>
+  <% if @announcement.for_school? %>
+    <li><%= link_to 'School', @announcement.announceable %></li>
+  <% elsif @announcement.for_school_class? %>
+    <li><%= link_to 'Class', @announcement.announceable %></li>
+    <li><%= link_to 'School', @announcement.announceable.school %></li>
+  <% elsif @announcement.for_classroom? %>
+    <li><%= link_to 'Classroom', @announcement.announceable %></li>
+    <li><%= link_to 'Class', @announcement.announceable.school_class %></li>
+    <li><%= link_to 'School', @announcement.announceable.school %></li>
+  <% end %>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render 'announcements/announcement', announcement: @announcement %>
+<% end %>

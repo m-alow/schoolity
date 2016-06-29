@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :schools, shallow: true do
     put 'activation', action: :activate, on: :member
     resources :school_classes do
-      resources :classrooms do
+      resources :classrooms, shallow: true do
         resources :students, only: [:index, :new, :create], controller: 'classrooms/students'
         resources :teachings
         resources :following_codes, only: [:index, :create], controller: 'classrooms/following_codes'
@@ -25,14 +25,15 @@ Rails.application.routes.draw do
 
         resources :exams, shallow: false
       end
-      resources :subjects
+      resources :subjects, shallow: true
+      resources :announcements, module: :school_classes, only: [:index, :new, :create]
     end
     resources :students do
       resources :studyings
       resources :following_codes, only: [:index, :show, :create, :destroy], controller: 'students/following_codes'
     end
     resources :school_administrations, except: [:edit, :update]
-    resources :announcements, module: :schools
+    resources :announcements, module: :schools, only: [:index, :new, :create]
   end
 
   resources :followings, except: [:edit, :update]
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
       get :edit, on: :collection
     end
   end
+
+  resources :announcements, only: [:show, :edit, :update, :destroy]
 
   namespace :api do
     namespace :v1 do
