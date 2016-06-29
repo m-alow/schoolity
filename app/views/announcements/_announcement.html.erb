@@ -1,0 +1,20 @@
+<div>
+  <div class="well well-sm well-title">
+    <%= announcement.title %>
+  </div>
+
+  <div class="well well-sm close-well">
+    Announcement for
+    <% if announcement.for_school? %>
+      <%= link_to announcement.announceable.name, announcement.announceable %>
+    <% end %>
+  </div>
+
+  <div class="well close-well">
+    <%= announcement.body.html_safe %>
+  </div>
+
+  <div class="well well-sm">
+    Published on <%= time_tag announcement.created_at %>
+  </div>
+</div>

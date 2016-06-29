@@ -1,4 +1,13 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'School Announcement'  %>
 
-<%= link_to 'Edit', edit_schools_announcement_path(@schools_announcement) %> |
-<%= link_to 'Back', schools_announcements_path %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Edit', edit_announcement_path(@announcement) %></li>
+  <li><%= link_to 'Announcements list', school_announcements_path(@school) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render 'announcements/announcement', announcement: @announcement %>
+<% end %>

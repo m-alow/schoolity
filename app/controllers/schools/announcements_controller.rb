@@ -6,7 +6,7 @@ class Schools::AnnouncementsController < ApplicationController
   # GET /schools/1/announcements
   def index
     SchoolAnnouncementPolicy.new(current_user, @school).authorize_action(:index?)
-    @schools_announcements = @school.announcements
+    @announcements = @school.announcements
   end
 
   # GET /announcements/1

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :announcement do
-    title "MyString"
-    body "MyText"
+    title { Faker::Lorem.sentence }
+    body { Faker::Lorem.sentence }
     association :author, factory: :user
 
     factory :school_announcement do

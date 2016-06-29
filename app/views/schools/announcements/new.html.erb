@@ -1,5 +1,12 @@
-<h1>New Schools Announcement</h1>
+<% provide :panel_title, 'New Announcement' %>
 
-<%= render 'form' %>
+<% content_for :actions_list do %>
+  <li><%= link_to 'Announcements list', school_announcements_path(@school) %></li>
 
-<%= link_to 'Back', schools_announcements_path %>
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
+<% end  %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= render 'announcements/new_form', announceable: @school, announcement: @announcement %>
+<% end %>

@@ -1,25 +1,29 @@
-<p id="notice"><%= notice %></p>
+<% provide :panel_title, 'Announcements list' %>
 
-<h1>Listing Schools Announcements</h1>
+<% content_for :actions_list do %>
+  <li><%= link_to 'New Announcement', new_school_announcement_path(@school) %></li>
 
-<table>
+  <li class="divider"></li>
+  <li><%= link_to 'School', @school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Title</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @schools_announcements.each do |schools_announcement| %>
+    <% @announcements.each do |announcement| %>
       <tr>
-        <td><%= link_to 'Show', schools_announcement %></td>
-        <td><%= link_to 'Edit', edit_schools_announcement_path(schools_announcement) %></td>
-        <td><%= link_to 'Destroy', schools_announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td><%= link_to announcement.title, announcement %></td>
+        <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+        <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Announcement', new_schools_announcement_path %>
+<% end %>
