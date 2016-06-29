@@ -25,4 +25,5 @@ RSpec.describe SchoolClass, type: :model do
   end
 
   it { should have_many :subjects }
+  it { should have_many :announcements }
 end

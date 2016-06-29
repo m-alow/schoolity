@@ -8,4 +8,6 @@ RSpec.describe School, type: :model do
   it 'is invalid without a name' do
     expect(build(:school, name: nil)).to be_invalid
   end
+
+  it { should have_many :announcements }
 end

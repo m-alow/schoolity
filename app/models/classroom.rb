@@ -7,6 +7,7 @@ class Classroom < ActiveRecord::Base
   has_many :timetables
   has_many :days
   has_many :exams
+  has_many :announcements, as: :announceable
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }
