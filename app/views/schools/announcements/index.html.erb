@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Schools Announcements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @schools_announcements.each do |schools_announcement| %>
+      <tr>
+        <td><%= link_to 'Show', schools_announcement %></td>
+        <td><%= link_to 'Edit', edit_schools_announcement_path(schools_announcement) %></td>
+        <td><%= link_to 'Destroy', schools_announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Announcement', new_schools_announcement_path %>

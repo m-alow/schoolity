@@ -25,12 +25,20 @@ class User < ActiveRecord::Base
     self == school.owner
   end
 
+  def authors? announcement
+    self == announcement.author
+  end
+
   def follows? student
     followings.exists? student: student
   end
 
   def follows_student_in_classroom? classroom
     classroom.students.exists? id: self.followings.select(:student_id)
+  end
+
+  def follows_student_in_school? school
+    school.students.exists? id: self.followings.select(:student_id)
   end
 
   def teaches_in_classroom? classroom
