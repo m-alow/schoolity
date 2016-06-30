@@ -12,4 +12,11 @@ class AnnouncementPage
     click_on announcement.title
     self
   end
+
+
+  def self.visit_page_from_classroom announcement
+    AnnouncementsIndexPage.visit_page_from_classroom announcement.announceable
+    click_on announcement.title
+    self
+  end
 end

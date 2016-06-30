@@ -33,6 +33,13 @@
       </ul>
     <% end %>
 
+    <%= render layout: 'accordion_section', locals: { title: 'Announcements', id: 'announcements_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to "New Announcement", new_classroom_announcement_url(@classroom) %></li>
+	<li><%= link_to 'Announcements list', classroom_announcements_url(@classroom) %></li>
+      </ul>
+    <% end %>
+
     <%= render layout: 'accordion_section', locals: { title: 'Students', id: 'students_actions', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Students list', classroom_students_path(@classroom) %></li>

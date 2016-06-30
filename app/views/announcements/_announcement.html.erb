@@ -9,7 +9,7 @@
       <%= announcement.announceable.name %>
     <% elsif announcement.for_school_class? %>
       <%= announcement.announceable.school.name %> > <%= announcement.announceable.name %>
-    <% elsif anouncement.for_classroom? %>
+    <% elsif announcement.for_classroom? %>
       <%= announcement.announceable.school.name %> > <%= announcement.announceable.school_class.name %> > <%= announcement.announceable.name %>
     <% end %>
   </div>

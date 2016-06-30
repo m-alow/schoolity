@@ -12,4 +12,10 @@ class AnnouncementsIndexPage
     click_on 'Announcements list'
     self
   end
+
+  def self.visit_page_from_classroom classroom
+    ClassroomPage.visit_page classroom
+    click_on 'Announcements list'
+    self
+  end
 end
