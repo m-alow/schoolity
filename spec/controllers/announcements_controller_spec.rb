@@ -141,8 +141,9 @@ RSpec.describe AnnouncementsController, type: :controller do
           expect(response).to redirect_to(school_class_announcements_url(announcement.announceable))
         end
 
-        xit 'redirects to the classroom announcements list if announceable is classroom' do
-          announcement = create(:classroom_announcement, author: user)
+        it 'redirects to the classroom announcements list if announceable is classroom' do
+          classroom = create(:classroom, school_class: create(:school_class, school: school))
+          announcement = create(:classroom_announcement, author: user, announceable: classroom)
           delete :destroy, id: announcement
           expect(response).to redirect_to(classroom_announcements_url(announcement.announceable))
         end

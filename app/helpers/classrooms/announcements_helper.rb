@@ -1,0 +1,2 @@
+module Classrooms::AnnouncementsHelper
+end

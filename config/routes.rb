@@ -24,6 +24,8 @@ Rails.application.routes.draw do
         end
 
         resources :exams, shallow: false
+
+        resources :announcements, module: :classrooms, only: [:index, :new, :create]
       end
       resources :subjects, shallow: true
       resources :announcements, module: :school_classes, only: [:index, :new, :create]
