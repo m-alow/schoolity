@@ -9,7 +9,7 @@ module Api::V1
       if timetable.present?
         render json: timetable, status: :ok
       else
-        render json: 'There is no timetable.', status: :not_found
+        render json: { errors: ['There is no timetable.'] }, status: :not_found
       end
     end
   end

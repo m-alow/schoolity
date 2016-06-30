@@ -7,7 +7,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       user.update(authentication_token: nil) if user.authentication_token.nil?
       render json: user, status: :ok
     else
-      render json: { errors: 'Invalid email an password combination.' }, status: :unprocessable_entity
+      render json: { errors: ['Invalid email an password combination.'] }, status: :unprocessable_entity
     end
   end
 end

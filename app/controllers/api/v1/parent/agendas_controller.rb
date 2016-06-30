@@ -14,9 +14,9 @@ module Api::V1
       when :study_day
         render json: day_result.day, status: :ok, student_id: student.id
       when :weekend
-        render json: 'Weekend', status: :not_found
+        render json: { errors: ['Weekend'] }, status: :not_found
       when :no_timetable
-        render json: 'There is no timetable.', status: :not_found
+        render json: { errors: ['There is no timetable.'] }, status: :not_found
       end
     end
   end

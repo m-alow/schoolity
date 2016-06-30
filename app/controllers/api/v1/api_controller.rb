@@ -13,11 +13,11 @@ class Api::V1::ApiController < ActionController::Base
   private
 
   def user_not_authorized
-    render json: 'You are not authorized.', status: :forbidden
+    render json: { errors: ['You are not authorized.'] }, status: :forbidden
   end
 
   def record_not_found
-    render json: 'Not found.', status: :not_found
+    render json: { errors: ['Not found.'] }, status: :not_found
   end
 
   def authenticate_user_from_token!
@@ -27,7 +27,7 @@ class Api::V1::ApiController < ActionController::Base
     if user.present? && Devise.secure_compare(user.authentication_token, user_token)
       return true
     else
-      render json: { errors: 'Invalid email and token combination.' }, status: :unauthorized
+      render json: { errors: ['Invalid email and token combination.'] }, status: :unauthorized
     end
   end
 

@@ -7,7 +7,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       render json: user
     else
       warden.custom_failure!
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: user.errors.full_messages }, status: 422
     end
   end
 

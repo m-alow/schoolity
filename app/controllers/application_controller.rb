@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       if user.present? && Devise.secure_compare(user.authentication_token, user_token)
         return true
       else
-        render json: { errors: 'Invalid email and token combination.' }, status: :unauthorized
+        render json: { errors: ['Invalid email and token combination.'] }, status: :unauthorized
       end
     end
   end
