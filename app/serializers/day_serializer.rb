@@ -6,7 +6,7 @@ class DaySerializer < ActiveModel::Serializer
     {
       id: object.classroom.id,
       name: object.classroom.name,
-      class: object.classroom.school_class.name,
+      school_class: object.classroom.school_class.name,
       school: object.classroom.school.name
     }
   end
