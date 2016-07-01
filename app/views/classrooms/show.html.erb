@@ -1,7 +1,11 @@
 <% provide :panel_title, "Classroom: #{@classroom.name}" %>
 
 <% content_for :actions_list do %>
-  <li><%= link_to "Today's Agenda", today_classroom_agendas_path(@classroom) %></li>
+  <li><%= link_to 'Edit', edit_classroom_path(@classroom) %></li>
+  <li><%= link_to 'Classrooms list', school_class_classrooms_path(@school_class) %></li>
+
+  <li class="divider"></li>
+    <li><%= link_to "Today's Agenda", today_classroom_agendas_path(@classroom) %></li>
   <li><%= link_to 'Current Timetable', current_classroom_timetables_path(@classroom) %></li>
 
   <li class="divider"></li>
@@ -11,15 +15,7 @@
 
 <%= render layout: 'simple_panel' do %>
   <%= render layout: 'accordion' do %>
-
-    <%= render layout: 'accordion_section', locals: { title: 'Classroom', id: 'classroom_actions', show: true } do %>
-      <ul class="nav nav-pills nav-stacked">
-	<li><%= link_to 'Edit', edit_classroom_path(@classroom) %></li>
-	<li><%= link_to 'Classrooms list', school_class_classrooms_path(@school_class) %></li>
-      </ul>
-    <% end %>
-
-    <%= render layout: 'accordion_section', locals: { title: 'Agendas', id: 'agendas_actions', show: false } do %>
+    <%= render layout: 'accordion_section', locals: { title: 'Agendas', id: 'agendas_actions', show: true } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to "Today's agenda", today_classroom_agendas_path(@classroom) %></li>
 	<li><%= link_to 'Agendas calendar', classroom_agendas_path(@classroom) %></li>

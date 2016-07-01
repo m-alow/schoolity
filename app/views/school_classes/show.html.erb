@@ -1,20 +1,17 @@
 <% provide :panel_title, "Class: #{@school_class.name}" %>
 
 <% content_for :actions_list do %>
+  <li><%= link_to 'Edit', edit_school_class_path(@school_class) %></li>
+  <li><%= link_to 'Classes list', school_school_classes_path(@school) %></li>
+
+  <li class="divider"></li>
   <li><%= link_to 'School', @school %></li>
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
   <%= render layout: 'accordion' do %>
 
-    <%= render layout: 'accordion_section', locals: { title: 'Class', id: 'school_class_actions', show: true } do %>
-      <ul class="nav nav-pills nav-stacked">
-	<li><%= link_to 'Edit', edit_school_class_path(@school_class) %></li>
-	<li><%= link_to 'Classes list', school_school_classes_path(@school) %></li>
-      </ul>
-    <% end %>
-
-    <%= render layout: 'accordion_section', locals: { title: 'Announcements', id: 'announcements_actions', show: false } do %>
+    <%= render layout: 'accordion_section', locals: { title: 'Announcements', id: 'announcements_actions', show: true } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Announcements list', school_class_announcements_path(@school_class) %></li>
 	<li><%= link_to 'New Announcement', new_school_class_announcement_path(@school_class) %></li>
