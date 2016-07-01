@@ -15,9 +15,9 @@ RSpec.describe Teacher::PanelController, type: :controller do
       before { sign_in create(:user) }
 
       describe 'GET #index' do
-        it 'renders :non_teacher' do
+        it 'requires a teacher' do
           get :index
-          expect(response).to render_template 'non_teacher'
+          expect(response).to require_teacher
         end
       end
     end
