@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   end
 
   def teaches_subject_in_classroom? subject, classroom
+    return false unless subject
     teachings.exists?(classroom: classroom, subject: subject) || teachings.exists?(classroom: classroom, all_subjects: true)
   end
 
