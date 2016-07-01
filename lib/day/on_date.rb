@@ -2,11 +2,7 @@ class DayOnDate
   PresentDay = Struct.new(:status, :day)
   AbsentDay = Struct.new(:status)
 
-  def initialize classroom
-    @classroom = classroom
-  end
-
-  def call date
+  def call classroom, date
     day = classroom.day_at date
     return PresentDay.new(:study_day, day) if day.present?
 

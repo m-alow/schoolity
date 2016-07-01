@@ -16,7 +16,7 @@ class AgendasController < ApplicationController
     authorize @classroom.days.build
 
     @date = params[:date].to_date
-    day_result = DayOnDate.new(@classroom).call @date
+    day_result = DayOnDate.new.call @classroom, @date
     case day_result.status
     when :study_day
       @day = day_result.day
@@ -40,7 +40,7 @@ class AgendasController < ApplicationController
 
     @date = params[:date].to_date
 
-    day_result = PersistedDayOnDate.new(@classroom).call @date
+    day_result = PersistedDayOnDate.new.call @classroom, @date
     case day_result.status
     when :study_day
       @day = day_result.day

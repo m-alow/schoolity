@@ -6,7 +6,7 @@ module Api::V1
       following = Following.find params[:following_id]
       student = following.student
       date = "#{params[:year]}-#{params[:month]}-#{params[:day]}".to_date
-      day_result = DayOnDate.new(student.classroom).call date
+      day_result = DayOnDate.new.call student.classroom, date
 
       authorize Day.new classroom: student.classroom
 
