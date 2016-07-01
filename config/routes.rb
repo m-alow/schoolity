@@ -48,6 +48,10 @@ Rails.application.routes.draw do
 
   resources :announcements, only: [:show, :edit, :update, :destroy]
 
+  namespace :teacher do
+    get '/' => 'panel#index'
+  end
+
   namespace :api do
     namespace :v1 do
       devise_scope :user do

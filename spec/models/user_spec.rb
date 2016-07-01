@@ -52,6 +52,18 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#teacher?' do
+    it 'returns true if he teaches in some classroom' do
+      user = create(:teaching).teacher
+      expect(user.teacher?).to be true
+    end
+
+    it 'returns false if he is not teaching at all' do
+      user = create(:user)
+      expect(user.teacher?).to be false
+    end
+  end
+
   describe 'teaches' do
     let(:school) { build(:active_school) }
     let(:school_class) { build(:school_class, school: school) }

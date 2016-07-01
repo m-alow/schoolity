@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     followings.exists? student_id: school_class.current_students
   end
 
+  def teacher?
+    !teachings.empty?
+  end
+
   def teaches_in_classroom? classroom
     teachings.exists? classroom: classroom
   end
