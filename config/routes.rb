@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get '/' => 'panel#index'
+    resources :agendas, param: :date, only: [:index, :show, :edit]
   end
 
   namespace :api do

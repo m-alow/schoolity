@@ -5,5 +5,15 @@
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
+  <%= render layout: 'accordion' do %>
 
+    <%= render layout: 'accordion_section', locals: { title: 'Agendas', id: 'agendas_actions', show: true } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to "Edit Today's Agenda", edit_teacher_agenda_path(Date.current.to_param) %></li>
+	<li><%= link_to "Today's Agenda", teacher_agenda_path(Date.current.to_param) %></li>
+	<li><%= link_to "Agendas Calendar", teacher_agendas_path %></li>
+      </ul>
+    <% end %>
+
+  <% end %>
 <% end %>
