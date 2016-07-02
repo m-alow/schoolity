@@ -3,6 +3,9 @@
 <% content_for :actions_list do  %>
   <li><%= link_to 'Edit', edit_teacher_agenda_path(@date) %></li>
   <li><%= link_to 'Agendas Calendar', teacher_agendas_path %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Teacher Panel', teacher_path %></li>
 <% end %>
 
 <%= render layout: 'wide_panel' do %>

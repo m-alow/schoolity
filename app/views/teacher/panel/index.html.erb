@@ -15,5 +15,11 @@
       </ul>
     <% end %>
 
+    <%= render layout: 'accordion_section', locals: { title: 'Exams', id: 'exams_actions', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Exams', teacher_exams_path %>
+      </ul>
+    <% end %>
+
   <% end %>
 <% end %>

@@ -8,6 +8,13 @@ RSpec.describe Teacher::PanelController, type: :controller do
         expect(response).to require_login
       end
     end
+
+    describe 'GET #exams' do
+      it 'requires login' do
+        get :exams
+        expect(response).to require_login
+      end
+    end
   end
 
   context 'authenticated user' do
@@ -17,6 +24,13 @@ RSpec.describe Teacher::PanelController, type: :controller do
       describe 'GET #index' do
         it 'requires a teacher' do
           get :index
+          expect(response).to require_teacher
+        end
+      end
+
+      describe 'GET #exams' do
+        it 'requires a teacher' do
+          get :exams
           expect(response).to require_teacher
         end
       end
@@ -31,6 +45,13 @@ RSpec.describe Teacher::PanelController, type: :controller do
         it 'renders :index' do
           get :index
           expect(response).to render_template 'index'
+        end
+      end
+
+      describe 'GET #exams' do
+        it 'renders :exams' do
+          get :exams
+          expect(response).to render_template 'exams'
         end
       end
     end
