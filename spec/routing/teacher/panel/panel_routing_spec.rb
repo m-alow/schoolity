@@ -9,5 +9,9 @@ RSpec.describe Teacher::PanelController, type: :routing do
     it 'routes to #exams' do
       expect(get: 'teacher/exams').to route_to('teacher/panel#exams')
     end
+
+    it 'routes to #announcements' do
+      expect(get: 'teacher/announcements').to route_to('teacher/panel#announcements')
+    end
   end
 end

@@ -1,0 +1,25 @@
+<% provide :panel_title, 'Announcements' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Teacher Panel', teacher_path %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="row">
+    <div class="col-xs-7">
+      <ul class="nav nav-stacked">
+	<% @classrooms.each do |c| %>
+	  <li><%= link_to qualified_classroom_name(c), classroom_announcements_path(c) %></li>
+	<% end %>
+      </ul>
+    </div>
+
+    <div class="col-xs-5">
+      <ul class="nav nav-stacked">
+	<% @classrooms.each do |c| %>
+	  <li><%= link_to 'New', new_classroom_announcement_path(c) %></li>
+	<% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

@@ -15,9 +15,15 @@
       </ul>
     <% end %>
 
-    <%= render layout: 'accordion_section', locals: { title: 'Exams', id: 'exams_actions', show: false } do %>
+    <%= render layout: 'accordion_section', locals: { title: 'Exams', id: 'exams_actions', show: true } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Exams', teacher_exams_path %>
+      </ul>
+    <% end %>
+
+    <%= render layout: 'accordion_section', locals: { title: 'Announcements', id: 'announcements_actions', show: true } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Announcements', teacher_announcements_path %>
       </ul>
     <% end %>
 
