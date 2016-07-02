@@ -32,12 +32,14 @@
 	    <div class="well well-sm well-title">
 	      #<%= lesson.order %> <%= lesson.subject.name %>
 	      <% if lesson.persisted? %>
-		<%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
-		<%= link_to 'Activities', lesson_activities_path(lesson) %>
+		<div class="pull-right">
+		  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
+		  <%= link_to 'Activities', lesson_activities_path(lesson) %>
+		</div>
 	      <% end %>
 	    </div>
 
-	    <div class="well">
+	    <div id="classroom-<%= cl.classroom.id %>-lesson-<%= lesson.order %>" class="well">
 	      <%= render 'lessons/content', lesson: lesson %>
 	    </div>
 	  </div>

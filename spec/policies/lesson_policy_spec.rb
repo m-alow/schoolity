@@ -12,7 +12,7 @@ RSpec.describe LessonPolicy do
 
   subject { described_class }
 
-  permissions :update? do
+  permissions :update?, :update_qualified? do
     it 'prevents school owner' do
       expect(subject).not_to permit(owner, lesson)
     end

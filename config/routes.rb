@@ -26,6 +26,8 @@ Rails.application.routes.draw do
         resources :exams, shallow: false
 
         resources :announcements, module: :classrooms, only: [:index, :new, :create]
+
+        put '/lessons/:date/:order' => 'lessons#update_qualified', as: :update_lesson
       end
       resources :subjects, shallow: true
       resources :announcements, module: :school_classes, only: [:index, :new, :create]

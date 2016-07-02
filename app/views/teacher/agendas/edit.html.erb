@@ -1,0 +1,61 @@
+<% provide :panel_title, 'Edit Agenda' %>
+
+<% content_for :actions_list do  %>
+  <li><%= link_to 'Show', teacher_agenda_path(@date) %></li>
+  <li><%= link_to 'Agendas Calendar', teacher_agendas_path %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well well-sm">
+    Agenda on <%= time_tag @date %>
+  </div>
+
+  <div class="well well-sm">
+    <ul class="nav nav-stacked">
+      <% @classrooms_with_lessons.map(&:classroom).each do |c|  %>
+	<li><%= link_to qualified_classroom_name(c), "#classroom-#{c.id}" %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <% @classrooms_with_lessons.each do |cl| %>
+    <div id="classroom-<%= cl.classroom.id %>" class="panel panel-success">
+      <div class="panel-heading">
+	<h6>
+	  <%= qualified_classroom_name cl.classroom %>
+	</h6>
+      </div>
+
+      <div class="panel-body">
+	<% cl.lessons.each do |lesson| %>
+	  <div>
+	    <div class="well well-sm well-title">
+	      #<%= lesson.order %> <%= lesson.subject.name %>
+	      <% if lesson.persisted? %>
+		<div class="pull-right">
+		  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
+		  <%= link_to 'Activities', lesson_activities_path(lesson) %>
+		</div>
+	      <% end %>
+	    </div>
+
+	    <div class="row">
+	      <div class="col-sm-6">
+		<div id="classroom-<%= cl.classroom.id %>-lesson-<%= lesson.order %>-form" class="well">
+		  <%= render 'lessons/qualified_content_form', lesson: lesson %>
+		</div>
+	      </div>
+
+	      <div class="col-sm-6">
+		<div id="classroom-<%= cl.classroom.id %>-lesson-<%= lesson.order%>" class="well">
+		  <%= render 'lessons/content', lesson: lesson %>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	<% end %>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>

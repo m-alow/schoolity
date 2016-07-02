@@ -35,12 +35,12 @@ feature 'edit agenda' do
   scenario 'teacher edits lesson content' do
     sign_in_user teacher
 
-    EditAgendaForm
+    EditTeacherAgendaForm
       .visit_page(day)
       .fill_in_lesson_with(day.lessons.first, { title: 'Sum', summary: '1 + 1 = 6' })
       .submit_lesson(day.lessons.first)
 
-    within "#lesson-#{day.lessons.first.id}" do
+    within "#classroom-#{classroom.id}-lesson-#{day.lessons.first.order}" do
       expect(page).to have_content 'Sum'
       expect(page).to have_content '1 + 1 = 6'
     end

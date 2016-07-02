@@ -9,13 +9,12 @@ class Teacher::AgendasController < ApplicationController
 
   # GET /teacher/agendas/2010-10-5
   def show
-    @date = params[:date].to_date
-    @classrooms_with_lessons = classroom_with_lessons @date
-    flash.alert = 'There is nothing to do today.' if @classrooms_with_lessons.empty?
+    set_lessons
   end
 
   # GET /teacher/agendas/2010-10-5/edit
   def edit
+    set_lessons
   end
 
   private
@@ -27,5 +26,11 @@ class Teacher::AgendasController < ApplicationController
       .sort_by { |cl| [cl.classroom.school,
                        cl.classroom.school_class,
                        cl.classroom] }
+  end
+
+  def set_lessons
+    @date = params[:date].to_date
+    @classrooms_with_lessons = classroom_with_lessons @date
+    flash.alert = 'There is nothing to do today.' if @classrooms_with_lessons.empty?
   end
 end
