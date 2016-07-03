@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     resources :agendas, param: :date, only: [:index, :show, :edit]
   end
 
+  namespace :parent do
+    get '/' => 'panel#index', as: :panel
+  end
+
   namespace :api do
     namespace :v1 do
       devise_scope :user do

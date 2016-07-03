@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     self == announcement.author
   end
 
+  def parent?
+    !followings.empty?
+  end
+
   def follows? student
     followings.exists? student: student
   end
