@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def parent_notifications
-    notifications.where recipient_role: 'Follower'
+    notifications.where(recipient_role: 'Follower').order(updated_at: :desc)
   end
 
   def parent_feed
