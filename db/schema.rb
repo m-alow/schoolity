@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703071035) do
+ActiveRecord::Schema.define(version: 20160703144649) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "student_id"
@@ -120,7 +120,6 @@ ActiveRecord::Schema.define(version: 20160703071035) do
     t.string   "notifiable_type"
     t.integer  "recipient_id"
     t.string   "recipient_role"
-    t.integer  "actor_id"
     t.datetime "read_at"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

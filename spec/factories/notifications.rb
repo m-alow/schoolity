@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :notification do
     association :recipient, factory: :user
-    association :actor, factory: :user
     recipient_role 'Follower'
     read_at  { Faker::Time.backward }
 

@@ -25,8 +25,7 @@ class Classrooms::AnnouncementsController < ApplicationController
       followers_scope.call(@classroom).each do |user|
         Notification.create notifiable: @announcement,
                             recipient: user,
-                            recipient_role: followers_scope.role,
-                            actor: current_user
+                            recipient_role: followers_scope.role
       end
 
       redirect_to @announcement, notice: 'Announcement was successfully created.'
