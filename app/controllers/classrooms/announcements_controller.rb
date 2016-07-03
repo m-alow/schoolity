@@ -1,4 +1,6 @@
 require_dependency 'scope/classroom/followers'
+require_dependency 'notifier/notify'
+require_dependency 'notifier/publishers/persist/create'
 
 class Classrooms::AnnouncementsController < ApplicationController
   before_action :set_classroom_from_params, only: [:index, :new, :create]
@@ -21,12 +23,10 @@ class Classrooms::AnnouncementsController < ApplicationController
     authorize @announcement
 
     if @announcement.save
-      followers_scope = Scope::Classroom::Followers.new
-      followers_scope.call(@classroom).each do |user|
-        Notification.create notifiable: @announcement,
-                            recipient: user,
-                            recipient_role: followers_scope.role
-      end
+      Notify
+        .new(Scope::Classroom::Followers.new(@classroom),
+             [Notifier::Publishers::Persist::Create.new])
+        .call @announcement
 
       redirect_to @announcement, notice: 'Announcement was successfully created.'
     else
