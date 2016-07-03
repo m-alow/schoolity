@@ -72,6 +72,13 @@ body { padding-top: $navbar-height + 25; }
     margin-bottom: 3px;
 }
 
+.time-header {
+    margin-bottom: 1px;
+    padding: 4px;
+    padding-left: 10px;
+    background: lighten($brand-primary, 20%);
+}
+
 .collection_radio_buttons {
     margin-right: 12px;
 }

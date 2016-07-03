@@ -5,5 +5,8 @@
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
-
+  <ul class="nav nav-stacked">
+    <li><%= link_to 'Feed', parent_feed_path %></li>
+    <li><%= link_to 'Follow a student', new_following_path %></li>
+  </ul>
 <% end %>

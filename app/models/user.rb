@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     !followings.empty?
   end
 
+  def parent_notifications
+    notifications.where recipient_role: 'Follower'
+  end
+
+  def parent_feed
+    parent_notifications.includes(:notifiable).map(&:notifiable)
+  end
+
   def follows? student
     followings.exists? student: student
   end

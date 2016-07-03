@@ -22,6 +22,7 @@ class FollowingsController < ApplicationController
   # POST /followings
   def create
     authorize Following
+
     @following = current_user.follow_student(
       code: params[:following_code],
       relationship: params[:following][:relationship],

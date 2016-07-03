@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def render_object object
+    name = object.class.name.underscore
+    render "#{name.pluralize}/#{name}", name.to_sym => object
+  end
+
   def flash_class(level)
     type = ''
     type = 'info' if level == :notice
