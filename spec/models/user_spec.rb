@@ -23,6 +23,7 @@ RSpec.describe User, type: :model do
   end
 
   it { should have_many :teachings }
+  it { should have_many :notifications }
 
   describe 'follows a student' do
     let(:user) { build(:user) }

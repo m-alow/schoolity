@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :administrated_schools, through: :school_administrations, class_name: 'School', foreign_key: 'school_id'
   has_many :teachings
   has_many :followings
+  has_many :notifications, foreign_key: 'recipient_id'
 
   validates :first_name, presence: true
   validates :last_name, presence: true

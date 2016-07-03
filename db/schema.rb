@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629045913) do
+ActiveRecord::Schema.define(version: 20160703071035) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "student_id"
@@ -114,6 +114,19 @@ ActiveRecord::Schema.define(version: 20160629045913) do
 
   add_index "lessons", ["day_id"], name: "index_lessons_on_day_id"
   add_index "lessons", ["subject_id"], name: "index_lessons_on_subject_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.integer  "recipient_id"
+    t.string   "recipient_role"
+    t.integer  "actor_id"
+    t.datetime "read_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
 
   create_table "periods", force: :cascade do |t|
     t.integer  "timetable_id"
