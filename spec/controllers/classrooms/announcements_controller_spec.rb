@@ -97,6 +97,14 @@ RSpec.describe Classrooms::AnnouncementsController, type: :controller do
             post :create, classroom_id: classroom, announcement: valid_attributes
             expect(response).to redirect_to(Announcement.last)
           end
+
+          it 'notifies followers of students as follower' do
+            2.times { create(:following, student: create(:studying, classroom: classroom).student) }
+            expect {
+              post :create, classroom_id: classroom, announcement: valid_attributes
+            }.to change(Notification, :count).by(2)
+            expect(Notification.last.recipient_role).to eq 'Follower'
+          end
         end
 
         context 'with invalid params' do

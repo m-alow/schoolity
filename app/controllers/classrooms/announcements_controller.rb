@@ -1,3 +1,5 @@
+require_dependency 'scope/classroom/followers'
+
 class Classrooms::AnnouncementsController < ApplicationController
   before_action :set_classroom_from_params, only: [:index, :new, :create]
 
@@ -16,9 +18,17 @@ class Classrooms::AnnouncementsController < ApplicationController
   # POST /classroomes/1/announcements
   def create
     @announcement = @classroom.announcements.build(announcement_params)
-      authorize @announcement
+    authorize @announcement
 
     if @announcement.save
+      followers_scope = Scope::Classroom::Followers.new
+      followers_scope.call(@classroom).each do |user|
+        Notification.create notifiable: @announcement,
+                            recipient: user,
+                            recipient_role: followers_scope.role,
+                            actor: current_user
+      end
+
       redirect_to @announcement, notice: 'Announcement was successfully created.'
     else
       render :new
