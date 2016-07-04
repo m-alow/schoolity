@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   namespace :parent do
     get '/' => 'panel#index', as: :panel
     get '/feed' => 'feed#index'
+    resources :followings, only: :show
   end
 
   namespace :api do

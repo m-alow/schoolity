@@ -5,8 +5,30 @@
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
-  <ul class="nav nav-stacked">
-    <li><%= link_to 'Feed', parent_feed_path %></li>
-    <li><%= link_to 'Follow a student', new_following_path %></li>
-  </ul>
+  <% unless followings.empty? %>
+    <div class="panel">
+      <div class="panel-heading">
+	<h1 class="panel-title">Students</h1>
+      </div>
+
+      <div class="panel-body">
+	<% if followings.size > 1 %>
+	  <ul class="nav nav-stacked">
+	    <% followings.each do |f| %>
+	      <li><%= link_to f.student.name, parent_following_path(f) %></li>
+	    <% end %>
+	  </ul>
+	<% else %>
+	  <%= render 'parent/followings/student_links', following: followings.first %>
+	<% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="panel">
+    <ul class="nav nav-stacked">
+      <li><%= link_to 'Feed', parent_feed_path %></li>
+      <li><%= link_to 'Follow a student', new_following_path %></li>
+    </ul>
+  </div>
 <% end %>
