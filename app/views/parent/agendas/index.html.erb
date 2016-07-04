@@ -1,0 +1,14 @@
+<% provide :panel_title, 'Agenda Calendar' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to "Today's Agenda", parent_following_agenda_path(@following, Date.current) %>
+  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= month_calendar do |date| %>
+    <% if current_month? date %>
+      <%=  link_to date.day, parent_following_agenda_path(@following, date), class: 'calendar_link' %>
+    <% end %>
+  <% end %>
+<% end %>
