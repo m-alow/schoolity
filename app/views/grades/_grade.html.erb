@@ -1,0 +1,14 @@
+<div>
+  <div class="well well-sm well-title">
+    <%= grade.exam.subject.name %> Exam on <%= time_tag grade.exam.date %>
+  </div>
+
+  <div class="well well-sm close-well">
+    <%= grade.student.name %>
+  </div>
+
+  <div class="well alert <%= grade.pass? ? 'alert-success' : 'alert-danger' %>">
+    <%= grade.score %> / <%= grade.exam.score %>
+    <%= '(Failed)' if grade.fail? %>
+  </div>
+</div>
