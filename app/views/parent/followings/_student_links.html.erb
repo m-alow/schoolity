@@ -1,5 +1,5 @@
 <ul class="nav nav-stacked nav-pills">
-  <li><%= link_to "Today's Agenda", parent_following_agenda_path(following, Date.current) %>
+  <li><%= link_to "Today's Agenda", parent_following_agenda_path(following, Date.current) %></li>
   <li><%= link_to 'Agenda Calendar', parent_following_agendas_path(following) %></li>
   <li><%= link_to 'Timetable', current_classroom_timetables_path(following.student.classroom) %></li>
   <li><%= link_to 'Grades', '#' %></li>

@@ -1,0 +1,54 @@
+<% provide :panel_title, 'Agenda' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
+  <li><%= link_to 'Agenda Calendar', parent_following_agendas_path(@following) %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well well-sm close-well">
+    Agenda on <%= time_tag @date %>
+  </div>
+
+  <div class="well well-sm close-well">
+    <%= @following.student.name %>
+  </div>
+
+  <div class="well well-sm">
+    <%= qualified_classroom_name @following.student.classroom %>
+  </div>
+
+  <div class="well">
+    <%= render 'days/content', day: @day %>
+  </div>
+
+  <div>
+    <% @day.lessons.each do |lesson| %>
+      <div class="panel panel-warning">
+	<div class="panel-heading">
+	  <h1 class="panel-title">#<%= lesson.order %> <%= lesson.subject&.name %></h1>
+	</div>
+	<div class="panel-body">
+	  <div class="well well-sm well-title">
+	    Lesson
+	  </div>
+
+	  <div class="well well-sm">
+	    <%= render 'lessons/content', lesson: lesson %>
+	  </div>
+
+	  <% activity = Activity.find_by student_id: @following.student, lesson_id: lesson %>
+	  <% if activity.present? %>
+	    <div class="well well-sm well-title">
+	      Activity
+	    </div>
+
+	    <div class="well well-sm">
+	      <%= render 'activities/content', activity: activity %>
+	    </div>
+	  <% end %>
+	</div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

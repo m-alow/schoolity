@@ -64,8 +64,17 @@ body { padding-top: $navbar-height + 25; }
 
 .well-title {
     margin-bottom: 3px;
-    background: $gray-light;
+    background: $brand-danger;
     font-weight: bold;
+    color: darken(white, 5%);
+    a {
+	color: white;
+	transition: color 0.5s;
+	&:hover {
+	    color: #ccc;
+	    text-decoration: none;
+	}
+    }
 }
 
 .close-well {
