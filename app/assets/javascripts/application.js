@@ -18,5 +18,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require trix
+//= require rails-timeago
 
 Turbolinks.enableProgressBar();

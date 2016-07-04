@@ -7,7 +7,7 @@
 <%= render layout: 'simple_panel' do %>
   <% @feed.each do |f| %>
     <div>
-      <div class="time-header"><%= time_ago_in_words f.updated_at %> ago</div>
+      <div class="time-header"><%= timeago_tag f.updated_at %></div>
       <div>
 	<%= render_object f %>
       </div>

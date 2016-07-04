@@ -9,15 +9,10 @@ feature 'viewing timetables list for a classroom' do
     sign_in_user school_admin
 
     create(:timetable, classroom: classroom, active: true)
-    Timecop.travel Time.now + 1.year do
-      create(:timetable, classroom: classroom, active: true)
-    end
 
-    Timecop.travel Time.now + 2.year do
-      TimetablesIndexPage.visit_page classroom
-    end
+    TimetablesIndexPage.visit_page classroom
 
-    expect(page).to have_content 'about 2 years'
-    expect(page).to have_content 'about 1 year (current timetable)'
+    expect(page).to have_link 'Edit'
+    expect(page).to have_link 'Show'
   end
 end

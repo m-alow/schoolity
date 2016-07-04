@@ -20,7 +20,7 @@
     <tbody>
       <% @timetables.each do |timetable| %>
 	<tr class="<%= timetable.current? ? 'success': '' %>">
-          <td><%= link_to time_ago_in_words(timetable.updated_at), timetable %><%= timetable.current? ? ' (current timetable)' : '' %></td>
+          <td><%= link_to timeago_tag(timetable.updated_at), timetable %><%= timetable.current? ? ' (current timetable)' : '' %></td>
           <td><%= time_tag timetable.created_at.to_date %></td>
 	  <td><%= link_to 'Show', timetable , id: "show-#{timetable.id}"%></td>
           <td><%= link_to 'Edit', edit_timetable_path(timetable) %></td>
