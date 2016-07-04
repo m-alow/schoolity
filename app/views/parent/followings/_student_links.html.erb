@@ -1,6 +1,6 @@
 <ul class="nav nav-stacked nav-pills">
   <li><%= link_to 'Agenda', '#' %></li>
-  <li><%= link_to 'Timetable', '#' %></li>
+  <li><%= link_to 'Timetable', current_classroom_timetables_path(following.student.classroom) %></li>
   <li><%= link_to 'Grades', '#' %></li>
   <li><%= link_to 'Absence', '#' %></li>
   <li class="alert"><%= link_to "Unfollow #{following.student.name}", following_path(following), method: :delete, data: { confirm: 'Sure?' }, class: 'alert alert-danger' %></li>
