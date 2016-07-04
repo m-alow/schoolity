@@ -93,6 +93,18 @@ RSpec.describe SchoolClasses::AnnouncementsController, type: :controller do
             expect(Announcement.last.author).to eq user
           end
 
+          it 'notifies followers' do
+            notify = double :notify
+            publisher = double :publisher
+            scope = double :scope
+            expect(Notifier::Publishers::Persist::Create).to receive(:new).and_return(publisher)
+            expect(Scope::SchoolClass::Followers).to receive(:new).with(school_class).and_return(scope)
+            expect(Notify).to receive(:new).with(scope, [publisher]).and_return(notify)
+
+            expect(notify).to receive(:call)
+            post :create, school_class_id: school_class, announcement: valid_attributes
+          end
+
           it 'redirects to the created announcement' do
             post :create, school_class_id: school_class, announcement: valid_attributes
             expect(response).to redirect_to(Announcement.last)

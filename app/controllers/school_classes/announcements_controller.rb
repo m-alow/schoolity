@@ -1,3 +1,7 @@
+require_dependency 'notifier/notify'
+require_dependency 'scope/school_class/followers'
+require_dependency 'notifier/publishers/persist/create'
+
 class SchoolClasses::AnnouncementsController < ApplicationController
   before_action :set_school_class_from_params, only: [:index, :new, :create]
 
@@ -19,6 +23,11 @@ class SchoolClasses::AnnouncementsController < ApplicationController
     authorize @announcement
 
     if @announcement.save
+      Notify
+        .new(Scope::SchoolClass::Followers.new(@school_class),
+                 [Notifier::Publishers::Persist::Create.new])
+        .call @announcement
+
       redirect_to @announcement, notice: 'Announcement was successfully created.'
     else
       render :new
