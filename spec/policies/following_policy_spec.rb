@@ -21,6 +21,11 @@ RSpec.describe FollowingPolicy do
       expect(subject).to permit(parent, following)
     end
 
+    it 'prevents another follower of the same student' do
+      create(:following, user: user, student: student)
+      expect(subject).not_to permit(user, following)
+    end
+
     it 'prevents parent from accessing other students' do
       expect(subject).not_to permit(parent, another_following)
     end
