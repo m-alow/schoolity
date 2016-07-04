@@ -164,6 +164,16 @@ RSpec.describe ExamsController, type: :controller do
             }.to change(Grade, :count).by(1)
           end
 
+          it 'notifies followers about grades' do
+            scope = double Scope::Student::Followers
+            notifier = double CreateNotifier
+            allow(Scope::Student::Followers).to receive(:new) { scope }
+            allow(CreateNotifier).to receive(:new).with(scope) { notifier }
+
+            expect(notifier).to receive :call
+            post :create, classroom_id: classroom, exam: valid_attributes
+          end
+
           it 'redirects to the created exam' do
             post :create, classroom_id: classroom, exam: valid_attributes
             expect(response).to redirect_to(Exam.last)

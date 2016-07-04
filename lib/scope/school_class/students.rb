@@ -8,7 +8,7 @@ module Scope
       end
 
       def call
-        Student
+        ::Student
           .where(id: Studying
                        .select(:student_id)
                        .where(classroom: school_class.classrooms))
