@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703144649) do
+ActiveRecord::Schema.define(version: 20160705115328) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "student_id"
@@ -45,6 +45,19 @@ ActiveRecord::Schema.define(version: 20160703144649) do
   end
 
   add_index "classrooms", ["school_class_id"], name: "index_classrooms_on_school_class_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "user_id"
+    t.text     "body"
+    t.string   "role"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "days", force: :cascade do |t|
     t.integer  "classroom_id"
