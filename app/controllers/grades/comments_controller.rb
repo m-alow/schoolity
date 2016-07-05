@@ -12,9 +12,9 @@ class Grades::CommentsController < ApplicationController
     respond_to do |format|
       if comment.save
         format.html { redirect_to @grade, notice: 'Comment was successfully added.' }
-        format.js
+        format.js { @comment = comment }
       else
-        format.html { render 'grades/show' }
+        format.html { redirect_to @grade, notice: 'Comment was not added.' }
         format.js { render nothing: true }
       end
     end

@@ -1,0 +1,12 @@
+<div class="well well-sm well-title">
+  Discuss
+</div>
+<ul id="comments" class="list-group">
+  <% commentable.comments.each do |c| %>
+    <%= render c %>
+  <% end %>
+</ul>
+
+<div id="comment-form">
+  <%= render 'comments/form', commentable: commentable, comment: Comment.new %>
+</div>

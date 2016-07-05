@@ -80,9 +80,9 @@ RSpec.describe Grades::CommentsController, type: :controller do
             }.not_to change(Comment, :count)
           end
 
-          it 're-renders grades/show' do
-            post :create, grade_id: grade, comment: invalid_attributes
-            expect(response).to render_template 'grades/show'
+          it 'redirects to the grade' do
+            post :create, grade_id: grade, comment: valid_attributes
+            expect(response).to redirect_to grade
           end
 
           context 'via ajax' do

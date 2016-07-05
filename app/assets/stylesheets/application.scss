@@ -134,3 +134,13 @@ body { padding-top: $navbar-height + 25; }
 	}
     }
 }
+
+.comment-heading {
+    h6 {
+	font-size: 100%;
+    }
+}
+
+.comment-body {
+    color: #666;
+}

@@ -1,0 +1,9 @@
+<li id="comment-<%= comment.id %>" class="list-group-item">
+  <h6 class="list-group-item-heading comment-heading">
+    <%= comment.user.name %>
+    <small><%= timeago_tag comment.updated_at %> as a <%= comment.role.downcase %></small>
+  </h6>
+  <p class="list-group-item-text comment-body">
+    <%= simple_format comment.body %>
+  </p>
+</li>

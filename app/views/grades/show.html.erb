@@ -9,5 +9,6 @@
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
-  <%= render @grade %>
+  <%= render 'grades/grade', grade: @grade %>
+  <%= render 'comments/comments', commentable: @grade %>
 <% end %>
