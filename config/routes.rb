@@ -49,7 +49,9 @@ Rails.application.routes.draw do
   end
 
   resources :announcements, only: [:show, :edit, :update, :destroy]
-  resources :grades, only: [:show]
+  resources :grades, only: [:show] do
+    resources :comments, only: [:create], module: :grades
+  end
 
   namespace :teacher do
     get '/' => 'panel#index'

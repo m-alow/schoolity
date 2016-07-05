@@ -1,6 +1,7 @@
 class Grade < ActiveRecord::Base
   belongs_to :exam
   belongs_to :student
+  has_many :comments, as: :commentable
 
   validates :exam, :student, :score, presence: true
   validates :score, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: ->(g) { g.exam.score.to_i } }

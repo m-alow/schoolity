@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :comment do
     commentable nil
-    user nil
-    body "MyText"
-    role "MyString"
+    association :user
+    body "Comment"
+    role "Parent"
   end
 end
