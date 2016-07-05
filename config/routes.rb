@@ -48,7 +48,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :announcements, only: [:show, :edit, :update, :destroy]
+  resources :announcements, only: [:show, :edit, :update, :destroy] do
+    resources :comments, only: [:create], module: :announcements
+  end
+
   resources :grades, only: [:show] do
     resources :comments, only: [:create], module: :grades
   end

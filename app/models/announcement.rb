@@ -1,6 +1,7 @@
 class Announcement < ActiveRecord::Base
   belongs_to :announceable, polymorphic: true
   belongs_to :author, class_name: 'User'
+  has_many :comments, as: :commentable
 
   validates :announceable, :author, :title, :body, presence: true
 

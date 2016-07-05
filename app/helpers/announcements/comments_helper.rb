@@ -1,0 +1,2 @@
+module Announcements::CommentsHelper
+end

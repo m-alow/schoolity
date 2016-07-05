@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Announcement, type: :model do
   it { should belong_to :announceable }
   it { should belong_to :author }
+  it { should have_many :comments }
 
   it { should validate_presence_of :announceable }
   it { should validate_presence_of :author }
