@@ -19,4 +19,5 @@
 
 <%= render layout: 'simple_panel' do %>
   <%= render 'announcements/announcement', announcement: @announcement %>
+  <%= render 'comments/comments', commentable: @announcement %>
 <% end %>
