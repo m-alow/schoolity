@@ -1,0 +1,33 @@
+<% provide :panel_title, 'Grades' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="well well-sm">
+    <%= @student.name %>
+  </div>
+
+  <% @grades.each do |subject, grades| %>
+    <div>
+      <div class="well well-sm well-title">
+	<%= subject.name %>
+      </div>
+
+      <ul class="list-group">
+	<% grades.each do |g| %>
+	  <li class="list-group-item <%= 'list-group-item-danger' if g.fail? %>">
+	    <h5 class="list-group-item-heading">
+	      <%= g.score %> / <%= g.exam.score %>
+	    </h5>
+	    <p class="list-group-item-text">
+	      <%= time_tag g.exam.date %>
+	      <%= g.exam.description.html_safe %>
+	    </p>
+	  </li>
+	<% end %>
+      </u>
+    </div>
+  <% end %>
+<% end %>

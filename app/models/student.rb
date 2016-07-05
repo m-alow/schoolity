@@ -4,6 +4,7 @@ class Student < ActiveRecord::Base
   has_many :following_codes
   has_many :followings
   has_many :activities
+  has_many :grades
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true

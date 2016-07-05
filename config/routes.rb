@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     get '/feed' => 'feed#index'
     resources :followings, only: :show do
       resources :agendas, only: [:index, :show], param: :date
+      resources :grades, only: [:index]
     end
   end
 
