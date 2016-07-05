@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   end
 
   resources :announcements, only: [:show, :edit, :update, :destroy]
+  resources :grades, only: [:show]
 
   namespace :teacher do
     get '/' => 'panel#index'
