@@ -1,0 +1,3 @@
+$("#comments").append("<%= j render('comments/comment', comment: comment) %>");
+$("#comment-<%= comment.id %>").effect("highlight", 1500);
+$("#comment-form").html("<%= j render('comments/form', commentable: comment.commentable, comment: Comment.new) %>");
