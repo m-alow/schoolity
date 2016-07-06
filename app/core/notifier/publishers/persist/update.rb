@@ -4,7 +4,7 @@ module Notifier
       class Update
         def call scope, notifiable
           scope.call.each do |user|
-            notification = Notification.find_by recipient_id: user, notifiable_id: notifiable, recipient_role: scope.role
+            notification = Notification.find_by recipient_id: user, notifiable: notifiable, recipient_role: scope.role
             if notification.present?
               notification.touch
               notification.update read_at: nil
