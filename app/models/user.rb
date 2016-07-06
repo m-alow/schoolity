@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def parent_feed
-    parent_notifications.includes(:notifiable).map(&:notifiable)
+    parent_notifications.includes(:notifiable).map { |n| [n, n.notifiable] }
   end
 
   def follows? student
