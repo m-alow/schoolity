@@ -28,40 +28,40 @@ class Announcements::CommentsController < ApplicationController
 
   def school_user_role
     school = @announcement.announceable
-    if current_user.follows_student_in_school? school
-      'Parent'
-    elsif current_user.teaches_in_school? school
-      'Teacher'
+    if current_user.owns? school
+      'School Owner'
     elsif current_user.administrates? school
       'School Admin'
-    elsif current_user.owns? school
-      'School Owner'
+    elsif current_user.teaches_in_school? school
+      'Teacher'
+    elsif current_user.follows_student_in_school? school
+      'Parent'
     end
   end
 
   def school_class_user_role
     school_class = @announcement.announceable
-    if current_user.follows_student_in_school_class? school_class
-      'Parent'
-    elsif current_user.teaches_in_school_class? school_class
-      'Teacher'
+    if current_user.owns? school_class.school
+      'School Owner'
     elsif current_user.administrates? school_class.school
       'School Admin'
-    elsif current_user.owns? school_class.school
-      'School Owner'
+    elsif current_user.teaches_in_school_class? school_class
+      'Teacher'
+    elsif current_user.follows_student_in_school_class? school_class
+      'Parent'
     end
   end
 
   def classroom_user_role
     classroom = @announcement.announceable
-    if current_user.follows_student_in_classroom? classroom
-      'Parent'
-    elsif current_user.teaches_in_classroom? classroom
-      'Teacher'
+    if current_user.owns? classroom.school
+      'School Owner'
     elsif current_user.administrates? classroom.school
       'School Admin'
-    elsif current_user.owns? classroom.school
-      'School Owner'
+    elsif current_user.teaches_in_classroom? classroom
+      'Teacher'
+    elsif current_user.follows_student_in_classroom? classroom
+      'Parent'
     end
   end
 end

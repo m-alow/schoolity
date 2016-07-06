@@ -24,12 +24,12 @@ class Grades::CommentsController < ApplicationController
   private
 
   def user_role
-    if current_user.teaches_subject_in_classroom? @grade.exam.subject, @grade.exam.classroom
-      'Teacher'
+    if current_user.owns? @grade.exam.classroom.school
+      'School Owner'
     elsif current_user.administrates? @grade.exam.classroom.school
       'School Admin'
-    elsif current_user.owns? @grade.exam.classroom.school
-      'School Owner'
+    elsif current_user.teaches_subject_in_classroom? @grade.exam.subject, @grade.exam.classroom
+      'Teacher'
     elsif current_user.follows? @grade.student
       'Parent'
     end
