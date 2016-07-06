@@ -27,10 +27,19 @@ class ActivitiesController < ApplicationController
     end
 
     @activity.update_content(params[:activity].deep_symbolize_keys).tap { |a| a.save! }
+    notify_followers
 
     respond_to do |format|
       format.html { redirect_to edit_lesson_activities_url(@lesson) }
       format.js
     end
+  end
+
+  private
+
+  def notify_followers
+    Notifier::Update
+      .new(Scope::Student::Followers.new(@student))
+      .call @activity
   end
 end

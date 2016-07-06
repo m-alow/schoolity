@@ -93,6 +93,16 @@ RSpec.describe ActivitiesController, type: :controller do
             expect(activity.rating).to eq 5
           end
 
+          it 'notifies followers of student' do
+            scope = instance_double Scope::Student::Followers
+            notifier= instance_double Notifier::Update
+            allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
+            allow(Notifier::Update).to receive(:new).with(scope) { notifier }
+
+            expect(notifier).to receive(:call)
+            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+          end
+
           it "redirects to edit classroom's students form" do
             put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
             expect(response).to redirect_to edit_lesson_activities_url(lesson)
@@ -111,6 +121,16 @@ RSpec.describe ActivitiesController, type: :controller do
               expect(activity.rating).to eq 5
             end
 
+            it 'notifies followers of student' do
+              scope = instance_double Scope::Student::Followers
+              notifier= instance_double Notifier::Update
+              allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
+              allow(Notifier::Update).to receive(:new).with(scope) { notifier }
+
+              expect(notifier).to receive(:call)
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            end
+
             it "does not redirect to edit classroom's students form" do
               xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
               expect(response).not_to redirect_to edit_lesson_activities_url(lesson)
@@ -126,6 +146,16 @@ RSpec.describe ActivitiesController, type: :controller do
             expect(Activity.last.rating).to eq 5
           end
 
+          it 'notifies followers of student' do
+            scope = instance_double Scope::Student::Followers
+            notifier= instance_double Notifier::Update
+            allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
+            allow(Notifier::Update).to receive(:new).with(scope) { notifier }
+
+            expect(notifier).to receive(:call)
+            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+          end
+
           it "redirects to edit classroom's students form" do
             put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
             expect(response).to redirect_to edit_lesson_activities_url(lesson)
@@ -137,6 +167,16 @@ RSpec.describe ActivitiesController, type: :controller do
                 xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
               }.to change(Activity, :count).by(1)
               expect(Activity.last.rating).to eq 5
+            end
+
+            it 'notifies followers of student' do
+              scope = instance_double Scope::Student::Followers
+              notifier= instance_double Notifier::Update
+              allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
+              allow(Notifier::Update).to receive(:new).with(scope) { notifier }
+
+              expect(notifier).to receive(:call)
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
             end
 
             it "does not redirect to edit classroom's students form" do

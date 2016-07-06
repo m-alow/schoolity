@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Activity, type: :model do
   it { should belong_to :student }
   it { should belong_to :lesson }
+  it { should have_many :comments }
 
   it { should validate_presence_of :student }
   it { should validate_presence_of :lesson }

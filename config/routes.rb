@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   resources :followings, except: [:edit, :update]
   resources :lessons, only: [:update] do
     put '/students/:student_id/activity' => 'activities#update', as: :student_activity
-    resources :activities, only: [:index] do
+    resources :activities, only: [:index, :show], shallow: true do
       get :edit, on: :collection
     end
   end

@@ -1,6 +1,7 @@
 class Activity < ActiveRecord::Base
   belongs_to :student
   belongs_to :lesson
+  has_many :comments, as: :commentable
 
   serialize :content
 

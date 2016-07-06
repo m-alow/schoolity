@@ -1,0 +1,9 @@
+<div class="well well-sm close-well">
+  Activity of <%= activity.student.name %>
+  in <%= activity.lesson.subject&.name %> lesson
+  on <%= time_tag activity.lesson.day.date %>
+</div>
+
+<div class="well well-sm">
+  <%= render 'activities/content', activity: activity %>
+</div>
