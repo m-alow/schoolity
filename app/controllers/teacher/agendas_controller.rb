@@ -1,5 +1,3 @@
-require 'teacher_lessons'
-
 class Teacher::AgendasController < ApplicationController
   include EnsureTeacher
 

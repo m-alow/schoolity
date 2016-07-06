@@ -1,6 +1,3 @@
-require_dependency 'scope/student/followers'
-require_dependency 'scope/exclude'
-
 class Grades::CommentsController < ApplicationController
   # POST /grades/1/comments
   def create
@@ -14,7 +11,7 @@ class Grades::CommentsController < ApplicationController
 
     respond_to do |format|
       if comment.save
-        UpdateNotifier
+        Notifier::Update
           .new(Scope::Exclude.new(
                 Scope::Student::Followers.new(@grade.student),
                 current_user))

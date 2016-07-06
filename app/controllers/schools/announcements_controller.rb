@@ -1,5 +1,3 @@
-require_dependency 'scope/school/followers'
-
 class Schools::AnnouncementsController < ApplicationController
   before_action :set_school_from_params, only: [:index, :new, :create]
 
@@ -22,7 +20,7 @@ class Schools::AnnouncementsController < ApplicationController
     authorize @announcement
 
     if @announcement.save
-      CreateNotifier
+      Notifier::Create
         .new(Scope::School::Followers.new @school)
         .call @announcement
 

@@ -1,5 +1,3 @@
-require_dependency 'scope/student/followers'
-
 class ExamsController < ApplicationController
   before_action :set_exam, only: [:show, :edit, :update, :destroy]
   before_action :set_classroom, only: [:show, :edit, :update, :destroy]
@@ -41,7 +39,7 @@ class ExamsController < ApplicationController
 
     if @exam.save
       @exam.grades.each do |g|
-        CreateNotifier
+        Notifier::Create
           .new(Scope::Student::Followers.new g.student)
           .call(g)
       end

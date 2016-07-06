@@ -99,10 +99,10 @@ RSpec.describe Classrooms::AnnouncementsController, type: :controller do
           end
 
           it 'notifies followers of students as follower' do
-            notifier = double CreateNotifier
+            notifier = double Notifier::Create
             scope = double Scope::Classroom::Followers
             allow(Scope::Classroom::Followers).to receive(:new).with(classroom) { scope }
-            allow(CreateNotifier).to receive(:new).with(scope) { notifier }
+            allow(Notifier::Create).to receive(:new).with(scope) { notifier }
 
             expect(notifier).to receive :call
             post :create, classroom_id: classroom, announcement: valid_attributes

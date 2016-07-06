@@ -1,5 +1,3 @@
-require 'teacher_classrooms'
-
 class Teacher::PanelController < ApplicationController
   include EnsureTeacher
 

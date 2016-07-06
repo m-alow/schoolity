@@ -1,5 +1,3 @@
-require_dependency 'day/on_date'
-
 class Parent::AgendasController < ApplicationController
   before_action :set_following
 

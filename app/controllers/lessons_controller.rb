@@ -1,5 +1,3 @@
-require 'day/persisted_on_date'
-
 class LessonsController < ApplicationController
   def update
     @lesson = Lesson.find(params[:id])
@@ -52,7 +50,7 @@ class LessonsController < ApplicationController
   end
 
   def lesson
-    @res ||= PersistedDayOnDate.new.call @classroom, @date
+    @res ||= Day::PersistedOnDate.new.call @classroom, @date
     @day ||= @res.day if @res.status == :study_day
     @lesson ||= @day.lessons.detect { |l| l.order == @order }
   end

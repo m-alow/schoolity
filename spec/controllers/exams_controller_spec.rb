@@ -166,9 +166,9 @@ RSpec.describe ExamsController, type: :controller do
 
           it 'notifies followers about grades' do
             scope = double Scope::Student::Followers
-            notifier = double CreateNotifier
+            notifier = double Notifier::Create
             allow(Scope::Student::Followers).to receive(:new) { scope }
-            allow(CreateNotifier).to receive(:new).with(scope) { notifier }
+            allow(Notifier::Create).to receive(:new).with(scope) { notifier }
 
             expect(notifier).to receive :call
             post :create, classroom_id: classroom, exam: valid_attributes

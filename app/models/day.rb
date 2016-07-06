@@ -1,5 +1,3 @@
-require 'roles/day'
-
 class Day < ActiveRecord::Base
   belongs_to :classroom
   has_many :lessons

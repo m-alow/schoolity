@@ -53,10 +53,10 @@ RSpec.describe Announcements::CommentsController, type: :controller do
           it 'notifies followers of students' do
             scope = instance_double Scope::School::Followers
             escope = instance_double Scope::Exclude
-            notifier = instance_double UpdateNotifier
+            notifier = instance_double Notifier::Update
             allow(Scope::School::Followers).to receive(:new).with(school) { scope }
             allow(Scope::Exclude).to receive(:new) { escope }
-            allow(UpdateNotifier).to receive(:new).with(escope) { notifier }
+            allow(Notifier::Update).to receive(:new).with(escope) { notifier }
 
             expect(notifier).to receive(:call)
             post :create, announcement_id: announcement, comment: valid_attributes

@@ -52,10 +52,10 @@ RSpec.describe Grades::CommentsController, type: :controller do
           it 'notifies followers of the student' do
             scope = double Scope::Student::Followers
             escope = double Scope::Exclude
-            notifier = double CreateNotifier
+            notifier = double Notifier::Create
             allow(Scope::Student::Followers).to receive(:new).with(grade.student) { scope }
             allow(Scope::Exclude).to receive(:new) { escope }
-            allow(UpdateNotifier).to receive(:new).with(escope) { notifier }
+            allow(Notifier::Update).to receive(:new).with(escope) { notifier }
 
             expect(notifier).to receive(:call)
             post :create, grade_id: grade, comment: valid_attributes

@@ -1,6 +1,3 @@
-require 'day/on_date'
-require 'day/persisted_on_date'
-
 class AgendasController < ApplicationController
   before_action :set_day, only: [:update, :destroy]
   before_action :set_classroom, only: [:update, :destroy]
@@ -16,7 +13,7 @@ class AgendasController < ApplicationController
     authorize @classroom.days.build
 
     @date = params[:date].to_date
-    day_result = DayOnDate.new.call @classroom, @date
+    day_result = Day::OnDate.new.call @classroom, @date
     case day_result.status
     when :study_day
       @day = day_result.day
@@ -40,7 +37,7 @@ class AgendasController < ApplicationController
 
     @date = params[:date].to_date
 
-    day_result = PersistedDayOnDate.new.call @classroom, @date
+    day_result = Day::PersistedOnDate.new.call @classroom, @date
     case day_result.status
     when :study_day
       @day = day_result.day
