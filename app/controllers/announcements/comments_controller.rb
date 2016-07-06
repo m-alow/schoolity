@@ -1,3 +1,6 @@
+require_dependency 'scope/exclude'
+require_dependency 'scope/school/followers'
+
 class Announcements::CommentsController < ApplicationController
   # POST /announcements/1/comments
   def create
@@ -11,6 +14,13 @@ class Announcements::CommentsController < ApplicationController
 
     respond_to do |format|
       if comment.save
+        followers_scope = "Scope::#{@announcement.announceable_type}::Followers".constantize
+        UpdateNotifier
+          .new(Scope::Exclude.new(
+                followers_scope.new(@announcement.announceable),
+                current_user))
+          .call @announcement
+
         format.html { redirect_to @announcement, notice: 'Comment was successfully added.' }
         format.js { render 'comments/create', locals: { comment: comment } }
       else

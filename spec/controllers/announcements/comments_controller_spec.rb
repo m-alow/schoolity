@@ -50,6 +50,18 @@ RSpec.describe Announcements::CommentsController, type: :controller do
             expect(Comment.last.commentable).to eq announcement
           end
 
+          it 'notifies followers of students' do
+            scope = instance_double Scope::School::Followers
+            escope = instance_double Scope::Exclude
+            notifier = instance_double UpdateNotifier
+            allow(Scope::School::Followers).to receive(:new).with(school) { scope }
+            allow(Scope::Exclude).to receive(:new) { escope }
+            allow(UpdateNotifier).to receive(:new).with(escope) { notifier }
+
+            expect(notifier).to receive(:call)
+            post :create, announcement_id: announcement, comment: valid_attributes
+          end
+
           it 'redirects to the announcement' do
             post :create, announcement_id: announcement, comment: valid_attributes
             expect(response).to redirect_to announcement
