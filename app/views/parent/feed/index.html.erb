@@ -1,9 +1,5 @@
 <% provide :panel_title, 'Feed' %>
 
-<% content_for :actions_list do  %>
-  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
-<% end %>
-
 <%= render layout: 'simple_panel' do %>
   <% @feed.each do |notification, f| %>
     <div>

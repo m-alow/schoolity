@@ -1,6 +1,5 @@
 <%= render layout: 'simple_panel' do %>
   <ul class="nav nav-stacked nav-pills">
-    <li><%= link_to 'Parent Panel', parent_panel_path %></li>
     <li><%= link_to "Today's Agenda", parent_following_agenda_path(@following, Date.current) %></li>
     <li><%= link_to 'Agenda Calendar', parent_following_agendas_path(@following) %></li>
   </ul>

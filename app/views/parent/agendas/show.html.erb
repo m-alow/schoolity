@@ -1,7 +1,6 @@
 <% provide :panel_title, 'Agenda' %>
 
 <% content_for :actions_list do %>
-  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
   <li><%= link_to 'Agenda Calendar', parent_following_agendas_path(@following) %></li>
 <% end %>
 

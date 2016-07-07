@@ -1,9 +1,5 @@
 <% provide :panel_title, 'Grades' %>
 
-<% content_for :actions_list do %>
-  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
-<% end %>
-
 <%= render layout: 'simple_panel' do %>
   <div class="well well-sm">
     <%= @student.name %>

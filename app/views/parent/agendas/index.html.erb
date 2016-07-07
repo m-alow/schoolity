@@ -2,7 +2,6 @@
 
 <% content_for :actions_list do %>
   <li><%= link_to "Today's Agenda", parent_following_agenda_path(@following, Date.current) %>
-  <li><%= link_to 'Parent Panel', parent_panel_path %></li>
 <% end %>
 
 <%= render layout: 'wide_panel' do %>

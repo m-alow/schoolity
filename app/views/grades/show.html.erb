@@ -1,13 +1,5 @@
 <% provide :panel_title, 'Grade' %>
 
-<% content_for :actions_list do %>
-  <% if current_user.teacher? %>
-    <li><%= link_to 'Teacher Panel', teacher_path %></li>
-  <% else %>
-    <li><%= link_to 'Parent Panel', parent_panel_path %></li>
-  <% end %>
-<% end %>
-
 <%= render layout: 'simple_panel' do %>
   <%= render 'grades/grade', grade: @grade %>
   <%= render 'comments/comments', commentable: @grade %>
