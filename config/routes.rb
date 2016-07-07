@@ -41,12 +41,13 @@ Rails.application.routes.draw do
   end
 
   resources :followings, except: [:edit, :update]
-  resources :lessons, only: [:update] do
+  resources :lessons, only: [:update, :show] do
     put '/students/:student_id/activity' => 'activities#update', as: :student_activity
     resources :activities, only: [:index, :show], shallow: true do
       get :edit, on: :collection
       resources :comments, only: [:create], module: :activities
     end
+    resources :comments, only: [:create], module: :lessons
   end
 
   resources :announcements, only: [:show, :edit, :update, :destroy] do

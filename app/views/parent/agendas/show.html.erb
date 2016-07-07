@@ -31,6 +31,9 @@
 	<div class="panel-body">
 	  <div class="well well-sm well-title">
 	    Lesson
+	    <% if lesson.subject.persisted? %>
+	      <span class='pull-right'><%= link_to discuss_link lesson %></span>
+	    <% end %>
 	  </div>
 
 	  <div class="well well-sm">

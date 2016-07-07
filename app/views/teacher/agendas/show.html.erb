@@ -37,7 +37,8 @@
 	      <% if lesson.persisted? %>
 		<div class="pull-right">
 		  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
-		  <%= link_to 'Activities', lesson_activities_path(lesson) %>
+		  <%= link_to 'Activities', lesson_activities_path(lesson) %> |
+		  <%= discuss_link lesson %>
 		</div>
 	      <% end %>
 	    </div>

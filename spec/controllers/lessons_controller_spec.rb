@@ -5,6 +5,13 @@ RSpec.describe LessonsController, type: :controller do
   let(:classroom) { lesson.day.classroom }
 
   context 'guest' do
+    describe 'GET #show' do
+      it 'requires login' do
+        get :show, id: lesson
+        expect(response).to require_login
+      end
+    end
+
     describe 'PUT #update' do
       it 'requires login' do
         put :update, id: lesson
@@ -26,6 +33,13 @@ RSpec.describe LessonsController, type: :controller do
       let(:non_authorized_user) { create(:user) }
       before { sign_in non_authorized_user }
 
+      describe 'GET #show' do
+        it 'requires authorization' do
+          get :show, id: lesson
+          expect(response).to require_authorization
+        end
+      end
+
       describe 'PUT #update' do
         it 'requires authorization' do
           put :update, id: lesson
@@ -44,6 +58,13 @@ RSpec.describe LessonsController, type: :controller do
     context 'authorized' do
       let(:authorized_user) { create(:teaching, classroom: lesson.day.classroom, all_subjects: true).teacher }
       before { sign_in authorized_user }
+
+      describe 'GET #show' do
+        it 'succeed' do
+          get :show, id: lesson
+          expect(response).to have_http_status :success
+        end
+      end
 
       describe 'PUT #update' do
         it 'updates the requested lesson' do

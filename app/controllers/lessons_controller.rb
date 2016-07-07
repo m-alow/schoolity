@@ -1,4 +1,11 @@
 class LessonsController < ApplicationController
+  # GET /lessons/1
+  def show
+    @lesson = Lesson.find params[:id]
+    authorize @lesson
+  end
+
+  # PUT /lessons/1
   def update
     @lesson = Lesson.find(params[:id])
     authorize @lesson
@@ -11,6 +18,7 @@ class LessonsController < ApplicationController
     end
   end
 
+  # PUT /classrooms/1/lessons/2010-10-5/3
   def update_qualified
     @classroom = Classroom.find params[:classroom_id]
     @date = params[:date].to_date

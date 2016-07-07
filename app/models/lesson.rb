@@ -2,6 +2,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :day
   belongs_to :subject
   has_many :activities
+  has_many :comments, as: :commentable
 
   serialize :content
 

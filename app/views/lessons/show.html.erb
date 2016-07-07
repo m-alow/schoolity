@@ -1,0 +1,6 @@
+<% provide :panel_title, 'Lesson' %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render @lesson %>
+  <%= render 'comments/comments', commentable: @lesson, comment: Comment.new %>
+<% end %>

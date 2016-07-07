@@ -1,0 +1,15 @@
+<div class="well well-sm well-title">
+<%= lesson.subject&.name %> lesson
+</div>
+
+<div class="well well-sm close-well">
+  <%= qualified_classroom_name lesson.day.classroom %>
+</div>
+
+<div class="well well-sm close-well">
+  <%= lesson.order.ordinalize %> period on <%= time_tag lesson.day.date %>
+</div>
+
+<div class="well">
+  <%= render 'lessons/content', lesson: lesson %>
+</div>
