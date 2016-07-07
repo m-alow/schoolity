@@ -25,8 +25,7 @@
 	      <%= time_tag g.exam.date %>
 	      <%= g.exam.description.html_safe %>
 	      <span class="pull-right">
-		<%= link_to 'Discuss', g %>
-		<span class="badge"><%= g.comments.count %></span>
+		<%= discuss_link g %>
 	      </span>
 	    </p>
 	  </li>

@@ -10,10 +10,7 @@
       <div class="time-header">
 	<%= timeago_tag notification.updated_at %>
 	<span class="pull-right">
-	  <%= link_to 'Discuss', f %>
-	  <span class="badge">
-	    <%= f.comments.count %>
-	  </span>
+	  <%= discuss_link f %>
 	</span>
       </div>
 

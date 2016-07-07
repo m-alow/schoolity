@@ -38,7 +38,7 @@
 	<tr <%= grade.fail? ? "class=danger" : "" %>>
 	  <td><%= grade.student.name %></td>
 	  <td><%= grade.score %></td>
-	  <td><%= link_to 'Discuss', grade %> <span class="badge"><%= grade.comments.count %></span></td>
+	  <td><%= discuss_link grade %></td>
 	</tr>
       <% end %>
     </tbody>
