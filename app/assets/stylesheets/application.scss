@@ -152,3 +152,46 @@ body { padding-top: $navbar-height + 25; }
 .comment-body {
     color: #666;
 }
+
+.element {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 36px;
+    padding: 6px 12px;
+    background-color: #fff;
+}
+
+.internal-element {
+    @extend .element;
+    margin-bottom: 6px;
+}
+
+.element-section {
+    @extend .well, .well-sm;
+    border-bottom: 1px solid #ccc;
+    background-color: inherit;
+}
+
+.element-title {
+    @extend .element-section;
+    font-weight: bold;
+    font-size: 105%;
+}
+
+.element-light-header {
+    padding-bottom: 12px;
+    color: $gray-light;
+    font-size: 90%;
+    a {
+	font-size: 105%;
+	&:hover {
+	    text-decoration: none;
+	}
+    }
+
+}.element-bold-header {
+    color: $gray;
+    font-size: 85%;
+    font-weight: bold;
+    padding-bottom: 12px;
+}

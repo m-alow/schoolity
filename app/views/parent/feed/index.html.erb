@@ -2,19 +2,20 @@
 
 <%= render layout: 'simple_panel' do %>
   <% @feed.each do |notification, f| %>
-    <div>
-      <div class="time-header">
+    <div class="element">
+
+      <% unless f.comments.empty? %>
+	<div class="element-bold-header">
+	  <%= f.comments.last.user.name %> commented on this.
+	</div>
+      <% end %>
+
+      <div class="element-light-header">
 	<%= timeago_tag notification.updated_at %>
 	<span class="pull-right">
 	  <%= discuss_link f %>
 	</span>
       </div>
-
-      <% unless f.comments.empty? %>
-      <div class="well well-sm close-well">
-	<%= f.comments.last.user.name %> commented on this.
-      </div>
-      <% end %>
 
       <div>
 	<%= render_object f %>

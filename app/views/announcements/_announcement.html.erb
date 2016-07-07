@@ -1,24 +1,22 @@
-<div>
-  <div class="well well-sm well-title">
-    <%= announcement.title %>
-  </div>
+<div class="element-title">
+  <%= announcement.title %>
+</div>
 
-  <div class="well well-sm close-well">
-    Announcement for
-    <% if announcement.for_school? %>
-      <%= announcement.announceable.name %>
-    <% elsif announcement.for_school_class? %>
-      <%= announcement.announceable.school.name %> > <%= announcement.announceable.name %>
-    <% elsif announcement.for_classroom? %>
-      <%= announcement.announceable.school.name %> > <%= announcement.announceable.school_class.name %> > <%= announcement.announceable.name %>
-    <% end %>
-  </div>
+<div class="element-section">
+  Announcement for
+  <% if announcement.for_school? %>
+    <%= announcement.announceable.name %>
+  <% elsif announcement.for_school_class? %>
+    <%= announcement.announceable.school.name %> > <%= announcement.announceable.name %>
+  <% elsif announcement.for_classroom? %>
+    <%= announcement.announceable.school.name %> > <%= announcement.announceable.school_class.name %> > <%= announcement.announceable.name %>
+  <% end %>
+</div>
 
-  <div class="well close-well">
-    <%= announcement.body.html_safe %>
-  </div>
+<div class="internal-element">
+  <%= announcement.body.html_safe %>
+</div>
 
-  <div class="well well-sm">
-    Published on <%= time_tag announcement.created_at %>
-  </div>
+<div class="element-section">
+  Published on <%= time_tag announcement.created_at %>
 </div>
