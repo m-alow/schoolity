@@ -84,7 +84,9 @@ Rails.application.routes.draw do
           resources :followings, only: [:index, :create, :destroy], shallow: true do
             get 'timetable' => 'timetables#current'
             get 'agendas/:year-:month-:day' => 'agendas#show_by_date'
-            resources :grades, only: [:index]
+            resources :grades, only: [:index], shallow: true do
+              resources :comments, only: [:index, :create], module: :grades
+            end
           end
         end
       end
