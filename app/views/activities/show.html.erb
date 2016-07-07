@@ -1,0 +1,6 @@
+<% provide :panel_title, 'Activity' %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render 'activities/activity', activity: @activity %>
+  <%= render 'comments/comments', commentable: @activity, comment: Comment.new %>
+<% end %>

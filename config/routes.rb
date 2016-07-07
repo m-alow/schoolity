@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     put '/students/:student_id/activity' => 'activities#update', as: :student_activity
     resources :activities, only: [:index, :show], shallow: true do
       get :edit, on: :collection
+      resources :comments, only: [:create], module: :activities
     end
   end
 

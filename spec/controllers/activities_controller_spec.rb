@@ -7,11 +7,19 @@ RSpec.describe ActivitiesController, type: :controller do
   let(:date) { Date.current }
   let(:day) { Day.make(classroom: classroom, date: date).tap { |d| d.save! } }
   let(:lesson) { Lesson.make(day: day, subject: math, order: 1).tap { |l| l.save! } }
+  let(:activity) { create(:activity, lesson: lesson, student: student) }
 
   context 'guest' do
     describe 'GET #index' do
       it 'requires login' do
         get :index, lesson_id: lesson
+        expect(response).to require_login
+      end
+    end
+
+    describe 'GET #show' do
+      it 'requires login' do
+        get :show, id: activity
         expect(response).to require_login
       end
     end
@@ -40,6 +48,13 @@ RSpec.describe ActivitiesController, type: :controller do
       describe 'GET #index' do
         it 'requires authorization' do
           get :index, lesson_id: lesson
+          expect(response).to require_authorization
+        end
+      end
+
+      describe 'GET #show' do
+        it 'requires authorization' do
+          get :show, id: activity
           expect(response).to require_authorization
         end
       end
@@ -73,6 +88,13 @@ RSpec.describe ActivitiesController, type: :controller do
       describe 'GET #edit' do
         it 'succeed' do
           get :edit, lesson_id: lesson
+          expect(response).to have_http_status :success
+        end
+      end
+
+      describe 'GET #show' do
+        it 'succeed' do
+          get :show, id: activity
           expect(response).to have_http_status :success
         end
       end

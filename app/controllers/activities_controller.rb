@@ -7,6 +7,11 @@ class ActivitiesController < ApplicationController
     @activities = @lesson.activities.includes(:student)
   end
 
+  def show
+    @activity = Activity.find params[:id]
+    authorize @activity
+  end
+
   def edit
     @lesson = Lesson.find(params[:lesson_id])
     ActivityPolicy.new(current_user, @lesson).authorize_action(:edit?)

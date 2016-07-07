@@ -1,4 +1,11 @@
 class ActivityPolicy < ApplicationPolicy
+  def show?
+    user.owns?(record.student.school) ||
+      user.administrates?(record.student.school) ||
+      user.teaches_subject_in_classroom?(record.lesson.subject, record.lesson.day.classroom) ||
+      user.follows?(record.student)
+  end
+
   def update?
     user.teaches_student_a_subject? record.student, record.lesson.subject
   end

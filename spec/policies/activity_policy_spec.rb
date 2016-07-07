@@ -8,13 +8,53 @@ RSpec.describe ActivityPolicy do
   let(:another_lesson) { build(:lesson) }
 
   let(:activity) { build(:activity, lesson: lesson, student: student) }
+  let(:another_activity) { build :activity }
 
   let(:owner) { classroom.school.owner }
   let(:school_admin) { create(:school_administration, administrated_school: classroom.school).administrator }
   let(:teacher) { create(:teaching, classroom: classroom, subject: a_subject).teacher }
+  let(:parent) { create(:following, student: student).user }
   let(:user) { build(:user) }
 
   subject { described_class }
+
+  permissions :show? do
+    it 'allows school owner' do
+      expect(subject).to permit(owner, activity)
+    end
+
+    it 'prevents school owner form accessing activitys in other schools' do
+      expect(subject).not_to permit(owner, another_activity)
+    end
+
+    it 'allows school admin' do
+      expect(subject).to permit(school_admin, activity)
+    end
+
+    it 'prevents school admin from accessing activitys in other schools' do
+      expect(subject).not_to permit(school_admin, another_activity)
+    end
+
+    it 'allows teacher' do
+      expect(subject).to permit(teacher, activity)
+    end
+
+    it 'prevents teacher from accessing activities for students he is not teaching' do
+      expect(subject).not_to permit(teacher, another_activity)
+    end
+
+    it 'allows parent' do
+      expect(subject).to permit(parent, activity)
+    end
+
+    it 'prevents parent from accessing activities of students he is not following' do
+      expect(subject).not_to permit(parent, another_activity)
+    end
+
+    it 'prevents other users' do
+      expect(subject).not_to permit(user, activity)
+    end
+  end
 
   permissions :update? do
     it 'prevents school owner' do
