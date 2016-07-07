@@ -17,7 +17,7 @@ class Parent::AgendasController < ApplicationController
       return render(:missing)
     end
 
-    day_result = DayOnDate.new.call @classroom, @date
+    day_result = Day::OnDate.new.call @classroom, @date
     case day_result.status
     when :study_day
       @day = day_result.day
