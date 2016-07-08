@@ -1,5 +1,5 @@
 class ExamSerializer < ActiveModel::Serializer
-  attributes :id, :date, :score, :minimum_score, :classroom, :subject
+  attributes :id, :date, :score, :minimum_score, :classroom, :subject, :description
 
   def classroom
     {
