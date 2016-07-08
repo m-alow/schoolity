@@ -13,7 +13,7 @@ class TeacherLessons
   private
 
   def lessons day, teacher
-    day.lessons.select do |l|
+    day.lessons.sort_by(&:order).select do |l|
       teacher.teaches_subject_in_classroom? l.subject, day.classroom
     end
   end

@@ -22,7 +22,7 @@
   </div>
 
   <div>
-    <% @day.lessons.each do |lesson| %>
+    <% @day.lessons.sort_by(&:order).each do |lesson| %>
       <div class="panel panel-warning">
 	<div class="panel-heading">
 	  <h1 class="panel-title">#<%= lesson.order %> <%= lesson.subject&.name %></h1>

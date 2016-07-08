@@ -10,4 +10,8 @@ class DaySerializer < ActiveModel::Serializer
       school: object.classroom.school.name
     }
   end
+
+  def lessons
+    object.lessons.sort_by(&:order)
+  end
 end

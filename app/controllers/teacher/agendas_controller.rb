@@ -29,6 +29,6 @@ class Teacher::AgendasController < ApplicationController
   def set_lessons
     @date = params[:date].to_date
     @classrooms_with_lessons = classroom_with_lessons @date
-    flash.alert = 'There is nothing to do today.' if @classrooms_with_lessons.empty?
+    flash.now.alert = 'There is nothing to do today.' if @classrooms_with_lessons.empty?
   end
 end

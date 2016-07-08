@@ -30,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @day.lessons.each do |lesson| %>
+      <% @day.lessons.sort_by(&:order).each do |lesson| %>
 	<tr id="lesson-<%= lesson.order %>">
 	  <td><%= lesson.order.ordinalize %></td>
 	  <td><%= lesson.subject&.name %></td>
