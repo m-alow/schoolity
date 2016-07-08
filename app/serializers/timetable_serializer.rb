@@ -10,4 +10,8 @@ class TimetableSerializer < ActiveModel::Serializer
       school: object.classroom.school.name
     }
   end
+
+  def periods
+    object.periods.sort_by { |p| [p.day.to_date.day, p.order] }
+  end
 end

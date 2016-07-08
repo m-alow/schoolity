@@ -42,7 +42,7 @@ class Timetable < ActiveRecord::Base
   def periods_hash
     study_days.map do |day|
       [day,
-       periods.select { |period| period.day == day }.map do |period|
+       periods.select { |period| period.day == day }.sort_by(&:order).map do |period|
          [period.order, period]
        end.to_h]
     end.to_h
