@@ -8,18 +8,18 @@
     <div id="comment-content-<%= comment.id%>" class="tab-pane fade in active">
       <%= simple_format comment.body %>
 
-      <ul class="list-inline">
-	<li><a data-toggle="pill" href="#comment-form-<%= comment.id%>">Edit</a></li>
-	<li><%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Sure?' }, remote: true %></li>
-      </ul>
     </div>
 
     <div id="comment-form-<%= comment.id %>" class="tab-pane fade">
       <%= render 'comments/edit_form', comment: comment %>
 
-      <ul class="list-inline">
-	<li><a data-toggle="pill" href="#comment-content-<%= comment.id%>">Skip</a></li>
-      </ul>
     </div>
+    <% if current_user == comment.user %>
+      <ul class="list-inline">
+	<li><a data-toggle="tab" href="#comment-form-<%= comment.id%>">Edit</a></li>
+	<li><a data-toggle="tab" href="#comment-content-<%= comment.id%>">Show</a></li>
+	<li><%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Sure?' }, remote: true %></li>
+      </ul>
+    <% end %>
   </div>
 </p>

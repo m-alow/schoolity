@@ -3,7 +3,7 @@
     Discuss
   </div>
   <ul id="comments" class="list-group">
-    <% commentable.comments.each do |c| %>
+    <% commentable.comments.order(created_at: :asc).each do |c| %>
       <li id="comment-<%= c.id %>" class="list-group-item">
 	<%= render c %>
       </li>
