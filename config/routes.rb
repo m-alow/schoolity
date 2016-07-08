@@ -92,6 +92,8 @@ Rails.application.routes.draw do
           end
           resources :feed, only: [:index]
         end
+
+        resources :comments, only: [:update, :destroy]
       end
     end
   end
