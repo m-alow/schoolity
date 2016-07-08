@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create], module: :grades
   end
 
+  resources :comments, only: [:update, :destroy]
+
   namespace :teacher do
     get '/' => 'panel#index'
     get '/exams' => 'panel#exams'

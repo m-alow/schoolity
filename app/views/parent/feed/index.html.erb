@@ -3,6 +3,9 @@
 <%= render layout: 'simple_panel' do %>
   <% @feed.each do |notification, f| %>
     <div class="element">
+      <span class="pull-right">
+	<%= discuss_link f %>
+      </span>
 
       <% unless f.comments.empty? %>
 	<div class="element-bold-header">
@@ -11,10 +14,11 @@
       <% end %>
 
       <div class="element-light-header">
-	<%= timeago_tag notification.updated_at %>
-	<span class="pull-right">
-	  <%= discuss_link f %>
-	</span>
+	<% if f.created_at == f.updated_at %>
+	  <%= timeago_tag f.created_at %>
+	<% else %>
+	  Edited <%= timeago_tag f.updated_at %>
+	<% end %>
       </div>
 
       <div>

@@ -1,9 +1,25 @@
-<li id="comment-<%= comment.id %>" class="list-group-item">
-  <h6 class="list-group-item-heading comment-heading">
-    <%= comment.user.name %>
-    <small><%= timeago_tag comment.updated_at %> as a <%= comment.role.downcase %></small>
-  </h6>
-  <p class="list-group-item-text comment-body">
-    <%= simple_format comment.body %>
-  </p>
-</li>
+<h6 class="list-group-item-heading comment-heading">
+  <%= comment.user.name %>
+  <small><%= timeago_tag comment.updated_at %> as a <%= comment.role.downcase %></small>
+</h6>
+<p class="list-group-item-text comment-body">
+  <div class="tab-content">
+
+    <div id="comment-content-<%= comment.id%>" class="tab-pane fade in active">
+      <%= simple_format comment.body %>
+
+      <ul class="list-inline">
+	<li><a data-toggle="pill" href="#comment-form-<%= comment.id%>">Edit</a></li>
+	<li><%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Sure?' }, remote: true %></li>
+      </ul>
+    </div>
+
+    <div id="comment-form-<%= comment.id %>" class="tab-pane fade">
+      <%= render 'comments/edit_form', comment: comment %>
+
+      <ul class="list-inline">
+	<li><a data-toggle="pill" href="#comment-content-<%= comment.id%>">Skip</a></li>
+      </ul>
+    </div>
+  </div>
+</p>

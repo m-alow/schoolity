@@ -4,7 +4,9 @@
   </div>
   <ul id="comments" class="list-group">
     <% commentable.comments.each do |c| %>
-      <%= render c %>
+      <li id="comment-<%= c.id %>" class="list-group-item">
+	<%= render c %>
+      </li>
     <% end %>
   </ul>
 

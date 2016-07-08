@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui/effect-highlight
+//= require jquery-ui/effect-fade
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
