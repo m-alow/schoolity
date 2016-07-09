@@ -1,0 +1,14 @@
+<div class="element-title">
+  <%= behavior.student.name %>'s Behavior
+</div>
+
+<div class="element-section">
+  <% if behavior.behaviorable.is_a? Lesson %>
+    <%= behavior.behaviorable.subject&.name %>
+    Lesson on <%= time_tag behavior.behaviorable.day.date %>
+  <% end %>
+</div>
+
+<div class="internal-element">
+  <%= behavior.notes %>
+</div>

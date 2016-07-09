@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'behaviors/show'
+
   get 'dashboard' => 'dashboard#index', as: 'dashboard'
   get 'dashboard' => 'dashboard#index', as: 'user_root'
 
@@ -63,6 +65,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments, only: [:update, :destroy]
+  resources :behaviors, only: [:show]
 
   namespace :teacher do
     get '/' => 'panel#index'

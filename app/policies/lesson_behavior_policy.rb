@@ -1,4 +1,13 @@
 class LessonBehaviorPolicy < ApplicationPolicy
+  def show?
+    classroom = record.behaviorable.day.classroom
+    school = classroom.school
+    user.owns?(school) ||
+      user.administrates?(school) ||
+      user.teaches_subject_in_classroom?(record.behaviorable.subject, classroom) ||
+      user.follows?(record.student)
+  end
+
   def index?
     raise unless record.is_a? Lesson
     classroom = record.day.classroom
