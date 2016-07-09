@@ -1,0 +1,2 @@
+module Lessons::BehaviorsHelper
+end

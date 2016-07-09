@@ -48,6 +48,10 @@ Rails.application.routes.draw do
       resources :comments, only: [:create], module: :activities
     end
     resources :comments, only: [:create], module: :lessons
+    put '/students/:student_id/behavior' => 'lessons/behaviors#update', as: :student_behavior
+    resources :behaviors, only: [:index], module: :lessons do
+      get :edit, on: :collection
+    end
   end
 
   resources :announcements, only: [:show, :edit, :update, :destroy] do

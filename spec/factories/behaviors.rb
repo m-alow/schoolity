@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :behavior do
-    student nil
+    association :student
     behaviorable nil
-    content_type "MyString"
-    content "MyText"
+    content_type "base"
+    content { "{}" }
   end
 end
