@@ -5,6 +5,7 @@ class Student < ActiveRecord::Base
   has_many :followings
   has_many :activities
   has_many :grades
+  has_many :behaviors
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true
@@ -17,6 +18,10 @@ class Student < ActiveRecord::Base
 
   def activity_in lesson
     activities.find_by lesson: lesson
+  end
+
+  def behavior_in_lesson lesson
+    behaviors.find_by behaviorable: lesson
   end
 
   def followed_by? user

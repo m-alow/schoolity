@@ -4,11 +4,13 @@ class Lessons::BehaviorsController < ApplicationController
   # GET /lessons/:lesson_id/behaviors
   def index
     LessonBehaviorPolicy.new(current_user, @lesson).authorize_action(:index?)
+    @behaviors = @lesson.behaviors.includes(:student)
   end
 
   # GET /lessons/:lesson_id/behaviors/edit
   def edit
     LessonBehaviorPolicy.new(current_user, @lesson).authorize_action(:edit?)
+    @students = @classroom.students
   end
 
   # GET /lessons/:lesson_id/students/:student_id/behavior
@@ -24,7 +26,7 @@ class Lessons::BehaviorsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to edit_lesson_behaviors_url(@lesson) }
-      format.js
+      format.js { render locals: { behavior: behavior } }
     end
   end
 
@@ -32,5 +34,6 @@ class Lessons::BehaviorsController < ApplicationController
 
   def set_lesson
     @lesson = Lesson.find params[:lesson_id]
+    @classroom = @lesson.day.classroom
   end
 end

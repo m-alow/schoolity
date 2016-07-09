@@ -36,6 +36,14 @@ module ApplicationHelper
     "activities/#{activity.content_type}_content_fields"
   end
 
+  def behavior_content_layout behavior
+    "behaviors/#{behavior.content_type}_content"
+  end
+
+  def behavior_content_fields_layout behavior
+    "behaviors/#{behavior.content_type}_content_fields"
+  end
+
   def admin?
     current_user.admin?
   end

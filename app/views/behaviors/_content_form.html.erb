@@ -1,0 +1,9 @@
+<%= simple_form_for :behavior, url: lesson_student_behavior_path(behavior.behaviorable, behavior.student), method: :put, remote: true do |f| %>
+  <div class="form-inputs">
+    <%= render behavior_content_fields_layout(behavior), behavior: behavior, f: f %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit', data: { disable_with: "Updating.." } %>
+  </div>
+<% end  %>

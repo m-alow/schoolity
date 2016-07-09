@@ -1,0 +1,32 @@
+<% provide :panel_title, 'Students Behavior' %>
+
+<% content_for :actions_list do  %>
+  <% if subject_teacher? @lesson.subject, @classroom %>
+    <li><%= link_to 'Edit', edit_lesson_behaviors_path(@lesson) %></li>
+    <li class="divider"></li>
+  <% end  %>
+
+  <li><%= link_to 'Agenda', date_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+  <li><%= link_to 'Edit Agenda', edit_classroom_agendas_path(classroom_id: @classroom, date: @lesson.day.date.to_param) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <div class="well">Classroom <%= @classroom.name %></div>
+
+  <%= render 'shared/lesson_header', lesson: @lesson %>
+
+  <% @behaviors.each do |behavior| %>
+    <div class="well">
+      <div class="well well-sm well-title">
+	<%= behavior.student.full_name %>
+	<span class="pull-right"><%= 'discuss_link' %></span>
+      </div>
+      <%= render 'behaviors/content', behavior: behavior %>
+    </div>
+  <% end %>
+<% end  %>
