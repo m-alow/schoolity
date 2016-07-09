@@ -3,6 +3,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :subject
   has_many :activities
   has_many :comments, as: :commentable
+  has_many :behaviors, as: :behaviorable
 
   serialize :content
 

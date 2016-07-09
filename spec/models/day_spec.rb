@@ -7,6 +7,7 @@ RSpec.describe Day, type: :model do
 
   it { should belong_to :classroom }
   it { should have_many :lessons }
+  it { should have_many :behaviors }
 
   it { should validate_presence_of :classroom }
   it { should validate_presence_of :date }
