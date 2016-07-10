@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col col-sm-4">
+    <div class="well well-sm close-well">
+      <%= qualified_classroom_name day.classroom %>
+    </div>
+    <div class="well well-sm">
+      <%= time_tag @day.date %>
+    </div>
+  </div>
+  <div class="col col-sm-8">
+    <div class="well">
+      <%= render 'days/content', day: day %>
+    </div>
+  </div>
+</div>

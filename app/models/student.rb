@@ -24,6 +24,10 @@ class Student < ActiveRecord::Base
     behaviors.find_by behaviorable: lesson
   end
 
+  def behavior_in_day day
+    behaviors.find_by behaviorable: day
+  end
+
   def followed_by? user
     followings.exists? user: user
   end

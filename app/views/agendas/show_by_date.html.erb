@@ -18,8 +18,15 @@
   <div class="well well-sm">
     Agenda of <%= link_to @classroom.name, @classroom %> on <%= time_tag @date %>
   </div>
+
   <div class="well">
     <%= render 'days/content', day: @day %>
+    <span class="pull-right">
+      <ul class="list-inline">
+	<li><%= link_to 'Behavior', day_behaviors_path(@day) %></li>
+	<li><%= link_to 'Edit Behavior', edit_day_behaviors_path(@day) %></li>
+      </ul>
+    </span>
   </div>
   <table class="table table-responsive table-striped">
     <thead>
