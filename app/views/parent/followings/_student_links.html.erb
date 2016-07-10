@@ -1,8 +1,11 @@
 <ul class="nav nav-stacked nav-pills">
   <li><%= link_to "Today's Agenda", parent_following_agenda_path(following, Date.current) %></li>
   <li><%= link_to 'Agenda Calendar', parent_following_agendas_path(following) %></li>
-  <li><%= link_to 'Timetable', current_classroom_timetables_path(following.student.classroom) %></li>
+  <% if following.student.classroom.present? %>
+    <li><%= link_to 'Timetable', current_classroom_timetables_path(following.student.classroom) %></li>
+  <% end %>
   <li><%= link_to 'Grades', parent_following_grades_path(following) %></li>
+  <li><%= link_to 'Subjects', parent_following_subjects_path(following) %></li>
   <li><%= link_to 'Absence', '#' %></li>
   <li class="alert"><%= link_to "Unfollow #{following.student.name}", following_path(following), method: :delete, data: { confirm: 'Sure?' }, class: 'alert alert-danger' %></li>
 </ul>
