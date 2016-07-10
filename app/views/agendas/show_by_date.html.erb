@@ -41,8 +41,10 @@
 	      <span class="pull-right">
 		<% if subject_teacher? lesson.subject, @classroom %>
 		  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
+		  <%= link_to 'Edit Behavior', edit_lesson_behaviors_path(lesson) %> |
 		<% end %>
-		<%= link_to 'Activities', lesson_activities_path(lesson) %>
+		<%= link_to 'Activities', lesson_activities_path(lesson) %> |
+		<%= link_to 'Behaviors', lesson_behaviors_path(lesson) %>
 	      </span>
 	    <% end  %>
 	  </td>

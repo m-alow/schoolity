@@ -40,7 +40,9 @@
 	Lesson #<%= lesson.order %>: <%= lesson.subject&.name %>
 	<span id="lesson-<%= lesson.id %>-actions" class="pull-right">
 	  <%= link_to 'Activities', lesson_activities_path(lesson) %> |
-	  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %>
+	  <%= link_to 'Edit Activities', edit_lesson_activities_path(lesson) %> |
+	  <%= link_to 'Behaviors', lesson_behaviors_path(lesson) %> |
+	  <%= link_to 'Edit Behaviors', edit_lesson_behaviors_path(lesson) %>
 	</span>
       </div>
       <div class="row">
