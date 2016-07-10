@@ -12,6 +12,13 @@ class Students::FollowingCodesController < ApplicationController
 
   def show
     authorize @following_code
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Pdf::FollowingCode.new @following_code
+        return send_data pdf.render, filename: 'following.pdf', type: 'application/pdf'
+      end
+    end
   end
 
   def create

@@ -6,7 +6,19 @@
 <% end %>
 
 <%= render layout: 'simple_panel' do %>
-  <%= @student.name %>
-  <%= @following_code.code %>
-  Expire at <%= @following_code.expire_at %>
+  <div class="well well-sm">
+    <%= @student.name %>
+  </div>
+
+  <div class="well well-sm">
+    <%= @following_code.code %>
+  </div>
+
+  <div class="well well-sm">
+    Expire at <%= @following_code.expire_at %>
+  </div>
+
+  <div class="well well-sm">
+    <%= link_to 'PDF', following_code_path(@following_code) + '.pdf'%>
+  </div>
 <% end %>

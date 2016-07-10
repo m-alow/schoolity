@@ -128,7 +128,11 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
+    pdf-core (0.6.1)
     pg (0.18.4)
+    prawn (2.1.0)
+      pdf-core (~> 0.6.1)
+      ttfunk (~> 1.4.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -242,6 +246,7 @@ GEM
     timecop (0.8.1)
     trix (0.9.7)
       rails
+    ttfunk (1.4.0)
     turbolinks (5.0.0)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -284,6 +289,7 @@ DEPENDENCIES
   jquery-ui-rails
   launchy
   pg
+  prawn
   pundit (~> 1.1.0)
   rails (= 4.2.6)
   rails-timeago (~> 2.0)
