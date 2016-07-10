@@ -50,6 +50,18 @@
 	      <%= render 'activities/content', activity: activity %>
 	    </div>
 	  <% end %>
+
+	  <% behavior = Behavior.find_by student_id: @following.student, behaviorable: lesson %>
+	  <% if behavior.present? %>
+	    <div class="well well-sm well-title">
+	      Behavior
+	      <span class='pull-right'><%= link_to discuss_link behavior %></span>
+	    </div>
+
+	    <div class="well well-sm">
+	      <%= render 'behaviors/content', behavior: behavior %>
+	    </div>
+	  <% end %>
 	</div>
       </div>
     <% end %>
