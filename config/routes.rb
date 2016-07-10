@@ -66,6 +66,13 @@ Rails.application.routes.draw do
   resources :comments, only: [:update, :destroy]
   resources :behaviors, only: [:show]
 
+  resources :days do
+    put '/students/:student_id/behavior' => 'days/behaviors#update', as: :student_behavior
+    resources :behaviors, only: [:index], module: :days, shallow: true do
+      get :edit, on: :collection
+    end
+  end
+
   namespace :teacher do
     get '/' => 'panel#index'
     get '/exams' => 'panel#exams'
