@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
   has_many :activities
   has_many :grades
   has_many :behaviors
+  has_many :announcements, as: :announceable
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true

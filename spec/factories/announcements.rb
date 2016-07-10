@@ -15,5 +15,9 @@ FactoryGirl.define do
     factory :classroom_announcement do
       association :announceable, factory: :classroom
     end
+
+    factory :student_announcement do
+      association :announceable, factory: :student
+    end
   end
 end

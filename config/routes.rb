@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :students do
       resources :studyings
       resources :following_codes, only: [:index, :show, :create, :destroy], controller: 'students/following_codes'
+      resources :announcements, module: :students, only: [:index, :new, :create]
     end
     resources :school_administrations, except: [:edit, :update]
     resources :announcements, module: :schools, only: [:index, :new, :create]
