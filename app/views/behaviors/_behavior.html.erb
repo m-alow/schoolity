@@ -6,6 +6,8 @@
   <% if behavior.behaviorable.is_a? Lesson %>
     <%= behavior.behaviorable.subject&.name %>
     Lesson on <%= time_tag behavior.behaviorable.day.date %>
+  <% elsif behavior.behaviorable.is_a? Day %>
+    Day's behavior on <%= time_tag behavior.behaviorable.date %>
   <% end %>
 </div>
 
