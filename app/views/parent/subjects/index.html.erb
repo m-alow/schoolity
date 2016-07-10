@@ -1,2 +1,27 @@
-<h1>Parent::Subjects#index</h1>
-<p>Find me in app/views/parent/subjects/index.html.erb</p>
+<% provide :panel_title, 'Subjects' %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="well well-sm close-well">
+    <%= @student.name %>
+  </div>
+
+  <div class="well well-sm">
+    <%= qualified_classroom_name @student.classroom %>
+  </div>
+
+  <% @subjects.each do |subject| %>
+    <div>
+      <div class="well well-sm well-title">
+	<%= subject.name %>
+      </div>
+
+      <div class="well">
+	<% unless subject.description.empty? %>
+	  <%= subject.description.html_safe %>
+	<% else %>
+	  No description is provided
+	<% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
