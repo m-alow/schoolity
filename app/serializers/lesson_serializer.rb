@@ -1,8 +1,12 @@
 class LessonSerializer < ActiveModel::Serializer
-  attributes :subject, :order, :content_type, :content, :activity
+  attributes :subject, :order, :content_type, :content, :activity, :behavior
 
   def activity
     ActiveModelSerializers::SerializableResource.new(object.activities.find_by student_id: student_id)
+  end
+
+  def behavior
+    ActiveModelSerializers::SerializableResource.new(object.behaviors.find_by student_id: student_id)
   end
 
   def subject
