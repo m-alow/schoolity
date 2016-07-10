@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'behaviors/show'
-
   get 'dashboard' => 'dashboard#index', as: 'dashboard'
   get 'dashboard' => 'dashboard#index', as: 'user_root'
 
@@ -43,7 +41,7 @@ Rails.application.routes.draw do
   end
 
   resources :followings, except: [:edit, :update]
-  resources :lessons, only: [:update, :show] do
+  resources :lessons, only: [:update, :show], shallow: true do
     put '/students/:student_id/activity' => 'activities#update', as: :student_activity
     resources :activities, only: [:index, :show], shallow: true do
       get :edit, on: :collection
@@ -51,8 +49,9 @@ Rails.application.routes.draw do
     end
     resources :comments, only: [:create], module: :lessons
     put '/students/:student_id/behavior' => 'lessons/behaviors#update', as: :student_behavior
-    resources :behaviors, only: [:index], module: :lessons do
+    resources :behaviors, only: [:index], module: :lessons, shallow: true do
       get :edit, on: :collection
+      resources :comments, only: [:create], controller: '/behaviors/comments'
     end
   end
 

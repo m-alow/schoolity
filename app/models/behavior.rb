@@ -1,8 +1,9 @@
 class Behavior < ActiveRecord::Base
   belongs_to :student
   belongs_to :behaviorable, polymorphic: true
+  has_many :comments, as: :commentable
 
-  validates :student, :behaviorable, :content, :content_type, presence: true
+  validates :student, :behaviorable, :content_type, presence: true
 
   serialize :content
 

@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Behavior, type: :model do
   it { should belong_to :student }
   it { should belong_to :behaviorable }
+  it { should have_many :comments }
 
   it { should validate_presence_of :student }
   it { should validate_presence_of :behaviorable }
-  it { should validate_presence_of :content }
   it { should validate_presence_of :content_type }
 
   describe '.make' do

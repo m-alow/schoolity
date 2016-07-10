@@ -1,0 +1,2 @@
+module Behaviors::CommentsHelper
+end
