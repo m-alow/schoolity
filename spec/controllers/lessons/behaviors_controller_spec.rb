@@ -95,7 +95,7 @@ RSpec.describe Lessons::BehaviorsController, type: :controller do
             expect(behavior.notes).to eq 'Good'
           end
 
-          xit 'notifies followers of student' do
+          it 'notifies followers of student' do
             scope = instance_double Scope::Student::Followers
             notifier= instance_double Notifier::Update
             allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
@@ -123,7 +123,7 @@ RSpec.describe Lessons::BehaviorsController, type: :controller do
               expect(behavior.notes).to eq 'Good'
             end
 
-            xit 'notifies followers of student' do
+            it 'notifies followers of student' do
               scope = instance_double Scope::Student::Followers
               notifier= instance_double Notifier::Update
               allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
@@ -148,7 +148,7 @@ RSpec.describe Lessons::BehaviorsController, type: :controller do
             expect(Behavior.last.notes).to eq 'Good'
           end
 
-          xit 'notifies followers of student' do
+          it 'notifies followers of student' do
             scope = instance_double Scope::Student::Followers
             notifier= instance_double Notifier::Update
             allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
@@ -171,7 +171,7 @@ RSpec.describe Lessons::BehaviorsController, type: :controller do
               expect(Behavior.last.notes).to eq 'Good'
             end
 
-            xit 'notifies followers of student' do
+            it 'notifies followers of student' do
               scope = instance_double Scope::Student::Followers
               notifier= instance_double Notifier::Update
               allow(Scope::Student::Followers).to receive(:new).with(student) { scope }
