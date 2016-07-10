@@ -1,4 +1,4 @@
-<% provide :panel_title, 'School Announcement'  %>
+<% provide :panel_title, 'Announcement'  %>
 
 <% content_for :actions_list do %>
   <li><%= link_to 'Edit', edit_announcement_path(@announcement) %></li>
@@ -13,6 +13,9 @@
   <% elsif @announcement.for_classroom? %>
     <li><%= link_to 'Classroom', @announcement.announceable %></li>
     <li><%= link_to 'Class', @announcement.announceable.school_class %></li>
+    <li><%= link_to 'School', @announcement.announceable.school %></li>
+  <% elsif @announcement.for_student? %>
+    <li><%= link_to 'Student', @announcement.announceable %></li>
     <li><%= link_to 'School', @announcement.announceable.school %></li>
   <% end %>
 <% end %>

@@ -50,6 +50,13 @@
       <% end %>
     <% end %>
 
+    <%= render layout: 'accordion_section', locals: { id: 'announcements', title: 'Announcements', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Announcements', student_announcements_path(@student) %></li>
+	<li><%= link_to 'New Announcement', new_student_announcement_path(@student) %></li>
+      </ul>
+    <% end %>
+
     <%= render layout: 'accordion_section', locals: { id: 'following_code', title: 'Following Codes', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Following Codes', student_following_codes_path(@student) %></li>

@@ -16,4 +16,8 @@ class Announcement < ActiveRecord::Base
   def for_classroom?
     announceable_type == 'Classroom'
   end
+
+  def for_student?
+    announceable_type == 'Student'
+  end
 end

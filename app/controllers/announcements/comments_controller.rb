@@ -71,4 +71,15 @@ class Announcements::CommentsController < ApplicationController
       'Parent'
     end
   end
+
+  def student_user_role
+    student = @announcement.announceable
+    if current_user.owns? student.school
+      'School Owner'
+    elsif current_user.administrates? student.school
+      'School Admin'
+    elsif current_user.follows? student
+      'Parent'
+    end
+  end
 end

@@ -1,0 +1,31 @@
+<% provide :panel_title, 'Announcements list' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'New Announcement', new_student_announcement_path(@student) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Student', @student %></li>
+  <li><%= link_to 'School', @student.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <table class="table">
+    <thead>
+      <tr>
+	<th>Title</th>
+	<th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @announcements.each do |announcement| %>
+	<tr>
+	  <td><%= link_to announcement.title, announcement %></td>
+	  <td><%= discuss_link announcement %></td>
+          <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+          <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
