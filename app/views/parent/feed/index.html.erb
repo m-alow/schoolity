@@ -1,29 +1,5 @@
 <% provide :panel_title, 'Feed' %>
 
 <%= render layout: 'simple_panel' do %>
-  <% @feed.each do |notification, f| %>
-    <div class="element">
-      <span class="pull-right">
-	<%= discuss_link f %>
-      </span>
-
-      <% unless f.comments.empty? %>
-	<div class="element-bold-header">
-	  <%= f.comments.last.user.name %> commented on this.
-	</div>
-      <% end %>
-
-      <div class="element-light-header">
-	<% if f.created_at == f.updated_at %>
-	  <%= timeago_tag f.created_at %>
-	<% else %>
-	  Edited <%= timeago_tag f.updated_at %>
-	<% end %>
-      </div>
-
-      <div>
-	<%= render_object f %>
-      </div>
-    </div>
-  <% end %>
+  <%= render 'shared/feed', feed: @feed %>
 <% end %>
