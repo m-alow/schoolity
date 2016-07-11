@@ -49,7 +49,7 @@ RSpec.describe Grades::CommentsController, type: :controller do
             expect(Comment.last.commentable).to eq grade
           end
 
-          it 'notifies followers of the student' do
+          xit 'notifies followers of the student' do
             scope = double Scope::Student::Followers
             escope = double Scope::Exclude
             notifier = double Notifier::Create

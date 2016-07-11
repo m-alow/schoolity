@@ -6,16 +6,28 @@ module Commenting
         user: user,
         body: body,
         role: -> (u) { user_role u, grade },
-        notify: -> (grade) { notify_followers grade, user }
+        notify: -> (grade) { notify grade, user }
       )
     end
 
     private
 
+    def self.notify grade, user
+      notify_followers grade, user
+      notify_teachers grade, user
+    end
+
     def self.notify_followers grade, user
       Notifier::Update
         .new(Scope::Exclude.new(
               Scope::Student::Followers.new(grade.student), user))
+        .call grade
+    end
+
+    def self.notify_teachers grade, user
+      Notifier::Update
+        .new(Scope::Exclude.new(
+              Scope::Classroom::Subject::Teachers.new(grade.exam.classroom, grade.exam.subject), user))
         .call grade
     end
 
