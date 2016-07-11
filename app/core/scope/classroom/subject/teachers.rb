@@ -10,8 +10,10 @@ module Scope
         end
 
         def call
-          User.where id:
-                       Teaching.select(:user_id).where(classroom: classroom)
+          u = User.where(id: (
+                       Teaching.select(:user_id).where(classroom: classroom, subject: subject) +
+                       Teaching.select(:user_id).where(classroom: classroom, all_subjects: true)).map(&:user_id))
+
         end
 
         def role
