@@ -5,7 +5,7 @@ RSpec.describe Notifier::Publishers::Persist::Create do
   let(:notifiable) { create(:classroom_announcement) }
 
   it 'does not create new notifications in the database if there is no subscribers' do
-    scope = double :scope, :call => []
+    scope = double :scope, :call => [], :role => 'Role'
     expect {
       subject.call scope, notifiable
     }.not_to change(Notification, :count)
