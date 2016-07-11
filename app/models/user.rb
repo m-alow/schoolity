@@ -58,6 +58,14 @@ class User < ActiveRecord::Base
     followings.exists? student_id: school_class.current_students
   end
 
+  def teacher_notifications
+    notifications.where(recipient_role: 'Teacher').order(updated_at: :desc)
+  end
+
+  def teacher_feed
+    teacher_notifications.includes(:notifiable).map { |n| [n, n.notifiable] }
+  end
+
   def teacher?
     !teachings.empty?
   end

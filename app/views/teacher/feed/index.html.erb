@@ -1,2 +1,5 @@
-<h1>Teacher::Feed#index</h1>
-<p>Find me in app/views/teacher/feed/index.html.erb</p>
+<% provide :panel_title, 'Teacher Feed' %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render 'shared/feed', feed: @feed %>
+<% end %>
