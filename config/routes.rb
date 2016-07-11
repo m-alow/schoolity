@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
   namespace :teacher do
     get '/' => 'panel#index'
+    resources :feed, only: [:index]
     get '/exams' => 'panel#exams'
     get '/announcements' => 'panel#announcements'
     resources :agendas, param: :date, only: [:index, :show, :edit]
