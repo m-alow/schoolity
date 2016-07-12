@@ -1,0 +1,13 @@
+<ul class="list-group">
+  <% notifications.each do |n| %>
+    <li class="list-group-item notification-link">
+      <h7 class="list-group-item-heading">
+	<%= link_to Notifier::Presenter::Notification.new(n).present, n %>
+      </h7>
+
+      <p class="list-group-item-text">
+	<%= timeago_tag n.updated_at %>
+      </p>
+    </li>
+  <% end %>
+</ul>
