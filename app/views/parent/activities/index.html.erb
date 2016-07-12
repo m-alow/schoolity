@@ -1,0 +1,22 @@
+<% provide :panel_title, "#{@student.name}'s Activity" %>
+
+<%= render layout: 'simple_panel' do %>
+  <% @activities.each do |b| %>
+    <div class="element">
+      <span class="pull-right">
+	<%= link_to 'Discuss', b %>
+	<% unless b.comments.count.zero? %>
+	  <span class="badge">
+	    <%= b.comments.count %>
+	  </span>
+	<% end %>
+      </span>
+
+      <span class="element-light-header">
+	<%= render 'shared/timeago', object: b %>
+      </span>
+
+      <%= render 'activities/activity', activity: b %>
+    </div>
+  <% end %>
+<% end %>

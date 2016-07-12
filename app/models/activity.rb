@@ -7,6 +7,7 @@ class Activity < ActiveRecord::Base
 
   validates :student, :lesson, presence: true
 
+  scope :sorted, -> { order created_at: :desc }
   TYPE_TO_ROLE = {
     'base' => Roles::Activity::Base,
     'basic' => Roles::Activity::Basic

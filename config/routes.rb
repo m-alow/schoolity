@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       resources :grades, only: [:index]
       resources :subjects, only: [:index]
       resources :behaviors, only: [:index]
+      resources :activities, only: [:index]
     end
   end
 
