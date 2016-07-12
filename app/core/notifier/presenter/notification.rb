@@ -15,7 +15,12 @@ module Notifier
       private
 
       def presenter_of notification
-        Notifier::Presenter::Comment.new(notification.notifiable)
+        notifiable = notification.notifiable
+        unless notifiable.comments.empty?
+          Notifier::Presenter::Comment.new(notifiable)
+        else
+          "Notifier::Presenter::#{notifiable.class.name}".constantize.new(notifiable)
+        end
       end
     end
   end
