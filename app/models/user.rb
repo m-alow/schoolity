@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def teacher_notifications
-    notifications.where(recipient_role: 'Teacher').order(updated_at: :desc)
+    notifications.where(recipient_role: 'Teacher').sorted
   end
 
   def teacher_feed

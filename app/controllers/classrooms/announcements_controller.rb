@@ -19,10 +19,7 @@ class Classrooms::AnnouncementsController < ApplicationController
     authorize @announcement
 
     if @announcement.save
-      Notifier::Create
-        .new(Scope::Classroom::Followers.new(@classroom))
-        .call @announcement
-
+      notify
       redirect_to @announcement, notice: 'Announcement was successfully created.'
     else
       render :new
@@ -38,5 +35,17 @@ class Classrooms::AnnouncementsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def announcement_params
     params.require(:announcement).permit(:title, :body).merge({ author: current_user })
+  end
+
+  def notify
+    Notifier::Create
+      .new(Scope::Classroom::Followers.new(@classroom))
+      .call @announcement
+
+    Notifier::Create
+      .new(Scope::Exclude.new(
+            Scope::Classroom::Teachers.new(@classroom),
+            current_user))
+      .call @announcement
   end
 end

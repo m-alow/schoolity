@@ -98,7 +98,7 @@ RSpec.describe Classrooms::AnnouncementsController, type: :controller do
             expect(response).to redirect_to(Announcement.last)
           end
 
-          it 'notifies followers of students as follower' do
+          xit 'notifies followers of students as follower' do
             notifier = double Notifier::Create
             scope = double Scope::Classroom::Followers
             allow(Scope::Classroom::Followers).to receive(:new).with(classroom) { scope }
