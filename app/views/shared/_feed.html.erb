@@ -1,7 +1,7 @@
 <% feed.each do |notification, f| %>
   <div class="element">
     <span class="pull-right">
-      <%= discuss_link f %>
+      <%= notifiable_link notification %>
     </span>
 
     <% unless f.comments.empty? %>
