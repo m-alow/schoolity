@@ -74,6 +74,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :notifications, only: [:show]
+
   namespace :teacher do
     get '/' => 'panel#index'
     resources :feed, only: [:index]
