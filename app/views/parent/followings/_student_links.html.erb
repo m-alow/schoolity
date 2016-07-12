@@ -5,6 +5,7 @@
     <li><%= link_to 'Timetable', current_classroom_timetables_path(following.student.classroom) %></li>
   <% end %>
   <li><%= link_to 'Grades', parent_following_grades_path(following) %></li>
+  <li><%= link_to 'Behavior', parent_following_behaviors_path(following) %></li>
   <li><%= link_to 'Subjects', parent_following_subjects_path(following) %></li>
   <li><%= link_to 'Absence', '#' %></li>
   <li class="alert"><%= link_to "Unfollow #{following.student.name}", following_path(following), method: :delete, data: { confirm: 'Sure?' }, class: 'alert alert-danger' %></li>

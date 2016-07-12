@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       resources :agendas, only: [:index, :show], param: :date
       resources :grades, only: [:index]
       resources :subjects, only: [:index]
+      resources :behaviors, only: [:index]
     end
   end
 

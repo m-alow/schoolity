@@ -7,6 +7,8 @@ class Behavior < ActiveRecord::Base
 
   serialize :content
 
+  scope :sorted, -> { order(created_at: :desc) }
+
   after_initialize do
     self.content_type ||= 'base'
     extend "Roles::Behavior::#{content_type.camelcase}".constantize

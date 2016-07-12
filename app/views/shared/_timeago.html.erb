@@ -1,0 +1,5 @@
+<% if object.created_at == object.updated_at %>
+  <%= timeago_tag object.created_at %>
+<% else %>
+  Edited <%= timeago_tag object.updated_at %>
+<% end %>

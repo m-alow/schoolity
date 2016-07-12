@@ -1,0 +1,22 @@
+<% provide :panel_title, "#{@student.name}'s Behavior" %>
+
+<%= render layout: 'simple_panel' do %>
+  <% @behaviors.each do |b| %>
+    <div class="element">
+      <span class="pull-right">
+	<%= link_to 'Discuss', b %>
+	<% unless b.comments.count.zero? %>
+	  <span class="badge">
+	    <%= b.comments.count %>
+	  </span>
+	<% end %>
+      </span>
+
+      <span class="element-light-header">
+	<%= render 'shared/timeago', object: b %>
+      </span>
+
+      <%= render 'behaviors/behavior', behavior: b %>
+    </div>
+  <% end %>
+<% end %>

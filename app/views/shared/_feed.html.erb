@@ -11,11 +11,7 @@
     <% end %>
 
     <div class="element-light-header">
-      <% if f.created_at == f.updated_at %>
-	<%= timeago_tag f.created_at %>
-      <% else %>
-	Edited <%= timeago_tag f.updated_at %>
-      <% end %>
+      <%= render 'shared/timeago', object: f %>
     </div>
 
     <div>
