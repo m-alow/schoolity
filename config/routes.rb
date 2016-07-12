@@ -82,6 +82,9 @@ Rails.application.routes.draw do
     get '/exams' => 'panel#exams'
     get '/announcements' => 'panel#announcements'
     resources :agendas, param: :date, only: [:index, :show, :edit]
+    resources :notifications, only: [:index] do
+      get 'all' => 'notifications#all', on: :collection
+    end
   end
 
   namespace :parent do
