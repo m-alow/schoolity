@@ -1,0 +1,14 @@
+<h7 class="list-group-item-heading">
+  <%= link_to Notifier::Presenter::Notification.new(notification).present, notification %>
+</h7>
+
+<p class="list-group-item-text">
+  <%= timeago_tag notification.updated_at %>
+  <span class="pull-right">
+    <% if notification.read? %>
+      <%= link_to 'Mark as unread', notification, method: :put, remote: true %>
+    <% else %>
+      <%= link_to 'Mark as read', notification, method: :put, remote: true %>
+    <% end %>
+  </span>
+</p>

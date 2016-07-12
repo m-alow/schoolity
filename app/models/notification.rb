@@ -10,4 +10,12 @@ class Notification < ActiveRecord::Base
   def read?
     read_at.present?
   end
+
+  def mark_read!
+    update_columns read_at: Time.zone.now
+  end
+
+  def mark_unread!
+    update_columns read_at: nil
+  end
 end

@@ -20,4 +20,36 @@ RSpec.describe Notification, type: :model do
       expect(n.read?).to be false
     end
   end
+
+  describe '#mark_read!' do
+    let(:notification) { create(:grade_notification, read_at: nil, notifiable: create(:grade)) }
+
+    it 'sets read_at to the current time' do
+      Timecop.freeze do
+        notification.mark_read!
+        expect(notification.read_at).to eq Time.zone.now
+      end
+    end
+
+    it 'does not change updated_at' do
+      expect {
+        notification.mark_read!
+      }.not_to change(notification, :updated_at)
+    end
+  end
+
+  describe '#mark_unread!' do
+    let(:notification) { create(:grade_notification, read_at: '2010-10-10'.to_date, notifiable: create(:grade)) }
+
+    it 'sets read_at to nil' do
+      notification.mark_unread!
+      expect(notification.read_at).to be_nil
+    end
+
+    it 'does not change updated_at' do
+      expect {
+        notification.mark_unread!
+      }.not_to change(notification, :updated_at)
+    end
+  end
 end

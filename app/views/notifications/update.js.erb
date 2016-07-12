@@ -1,0 +1,3 @@
+$("#notification-<%= notification.id %>")
+  .html("<%= j render('notifications/notification', notification: notification) %>")
+  .effect("highlight", 500);

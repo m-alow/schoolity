@@ -5,7 +5,7 @@ RSpec.describe NotificationPolicy do
 
   subject { described_class }
 
-  permissions :show? do
+  permissions :show?, :update? do
     it 'allows recipient user' do
       expect(subject).to permit(notification.recipient, notification)
     end
