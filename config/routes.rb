@@ -113,6 +113,7 @@ Rails.application.routes.draw do
               resources :comments, only: [:index, :create], module: :grades
             end
           end
+          resources :announcements, only: [:index]
           resources :feed, only: [:index]
         end
 
