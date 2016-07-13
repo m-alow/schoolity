@@ -8,7 +8,7 @@ module Api
 
         respond_to do |format|
           if comment.update(body: params[:comment][:body])
-            format.json { render json: comment }
+            format.json { render json: comment, status: :ok, current_user: current_user.id }
           else
             format.json { render json: { errors: comment.errors.full_messages } }
           end
