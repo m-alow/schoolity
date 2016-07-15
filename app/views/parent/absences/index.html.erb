@@ -1,0 +1,16 @@
+<% provide :panel_title, "#{@student.name}'s Absence" %>
+
+<%= render layout: 'simple_panel' do %>
+  <ul class="list-group">
+    <% @absences.each do |a| %>
+      <li class="list-group-item">
+	<h6 class="list-group-item-heading">
+	  <%= time_tag a.day.date %>
+	</h6>
+	<div class="list-gorup-item-text">
+	  <%= discuss_link a %>
+	</div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -101,6 +101,7 @@ Rails.application.routes.draw do
       resources :subjects, only: [:index]
       resources :behaviors, only: [:index]
       resources :activities, only: [:index]
+      resources :absences, only: [:index]
     end
   end
 

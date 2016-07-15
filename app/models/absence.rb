@@ -5,4 +5,6 @@ class Absence < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :delete_all
 
   validates :day, :student, presence: true
+
+  scope :sorted, -> { includes(:day).sort_by { |a| a.day.date }.reverse }
 end
