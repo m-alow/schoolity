@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709161936) do
+ActiveRecord::Schema.define(version: 20160715122854) do
+
+  create_table "absences", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "day_id"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "absences", ["day_id"], name: "index_absences_on_day_id"
+  add_index "absences", ["student_id"], name: "index_absences_on_student_id"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "student_id"
