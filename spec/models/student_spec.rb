@@ -8,6 +8,7 @@ RSpec.describe Student, type: :model do
   it { should have_many :grades }
   it { should have_many :behaviors }
   it { should have_many :announcements }
+  it { should have_many :absences }
 
   it { should validate_presence_of :first_name }
   it { should validate_presence_of :last_name }

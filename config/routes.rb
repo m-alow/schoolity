@@ -72,6 +72,9 @@ Rails.application.routes.draw do
     resources :behaviors, only: [:index], module: :days, shallow: true do
       get :edit, on: :collection
     end
+
+    put '/students/:student_id/absence' => 'absences#update', as: :student_absence
+    resources :absences, only: [:index, :destroy], shallow: true
   end
 
   resources :notifications, only: [:show, :update]
