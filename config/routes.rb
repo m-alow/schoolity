@@ -75,7 +75,7 @@ Rails.application.routes.draw do
 
     put '/students/:student_id/absence' => 'absences#update', as: :student_absence
     resources :absences, only: [:index, :destroy, :show], shallow: true do
-      resources :comments, only: :create
+      resources :comments, only: :create, module: :absences
     end
   end
 
