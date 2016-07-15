@@ -1,0 +1,23 @@
+<% provide :panel_title, 'Absence' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Agenda', date_classroom_agendas_path(classroom_id: @classroom, date: @day.date.to_param) %></li>
+  <li><%= link_to 'Edit Agenda', edit_classroom_agendas_path(classroom_id: @classroom, date: @day.date.to_param) %></li>
+
+  <li class="divider"></li>
+  <li><%= link_to 'Classroom', @classroom %></li>
+  <li><%= link_to 'Class', @classroom.school_class %></li>
+  <li><%= link_to 'School', @classroom.school %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= render 'shared/day_header', day: @day %>
+
+  <ul class="list-group">
+    <% @absences.each do |absence| %>
+      <div id="student-<%= absence.student_id %>">
+	<%= render absence %>
+      </div>
+    <% end %>
+  </ul>
+<% end %>

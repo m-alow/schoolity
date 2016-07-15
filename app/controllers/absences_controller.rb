@@ -4,7 +4,7 @@ class AbsencesController < ApplicationController
   # GET /days/:day_id/absences
   def index
     AbsencePolicy.new(current_user, @day).authorize_action(:index?)
-    @absences = @day.absences.includes(:student)
+    @absences = ClassroomAbsences.new.(@day)
   end
 
   # GET /days/:day_id/students/:student_id/absence
