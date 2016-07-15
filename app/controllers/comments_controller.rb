@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     authorize comment
 
     respond_to do |format|
-       if comment.update(body: params[:comment][:body])
+      if comment.update(body: params[:comment][:body])
         format.html { redirect_to comment.commentable }
         format.js { render locals: { comment: comment } }
       else

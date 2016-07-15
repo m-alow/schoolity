@@ -1,10 +1,16 @@
 class AbsencesController < ApplicationController
-  before_action :set_day, except: [:destroy]
+  before_action :set_day, except: [:destroy, :show]
 
   # GET /days/:day_id/absences
   def index
     AbsencePolicy.new(current_user, @day).authorize_action(:index?)
     @absences = ClassroomAbsences.new.(@day)
+  end
+
+  # GET /absences/1
+  def show
+    @absence = Absence.find params[:id]
+    authorize @absence
   end
 
   # GET /days/:day_id/students/:student_id/absence

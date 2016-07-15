@@ -1,1 +1,1 @@
-$("#student-<%= absence.student_id %>").html("<%= j render absence %>");
+$("#student-<%= absence.student_id %>").html("<%= j render 'absences/absence_list', absence: absence %>");

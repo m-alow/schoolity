@@ -10,5 +10,11 @@ class AbsencePolicy < ApplicationPolicy
     user.owns?(school) || user.administrates?(school)
   end
 
+  def show?
+    school = record.day.classroom.school
+    user.owns?(school) ||
+      user.administrates?(school) ||
+      user.follows?(record.student)
+  end
   alias_method :destroy?, :update?
 end

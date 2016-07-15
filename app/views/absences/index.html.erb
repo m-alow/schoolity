@@ -16,7 +16,7 @@
   <ul class="list-group">
     <% @absences.each do |absence| %>
       <div id="student-<%= absence.student_id %>">
-	<%= render absence %>
+	<%= render 'absences/absence_list', absence: absence %>
       </div>
     <% end %>
   </ul>

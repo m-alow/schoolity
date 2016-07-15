@@ -77,4 +77,38 @@ RSpec.describe AbsencePolicy do
       expect(subject).not_to permit(user, absence)
     end
   end
+
+  permissions :show? do
+    it 'allows owner' do
+      expect(subject).to permit(owner, absence)
+    end
+
+    it 'prevents owner from accessing other schools' do
+      expect(subject).not_to permit(owner, another_absence)
+    end
+
+    it 'allows admin' do
+      expect(subject).to permit(admin, absence)
+    end
+
+    it 'prevents admin from accessing other schools' do
+      expect(subject).not_to permit(admin, another_absence)
+    end
+
+    it 'prevents teacher' do
+      expect(subject).not_to permit(teacher, absence)
+    end
+
+    it 'allows parent' do
+      expect(subject).to permit(parent, absence)
+    end
+
+    it 'prevents parent from accessing other students' do
+      expect(subject).not_to permit(parent, another_absence)
+    end
+
+    it 'prevents other users' do
+      expect(subject).not_to permit(user, absence)
+    end
+  end
 end

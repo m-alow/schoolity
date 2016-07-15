@@ -15,6 +15,13 @@ RSpec.describe AbsencesController, type: :controller do
       end
     end
 
+    describe 'GET #show' do
+      it 'requires login' do
+        get :show, id: absence
+        expect(response).to require_login
+      end
+    end
+
     describe 'PUT #upadte' do
       it 'requires login' do
         put :update, day_id: day, student_id: student
@@ -42,6 +49,13 @@ RSpec.describe AbsencesController, type: :controller do
         end
       end
 
+      describe 'GET #show' do
+        it 'requires authorization' do
+          get :show, id: absence
+          expect(response).to require_authorization
+        end
+      end
+
       describe 'PUT #upadte' do
         it 'requires authorization' do
           put :update, day_id: day, student_id: student
@@ -64,6 +78,13 @@ RSpec.describe AbsencesController, type: :controller do
       describe 'GET #index' do
         it 'succeed' do
           get :index, day_id: day
+          expect(response).to have_http_status :success
+        end
+      end
+
+      describe 'GET #show' do
+        it 'succeed' do
+          get :show, id: absence
           expect(response).to have_http_status :success
         end
       end

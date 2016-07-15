@@ -1,13 +1,13 @@
-<li class="list-group-item <%= absence.persisted? ? 'list-group-item-danger' : '' %>">
-  <h6 class="list-group-item-heading">
-    <%= absence.student.name %>
-  </h6>
+<div class="element-title">
+  <%= absence.student.name %> was absent
+</div>
 
-  <div class="list-group-item-text">
-    <% if absence.persisted? %>
-      <%= link_to 'Mark as attendant', absence_path(absence), method: :delete, remote: true %>
-    <% else %>
-      <%= link_to 'Mark as absent', day_student_absence_path(absence.day, absence.student, absence: {notes: ''}), method: :put, remote: true %>
-    <% end %>
+<div class="element-section">
+  on <%= time_tag absence.day.date %>
+</div>
+
+<% unless absence.notes.empty? %>
+  <div class="internal-element">
+    <%= absence.notes %>
   </div>
-</li>
+<% end %>
