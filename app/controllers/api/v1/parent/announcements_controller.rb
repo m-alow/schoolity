@@ -1,3 +1,4 @@
+
 module Api
   module V1
     module Parent
@@ -10,6 +11,14 @@ module Api
 
           respond_to do |format|
             format.json { render json: announcements, status: :ok }
+          end
+        end
+
+        def show
+          announcement = Announcement.find params[:id]
+          authorize announcement
+          respond_to do |format|
+            format.json { render json: announcement, status: :ok }
           end
         end
       end
