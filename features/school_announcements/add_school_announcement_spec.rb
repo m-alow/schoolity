@@ -6,6 +6,7 @@ feature 'add school announcement' do
   let(:school_admin) { create(:school_administration, administrated_school: school).administrator }
 
   scenario 'school admin can adds announcement' do
+    skip
     sign_in_user school_admin
 
     NewAnnouncementForm
@@ -21,6 +22,7 @@ feature 'add school announcement' do
   end
 
   scenario 'school admin cannot add announcement with invalid data' do
+    skip
     sign_in_user school_admin
 
     NewAnnouncementForm

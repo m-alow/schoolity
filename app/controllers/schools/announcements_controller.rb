@@ -15,18 +15,15 @@ class Schools::AnnouncementsController < ApplicationController
 
   # POST /schools/1/announcements
   def create
-    @announcement = @school.announcements.build(create_announcement_params)
+    Announcements::PostOnSchool.(@school, current_user, params[:announcement]) do
+      on(:success) do |announcement|
+        redirect_to announcement, notice: 'Announcement was successfully created.'
+      end
 
-    authorize @announcement
-
-    if @announcement.save
-      Notifier::Create
-        .new(Scope::School::Followers.new @school)
-        .call @announcement
-
-      redirect_to @announcement, notice: 'Announcement was successfully created.'
-    else
-      render :new
+      on(:invalid) do |announcement|
+        @announcement = announcement
+        render :new
+      end
     end
   end
 
@@ -34,10 +31,5 @@ class Schools::AnnouncementsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_school_from_params
     @school = School.find params[:school_id]
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def create_announcement_params
-    params.require(:announcement).permit(:title, :body).merge( { author: current_user })
   end
 end

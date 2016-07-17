@@ -7,6 +7,26 @@
   <li><%= link_to 'School', @school %></li>
 <% end  %>
 
-<%= render layout: 'wide_panel' do %>
-  <%= render 'announcements/new_form', announceable: @school, announcement: @announcement %>
+<%= render layout: 'wider_panel' do %>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="well well-sm well-title">Forms</div>
+      <ul class="nav nav-pills nav-stacked">
+	<li class="active"><%= link_to 'Basic', "#form-tab-basic", 'data-toggle' => 'pill' %></li>
+	<li><%= link_to 'Holiday', "#form-tab-holiday", 'data-toggle' => 'pill' %></li>
+      </ul>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="tab-content">
+	<div id="form-tab-basic" class="tab-pane fade in active">
+	  <%= render 'announcements/new_form', announceable: @school, announcement: @announcement %>
+	</div>
+
+	<div id="form-tab-holiday" class="tab-pane fade">
+	  <%= render 'announcements/new_holiday_form', announceable: @school, announcement: @announcement %>
+	</div>
+      </div>
+    </div>
+  </div>
 <% end %>

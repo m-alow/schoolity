@@ -1,0 +1,21 @@
+<%= simple_form_for [announceable, announcement] do |f| %>
+  <div>
+    <%= f.error_notification %>
+  </div>
+
+  <div class="form-inputs">
+    <%= hidden_field_tag 'announcement[type]', 'holiday' %>
+
+    <div class="form-group form-inline">
+      <%= select_date Date.current, { prefix: 'announcement[date]' }, class: 'date form-control'%>
+    </div>
+
+    <div class="form-group">
+      <%= text_area_tag 'announcement[occasion]', nil, placeholder: 'On the occasion of...', class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit' %>
+  </div>
+<% end %>
