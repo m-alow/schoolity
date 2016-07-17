@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
     notifications.where(recipient_role: 'Follower').order(updated_at: :desc)
   end
 
-  def parent_feed
-    parent_notifications.includes(:notifiable).map { |n| [n, n.notifiable] }
+  def parent_feed notifications
+    notifications.includes(:notifiable).map { |n| [n, n.notifiable] }
   end
 
   def follows? student

@@ -2,4 +2,5 @@
 
 <%= render layout: 'simple_panel' do %>
   <%= render 'shared/feed', feed: @feed %>
+  <%= will_paginate @notifications %>
 <% end %>

@@ -4,8 +4,9 @@ module Api
       class FeedController < ApiController
         FeedEntry = Struct.new(:type, :entry)
         def index
+          notifications = current_user.parent_notifications.paginate page: params[:page]
           feed = current_user
-                 .parent_feed
+                 .parent_feed(notifications)
                  .map { |_, f| { type: f.class.name, entry: ActiveModelSerializers::SerializableResource.new(f) } }
 
           respond_to do |format|

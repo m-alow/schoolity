@@ -33,6 +33,7 @@ gem 'rectify', '~> 0.6.0'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'prawn'
+gem 'will_paginate'
 
 gem 'devise', '~> 4.1.0'
 gem 'pundit', '~> 1.1.0'
@@ -40,6 +41,7 @@ gem 'simple_token_authentication', '~> 1.13.0'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
+gem 'bootstrap-will_paginate'
 
 gem 'trix'
 gem 'simple_calendar'
