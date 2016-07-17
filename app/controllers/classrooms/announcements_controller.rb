@@ -15,14 +15,15 @@ class Classrooms::AnnouncementsController < ApplicationController
 
   # POST /classroomes/1/announcements
   def create
-    @announcement = @classroom.announcements.build(announcement_params)
-    authorize @announcement
+    Announcements::PostOnClassroom.(@classroom, current_user, params[:announcement]) do
+      on(:success) do |announcement|
+        redirect_to announcement, notice: 'Announcement was successfully created.'
+      end
 
-    if @announcement.save
-      notify
-      redirect_to @announcement, notice: 'Announcement was successfully created.'
-    else
-      render :new
+      on(:invalid) do |announcement|
+        @announcement = announcement
+        render :new
+      end
     end
   end
 
@@ -30,22 +31,5 @@ class Classrooms::AnnouncementsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_classroom_from_params
     @classroom = Classroom.find params[:classroom_id]
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def announcement_params
-    params.require(:announcement).permit(:title, :body).merge({ author: current_user })
-  end
-
-  def notify
-    Notifier::Create
-      .new(Scope::Classroom::Followers.new(@classroom))
-      .call @announcement
-
-    Notifier::Create
-      .new(Scope::Exclude.new(
-            Scope::Classroom::Teachers.new(@classroom),
-            current_user))
-      .call @announcement
   end
 end

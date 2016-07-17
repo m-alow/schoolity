@@ -4,8 +4,8 @@ RSpec.describe Classrooms::AnnouncementsController, type: :controller do
   let(:announcement) { create(:classroom_announcement) }
   let(:classroom) { announcement.announceable }
 
-  let(:valid_attributes) { attributes_for :classroom_announcement }
-  let(:invalid_attributes) { attributes_for :classroom_announcement, title: nil }
+  let(:valid_attributes) { attributes_for :classroom_announcement, type: 'basic' }
+  let(:invalid_attributes) { attributes_for :classroom_announcement, title: nil, type: 'basic' }
 
   context 'guest' do
     describe 'GET #index' do
