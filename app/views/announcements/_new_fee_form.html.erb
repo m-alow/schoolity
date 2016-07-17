@@ -1,0 +1,21 @@
+<%= simple_form_for [announceable, announcement] do |f| %>
+  <div>
+    <%= f.error_notification %>
+  </div>
+
+  <div class="form-inputs">
+    <%= hidden_field_tag 'announcement[type]', 'fee' %>
+    <div class="form-group">
+      <%= text_field_tag 'announcement[fee]', nil, class: 'form-control', placeholder: 'Fee' %>
+    </div>
+
+    <div class="form-group form-inline">
+      <%= label_tag 'Before' %>
+      <%= select_date Date.current, { prefix: 'announcement[date]' }, class: 'date form-control'%>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit' %>
+  </div>
+<% end %>
