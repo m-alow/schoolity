@@ -1,0 +1,26 @@
+<% scale = Roles::Activity::Rated::SCALE %>
+<ul class="list-inline">
+  <li class="form-element">
+    <div class="element-title">Homework</div>
+    <%= f.input :homework, collection: scale, as: :radio_buttons, label: false %>
+  </li>
+
+  <li class="form-element">
+    <div class="element-title">Assessment</div>
+    <%= f.input :assessment, collection: scale, as: :radio_buttons, label: false %>
+  </li>
+
+  <li class="form-element">
+    <div class="element-title">Participation</div>
+    <%= f.input :participation, collection: scale, as: :radio_buttons, label: false %>
+  </li>
+</ul>
+
+<%= f.input :notes, placeholder: 'Notes', label: false, as: :text %>
+
+<div class="form-element">
+  <%= f.simple_fields_for :other do |s| %>
+    <%= s.input :name, label: false, placeholder: 'Another rating' %>
+    <%= s.input :rating, collection: scale, as: :radio_buttons, label: false %>
+  <% end %>
+</div>

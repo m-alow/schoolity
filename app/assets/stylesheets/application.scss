@@ -159,6 +159,7 @@ body { padding-top: $navbar-height + 25; }
     margin-bottom: 36px;
     padding: 6px 12px;
     background-color: #fff;
+    vertical-align: top;
 }
 
 .internal-element {
@@ -196,4 +197,9 @@ body { padding-top: $navbar-height + 25; }
     font-size: 85%;
     font-weight: bold;
     padding-bottom: 0px;
+}
+
+.form-element {
+    @extend .element;
+    margin: 6px;
 }

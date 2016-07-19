@@ -101,18 +101,18 @@ RSpec.describe ActivitiesController, type: :controller do
 
       describe 'PUT #upadte' do
         context 'activity is present' do
-          let!(:activity) { Activity.make(student: student, lesson: lesson, rating: 3, notes: 'Bad.').tap { |a| a.save! } }
+          let!(:activity) { Activity.make(student: student, lesson: lesson, homework: 'Good', notes: 'Bad.').tap { |a| a.save! } }
 
           it 'does not create a new activity' do
             expect {
-              put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             }.not_to change(Activity, :count)
           end
 
           it 'updates the requested activity' do
-            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             activity.reload
-            expect(activity.rating).to eq 5
+            expect(activity.homework).to eq 'Undone'
           end
 
           it 'notifies followers of student' do
@@ -122,25 +122,25 @@ RSpec.describe ActivitiesController, type: :controller do
             allow(Notifier::Update).to receive(:new).with(scope) { notifier }
 
             expect(notifier).to receive(:call)
-            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
           end
 
           it "redirects to edit classroom's students form" do
-            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             expect(response).to redirect_to edit_lesson_activities_url(lesson)
           end
 
           context 'with ajax' do
             it 'does not create a new activity' do
               expect {
-                xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+                xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
               }.not_to change(Activity, :count)
             end
 
             it 'updates the requested activity' do
-              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
               activity.reload
-              expect(activity.rating).to eq 5
+              expect(activity.homework).to eq 'Undone'
             end
 
             it 'notifies followers of student' do
@@ -150,11 +150,11 @@ RSpec.describe ActivitiesController, type: :controller do
               allow(Notifier::Update).to receive(:new).with(scope) { notifier }
 
               expect(notifier).to receive(:call)
-              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             end
 
             it "does not redirect to edit classroom's students form" do
-              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
               expect(response).not_to redirect_to edit_lesson_activities_url(lesson)
             end
           end
@@ -163,9 +163,9 @@ RSpec.describe ActivitiesController, type: :controller do
         context 'activity is not present' do
           it 'creates a new activity' do
             expect {
-              put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             }.to change(Activity, :count).by(1)
-            expect(Activity.last.rating).to eq 5
+            expect(Activity.last.homework).to eq 'Undone'
           end
 
           it 'notifies followers of student' do
@@ -175,20 +175,20 @@ RSpec.describe ActivitiesController, type: :controller do
             allow(Notifier::Update).to receive(:new).with(scope) { notifier }
 
             expect(notifier).to receive(:call)
-            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
           end
 
           it "redirects to edit classroom's students form" do
-            put :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+            put :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             expect(response).to redirect_to edit_lesson_activities_url(lesson)
           end
 
           context 'with ajax' do
             it 'creates a new activity' do
               expect {
-                xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+                xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
               }.to change(Activity, :count).by(1)
-              expect(Activity.last.rating).to eq 5
+              expect(Activity.last.homework).to eq 'Undone'
             end
 
             it 'notifies followers of student' do
@@ -198,11 +198,11 @@ RSpec.describe ActivitiesController, type: :controller do
               allow(Notifier::Update).to receive(:new).with(scope) { notifier }
 
               expect(notifier).to receive(:call)
-              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
             end
 
             it "does not redirect to edit classroom's students form" do
-              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { rating: '5' }
+              xhr :put, :update, lesson_id: lesson, student_id: student, activity: { homework: 'Undone' }
               expect(response).not_to redirect_to edit_lesson_activities_url(lesson)
             end
           end

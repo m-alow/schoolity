@@ -1,0 +1,36 @@
+<ul class="list-inline">
+  <% if activity.homework.present? %>
+    <li class="element">
+      <div class="element-title">Homework</div>
+      <div><%= activity.homework %></div>
+    </li>
+  <% end %>
+
+  <% if activity.assessment.present? %>
+    <li class="element">
+      <div class="element-title">Assessment</div>
+      <div><%= activity.assessment %></div>
+    </li>
+  <% end %>
+
+  <% if activity.participation.present? %>
+    <li class="element">
+      <div class="element-title">Participation</div>
+      <div><%= activity.participation %></div>
+    </li>
+  <% end %>
+
+  <% if activity.other[:name].present? %>
+    <li class="element">
+      <div class="element-title"><%= activity.other[:name] %></div>
+      <div><%= activity.other[:rating] %></div>
+    </li>
+  <% end %>
+</ul>
+
+<% if activity.notes.present? %>
+  <div class="internal-element">
+    <div class="element-title">Notes</div>
+    <div><%= simple_format activity.notes %></div>
+  </div>
+<% end %>

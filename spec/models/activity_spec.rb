@@ -12,7 +12,7 @@ RSpec.describe Activity, type: :model do
     let(:math) { build(:subject, name: 'Math') }
     let(:lesson) { Lesson.make day: nil, subject: math, order: 1, title: 'Sum', summary: 'Learn sum' }
     let(:student) { build(:student) }
-    let(:activity) { Activity.make student: student, lesson: lesson, notes: 'He was awful.', rating: 5 }
+    let(:activity) { Activity.make student: student, lesson: lesson, notes: 'He was awful.' }
 
     describe 'a new object' do
       it 'is an Activity object' do
@@ -20,12 +20,11 @@ RSpec.describe Activity, type: :model do
       end
 
       it 'has basic content type' do
-        expect(activity.content_type).to eq 'basic'
+        expect(activity.content_type).to eq 'rated'
       end
 
       it 'has content attributes' do
         expect(activity.notes).to eq 'He was awful.'
-        expect(activity.rating).to eq 5
       end
 
       it 'is no persisted' do

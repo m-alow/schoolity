@@ -8,19 +8,15 @@ class Activity < ActiveRecord::Base
   validates :student, :lesson, presence: true
 
   scope :sorted, -> { order created_at: :desc }
-  TYPE_TO_ROLE = {
-    'base' => Roles::Activity::Base,
-    'basic' => Roles::Activity::Basic
-  }
 
   after_initialize do
     self.content_type ||= 'base'
-    extend TYPE_TO_ROLE[content_type]
+    extend "Roles::Activity::#{content_type.camelcase}".constantize
     initialize_content
   end
 
   def self.make student:, lesson:, **content_params
-    new(student: student, lesson: lesson, content_type: 'basic').tap do |lesson|
+    new(student: student, lesson: lesson, content_type: 'rated').tap do |lesson|
       lesson.update_content content_params
     end
   end
