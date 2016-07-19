@@ -15,6 +15,9 @@ class Message < ActiveRecord::Base
   end
 
   def self.make student: nil, user: nil, message_type: nil, content_type: 'basic', **content_params
+    if message_type == 'absence_justification'
+      content_type = 'absence'
+    end
     new(student: student, user: user, message_type: message_type, content_type: content_type).tap do |b|
       b.update_content content_params
     end

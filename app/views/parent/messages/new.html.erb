@@ -19,17 +19,20 @@
       <div class="tab-content">
 	<div id="form-tab-complaint" class="tab-pane fade in active">
 	  <div class="well well-sm well-title">Complaint</div>
-	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'complaint'%>
+	  <%= render 'parent/messages/new_form', following: @following,
+	    message: Message.make(message_type: 'complaint'), message_type: 'complaint'%>
 	</div>
 
 	<div id="form-tab-suggestion" class="tab-pane fade">
 	  <div class="well well-sm well-title">Suggestion</div>
-	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'suggestion'%>
+	  <%= render 'parent/messages/new_form', following: @following,
+	    message: Message.make(message_type: 'suggestion'), message_type: 'suggestion'%>
 	</div>
 
 	<div id="form-tab-absence-justification" class="tab-pane fade">
 	  <div class="well well-sm well-title">Absence Justification</div>
-	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'absence_justification'%>
+	  <%= render 'parent/messages/new_form', following: @following,
+	    message: Message.make(message_type: 'absence_justification'), message_type: 'absence_justification'%>
 	</div>
       </div>
     </div>
