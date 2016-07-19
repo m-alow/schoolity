@@ -9,5 +9,6 @@
   <li><%= link_to 'Activities', parent_following_activities_path(following) %></li>
   <li><%= link_to 'Subjects', parent_following_subjects_path(following) %></li>
   <li><%= link_to 'Absence', parent_following_absences_path(following) %></li>
+  <li><%= link_to 'Send the school a message', new_parent_following_message_path(following) %></li>
   <li class="alert"><%= link_to "Unfollow #{following.student.name}", following_path(following), method: :delete, data: { confirm: 'Sure?' }, class: 'alert alert-danger' %></li>
 </ul>

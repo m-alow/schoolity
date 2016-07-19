@@ -1,0 +1,10 @@
+<%= simple_form_for parent_following_messages_path(following) do |f| %>
+  <div class="form-inputs">
+    <%= hidden_field_tag 'message[type]', message_type %>
+    <%= render message_content_fields_layout(message), message: message, f: f %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit' %>
+  </div>
+<% end  %>

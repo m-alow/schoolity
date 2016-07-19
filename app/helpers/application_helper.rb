@@ -44,6 +44,14 @@ module ApplicationHelper
     "behaviors/#{behavior.content_type}_content_fields"
   end
 
+  def message_content_layout message
+    "messages/#{message.content_type}_content"
+  end
+
+  def message_content_fields_layout message
+    "parent/messages/#{message.content_type}_content_fields"
+  end
+
   def admin?
     current_user.admin?
   end
