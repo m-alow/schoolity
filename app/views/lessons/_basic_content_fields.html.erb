@@ -1,9 +1,3 @@
-<div class="form-group">
-  <%= f.label :title, class: 'control-label', required: false %>
-  <%= f.text_field :title, class: 'form-control' %>
-</div>
-
-<div class="form-group">
-  <%= f.label :summary, class: 'control-label', required: false %>
-  <%= f.text_area :summary, class: 'form-control' %>
-</div>
+<%= f.input :title, placeholder: 'Title', label: false %>
+<%= f.input :summary, as: :text, placeholder: 'Summary', label: false %>
+<%= f.input :homework, as: :text, placeholder: 'Homework', label: false %>

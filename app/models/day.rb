@@ -1,6 +1,6 @@
 class Day < ActiveRecord::Base
   belongs_to :classroom
-  has_many :lessons
+  has_many :lessons, dependent: :delete_all
   has_many :behaviors, as: :behaviorable
   has_many :absences
 

@@ -1,9 +1,20 @@
-<dl>
-  <dt>Title:</dt>
-  <dd><%= lesson.title %></dd>
-</dl>
+<% unless lesson.title.blank? %>
+  <dl>
+    <dt>Title:</dt>
+    <dd><%= lesson.title %></dd>
+  </dl>
+<% end %>
 
-<dl>
-  <dt>Summary:</dt>
-  <dd><%= simple_format lesson.summary %></dd>
-</dl>
+<% unless lesson.summary.blank? %>
+  <dl>
+    <dt>Summary:</dt>
+    <dd><%= simple_format lesson.summary %></dd>
+  </dl>
+<% end %>
+
+<% unless lesson.homework.blank? %>
+  <dl>
+    <dt>Homework:</dt>
+    <dd><%= simple_format lesson.homework %></dd>
+  </dl>
+<% end %>

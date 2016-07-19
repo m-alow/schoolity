@@ -2,7 +2,7 @@ module Roles
   module Lesson
     module Basic
       def initialize_content
-        self.content = { title: '', summary: '' } unless content
+        self.content = { title: '', summary: '', homework: '' } unless content
         raise unless content.is_a? Hash
       end
 
@@ -22,11 +22,20 @@ module Roles
         content[:summary] = summary
       end
 
+      def homework
+        content[:homework]
+      end
+
+      def homework= homework
+        content[:homework] = homework
+      end
+
 
       def update_content **params
         tap do |lesson|
           lesson.title = params[:title] if params[:title]
           lesson.summary = params[:summary] if params[:summary]
+          lesson.homework = params[:homework] if params[:homework]
         end
       end
     end
