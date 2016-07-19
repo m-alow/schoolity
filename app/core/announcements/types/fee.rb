@@ -23,7 +23,7 @@ module Announcements
       end
 
       def body
-        "This is just a friendly reminder that your June fee of #{fee} is overdue.
+        "This is just a friendly reminder that your fee of #{fee} is overdue.
  If you have not already sent the payment, please do it before #{formatted_date}."
       end
 
