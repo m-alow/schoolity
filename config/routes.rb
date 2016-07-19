@@ -123,7 +123,9 @@ Rails.application.routes.draw do
             resources :grades, only: [:index], shallow: true do
               resources :comments, only: [:index, :create], module: :grades
             end
-            resources :messages, only: [:index, :create, :show]
+            resources :messages, only: [:index, :create, :show] do
+              resources :comments, only: [:index, :create], module: :messages
+            end
           end
           resources :announcements, only: [:index, :show] do
             resources :comments, only: [:index, :create], module: :announcements

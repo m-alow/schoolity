@@ -14,7 +14,7 @@ module Api
         end
 
         def create
-          Messages::Send.(@following, current_user, params[:message]) do
+          ::Messages::Send.(@following, current_user, params[:message]) do
             on(:success) { |message| render json: message, status: :ok }
           end
         end
