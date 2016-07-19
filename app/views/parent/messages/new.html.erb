@@ -11,7 +11,7 @@
       <ul class="nav nav-pills nav-stacked">
 	<li class="active"><%= link_to 'Complaint', "#form-tab-complaint", 'data-toggle' => 'pill' %></li>
 	<li><%= link_to 'Suggestion', "#form-tab-suggestion ", 'data-toggle' => 'pill' %></li>
-	<li><%= link_to 'Justify Absence', "#form-tab-justify-absence  ", 'data-toggle' => 'pill' %></li>
+	<li><%= link_to 'Absence Justification', "#form-tab-absence-justification  ", 'data-toggle' => 'pill' %></li>
       </ul>
     </div>
 
@@ -27,9 +27,9 @@
 	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'suggestion'%>
 	</div>
 
-	<div id="form-tab-justify-absence" class="tab-pane fade">
-	  <div class="well well-sm well-title">Justify Absence</div>
-	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'justify_absence'%>
+	<div id="form-tab-absence-justification" class="tab-pane fade">
+	  <div class="well well-sm well-title">Absence Justification</div>
+	  <%= render 'parent/messages/new_form', following: @following, message: @message, message_type: 'absence_justification'%>
 	</div>
       </div>
     </div>
