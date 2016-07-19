@@ -1,0 +1,15 @@
+<ul class="list-inline">
+  <% if behavior.rating.present? %>
+    <li class="element">
+      <div class="element-title">Rating</div>
+      <div><%= behavior.rating %></div>
+    </li>
+  <% end %>
+</ul>
+
+<% if behavior.notes.present? %>
+  <div class="internal-element">
+    <div class="element-title">Notes</div>
+    <div><%= simple_format behavior.notes %></div>
+  </div>
+<% end %>

@@ -17,8 +17,8 @@ RSpec.describe Behavior, type: :model do
         expect(behavior.class).to be Behavior
       end
 
-      it 'has basic content type' do
-        expect(behavior.content_type).to eq 'basic'
+      it 'has rated content type' do
+        expect(behavior.content_type).to eq 'rated'
       end
 
       it 'has content attributes' do

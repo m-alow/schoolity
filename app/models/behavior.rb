@@ -16,7 +16,7 @@ class Behavior < ActiveRecord::Base
   end
 
   def self.make student: nil, behaviorable: nil, **content_params
-    new(student: student, behaviorable: behaviorable, content_type: 'basic').tap do |b|
+    new(student: student, behaviorable: behaviorable, content_type: 'rated').tap do |b|
       b.update_content content_params
     end
   end

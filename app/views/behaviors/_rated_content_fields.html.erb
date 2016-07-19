@@ -1,0 +1,9 @@
+<% scale = Roles::Behavior::Rated::SCALE %>
+<ul class="list-inline">
+  <li class="form-element">
+    <div class="element-title">Rating</div>
+    <%= f.input :rating, collection: scale, as: :radio_buttons, label: false %>
+  </li>
+</ul>
+
+<%= f.input :notes, placeholder: 'Notes', label: false, as: :text %>
