@@ -1,6 +1,8 @@
 class Message < ActiveRecord::Base
   belongs_to :user
   belongs_to :student
+  has_many :comments, as: :commentable
+  has_many :notifications, as: :notifiable
 
   validates :user, :student, :message_type, presence: true
 

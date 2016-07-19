@@ -79,7 +79,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages, only: [:show]
+  resources :messages, only: [:show] do
+    resources :comments, only: :create, module: :messages
+    end
 
   resources :notifications, only: [:show, :update]
 
