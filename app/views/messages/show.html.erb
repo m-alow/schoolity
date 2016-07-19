@@ -1,0 +1,7 @@
+<% provide :panel_title, @message.message_type.humanize %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="element">
+    <%= render '/messages/message', message: @message %>
+  </div>
+<% end %>

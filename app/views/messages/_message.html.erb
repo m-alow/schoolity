@@ -1,0 +1,19 @@
+<div class="element-title">
+  <%= "#{message.message_type.humanize} for #{message.student.name}" %>
+</div>
+
+<div class="internal-element">
+  <%= render message_content_layout(@message), message: @message  %>
+</div>
+
+<div class="element-section">
+  <%= message.student.name %> from
+  <% if message.student.classroom %>
+    <%= qualified_classroom_name message.student.classroom %>
+  <% end %>
+</div>
+
+
+<div class="element-section">
+  Sent by <%= message.user.name %> on <%= time_tag message.created_at.to_date %>
+</div>

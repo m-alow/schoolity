@@ -79,6 +79,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :messages, only: [:show]
+
   resources :notifications, only: [:show, :update]
 
   namespace :teacher do
