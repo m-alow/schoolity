@@ -129,6 +129,9 @@ Rails.application.routes.draw do
             resources :activities, only: [:index, :show] do
               resources :comments, only: [:index, :create], module: :activities
             end
+            resources :behaviors, only: [:index, :show] do
+              resources :comments, only: [:index, :create], module: :behaviors
+            end
           end
           resources :announcements, only: [:index, :show] do
             resources :comments, only: [:index, :create], module: :announcements

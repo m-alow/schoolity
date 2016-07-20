@@ -1,3 +1,3 @@
 class BehaviorSerializer < ActiveModel::Serializer
-  attributes :content_type, :content
+  attributes :id, :content_type, :content
 end
