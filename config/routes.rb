@@ -130,6 +130,9 @@ Rails.application.routes.draw do
           resources :announcements, only: [:index, :show] do
             resources :comments, only: [:index, :create], module: :announcements
           end
+          resources :lessons, only: [:show] do
+            resources :comments, only: [:index, :create], module: :lessons
+          end
           resources :feed, only: [:index]
         end
 
