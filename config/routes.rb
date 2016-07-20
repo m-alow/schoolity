@@ -144,6 +144,9 @@ Rails.application.routes.draw do
             resources :comments, only: [:index, :create], module: :lessons
           end
           resources :feed, only: [:index]
+          resources :notifications, only: [:index] do
+            get 'all' => 'notifications#all', on: :collection
+          end
         end
 
         resources :comments, only: [:update, :destroy]
