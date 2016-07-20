@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :teachings
   has_many :followings
   has_many :notifications, foreign_key: 'recipient_id'
+  has_many :device_tokens
 
   validates :first_name, presence: true
   validates :last_name, presence: true
