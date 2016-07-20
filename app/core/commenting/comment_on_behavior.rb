@@ -6,16 +6,38 @@ module Commenting
         user: user,
         body: body,
         role: -> (u) { user_role u, behavior },
-        notify: -> (behavior) { notify_followers behavior, user }
+        notify: -> (behavior) { notify behavior, user }
       )
     end
 
     private
 
+    def self.notify behavior, user
+      notify_followers behavior, user
+      notify_admins behavior, user
+      notify_teachers behavior, user
+    end
+
     def self.notify_followers behavior, user
       Notifier::Update
         .new(Scope::Exclude.new(
               Scope::Student::Followers.new(behavior.student), user))
+        .call behavior
+    end
+
+    def self.notify_admins behavior, user
+      Notifier::Update
+        .new(Scope::Exclude.new(
+              Scope::School::Admins.new(behavior.student.school), user))
+        .call behavior
+    end
+
+    def self.notify_teachers behavior, user
+      return unless behavior.behaviorable.is_a? Lesson
+      lesson = behavior.behaviorable
+      Notifier::Update
+        .new(Scope::Exclude.new(
+              Scope::Classroom::Subject::Teachers.new(lesson.day.classroom, lesson.subject), user))
         .call behavior
     end
 
