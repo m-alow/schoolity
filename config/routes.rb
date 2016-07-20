@@ -108,6 +108,9 @@ Rails.application.routes.draw do
       resources :absences, only: [:index]
       resources :messages, only: [:new, :create]
     end
+    resources :notifications, only: [:index] do
+      get 'all' => 'notifications#all', on: :collection
+    end
   end
 
   namespace :api do
@@ -131,6 +134,7 @@ Rails.application.routes.draw do
             end
             resources :behaviors, only: [:index, :show] do
               resources :comments, only: [:index, :create], module: :behaviors
+
             end
           end
           resources :announcements, only: [:index, :show] do
