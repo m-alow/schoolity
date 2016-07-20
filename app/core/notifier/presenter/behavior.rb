@@ -19,9 +19,9 @@ module Notifier
       end
 
       def behaved_at
-        if behavior.behaviorable.is_a? Lesson
+        if behavior.behaviorable.is_a? ::Lesson
           "behavior in #{behavior.behaviorable.subject&.name} lesson on #{behavior.behaviorable.day.date}"
-        elsif behavior.behaviorable.is_a? Day
+        elsif behavior.behaviorable.is_a? ::Day
           "behavior on #{behavior.behaviorable.date}"
         end
       end
