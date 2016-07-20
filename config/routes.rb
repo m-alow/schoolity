@@ -149,6 +149,7 @@ Rails.application.routes.draw do
           resources :notifications, only: [:index] do
             get 'all' => 'notifications#all', on: :collection
           end
+          resources :tokens, only: [:create]
         end
 
         resources :comments, only: [:update, :destroy]
