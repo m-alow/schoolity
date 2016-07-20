@@ -134,7 +134,9 @@ Rails.application.routes.draw do
             end
             resources :behaviors, only: [:index, :show] do
               resources :comments, only: [:index, :create], module: :behaviors
-
+            end
+            resources :absences, only: [:index, :show] do
+              resources :comments, only: [:index, :create], module: :absences
             end
           end
           resources :announcements, only: [:index, :show] do
