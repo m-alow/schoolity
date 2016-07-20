@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Notifier::Create do
   let(:scope) { double :scope }
 
-  it 'publishes via Persist::Create' do
+  xit 'publishes via Persist::Create' do
     publisher = double Notifier::Publishers::Persist::Create
     allow(Notifier::Publishers::Persist::Create).to receive(:new) { publisher }
 

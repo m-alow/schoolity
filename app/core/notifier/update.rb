@@ -5,7 +5,8 @@ class Notifier::Update
     @scope = scope
     @notify = Notifier::Notify
               .new(scope,
-                   [Notifier::Publishers::Persist::Update.new])
+                   [Notifier::Publishers::Persist::Update.new,
+                    Notifier::Publishers::Gcm::Create.new])
   end
 
   def call notifiable

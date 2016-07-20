@@ -38,6 +38,7 @@ gem 'will_paginate'
 gem 'devise', '~> 4.1.0'
 gem 'pundit', '~> 1.1.0'
 gem 'simple_token_authentication', '~> 1.13.0'
+gem 'gcm'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'

@@ -6,7 +6,8 @@ module Notifier
       @scope = scope
       @notify = Notifier::Notify
                 .new(scope,
-                     [Notifier::Publishers::Persist::Create.new])
+                     [Notifier::Publishers::Persist::Create.new,
+                      Notifier::Publishers::Gcm::Create.new])
     end
 
     def call notifiable
