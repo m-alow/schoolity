@@ -26,7 +26,9 @@
 	<%= behavior.student.full_name %>
 	<span class="pull-right"><%= link_to discuss_link behavior %></span>
       </div>
-      <%= render 'behaviors/content', behavior: behavior %>
+      <div class="element">
+	<%= render 'behaviors/content', behavior: behavior %>
+      </div>
     </div>
   <% end %>
 <% end  %>
