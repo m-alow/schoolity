@@ -1,5 +1,5 @@
 class AnnouncementSerializer < ActiveModel::Serializer
-  attributes :id, :announceable_type, :announceable, :title, :body, :created_at
+  attributes :id, :announceable_type, :announceable, :title, :body, :created_at, :comments_count
 
   def announceable
     send object.announceable_type.underscore
@@ -34,5 +34,9 @@ class AnnouncementSerializer < ActiveModel::Serializer
       name: object.announceable.name,
       school: object.announceable.school.name
     }
+  end
+
+  def comments_count
+    object.comments.count
   end
 end
