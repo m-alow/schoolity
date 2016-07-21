@@ -4,13 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :validatable, :lockable, :trackable
 
-  has_many :schools
-  has_many :school_administrations
+  has_many :schools, dependent: :destroy
+  has_many :school_administrations, dependent: :destroy
   has_many :administrated_schools, through: :school_administrations, class_name: 'School', foreign_key: 'school_id'
-  has_many :teachings
-  has_many :followings
-  has_many :notifications, foreign_key: 'recipient_id'
-  has_many :device_tokens
+  has_many :teachings, dependent: :destroy
+  has_many :followings, dependent: :destroy
+  has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
+  has_many :device_tokens, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

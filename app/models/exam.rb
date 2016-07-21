@@ -1,7 +1,7 @@
 class Exam < ActiveRecord::Base
   belongs_to :classroom
   belongs_to :subject
-  has_many :grades
+  has_many :grades, dependent: :destroy
 
   accepts_nested_attributes_for :grades
 

@@ -7,7 +7,7 @@ class Timetable < ActiveRecord::Base
   validates :periods_number, numericality: { greater_than: 0, only_integer: true }
   validate  :weekends_must_be_array_of_days
 
-  has_many :periods
+  has_many :periods, dependent: :destroy
 
   def build_periods params_list
     params_list.each do |params|

@@ -1,8 +1,8 @@
 class Message < ActiveRecord::Base
   belongs_to :user
   belongs_to :student
-  has_many :comments, as: :commentable
-  has_many :notifications, as: :notifiable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :user, :student, :message_type, presence: true
 

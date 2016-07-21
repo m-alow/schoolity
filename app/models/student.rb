@@ -1,13 +1,13 @@
 class Student < ActiveRecord::Base
   belongs_to :school
-  has_many :studyings
-  has_many :following_codes
-  has_many :followings
-  has_many :activities
-  has_many :grades
-  has_many :behaviors
-  has_many :announcements, as: :announceable
-  has_many :absences
+  has_many :studyings, dependent: :destroy
+  has_many :following_codes, dependent: :destroy
+  has_many :followings, dependent: :destroy
+  has_many :activities, dependent: :destroy
+  has_many :grades, dependent: :destroy
+  has_many :behaviors, dependent: :destroy
+  has_many :announcements, as: :announceable, dependent: :destroy
+  has_many :absences, dependent: :destroy
 
   validates :first_name, :last_name, :father_name, presence: true
   validates :birthdate, presence: true

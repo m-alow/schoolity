@@ -1,13 +1,13 @@
 class Classroom < ActiveRecord::Base
   belongs_to :school_class
-  has_many :studyings
+  has_many :studyings, dependent: :destroy
   has_many :students, through: :studyings
   delegate :school, to: :school_class
-  has_many :teachings
-  has_many :timetables
-  has_many :days
-  has_many :exams
-  has_many :announcements, as: :announceable
+  has_many :teachings, dependent: :destroy
+  has_many :timetables, dependent: :destroy
+  has_many :days, dependent: :destroy
+  has_many :exams, dependent: :destroy
+  has_many :announcements, as: :announceable, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :school_class_id }

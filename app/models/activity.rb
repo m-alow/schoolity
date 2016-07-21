@@ -1,7 +1,8 @@
 class Activity < ActiveRecord::Base
   belongs_to :student
   belongs_to :lesson
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   serialize :content
 

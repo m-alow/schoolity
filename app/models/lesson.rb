@@ -1,9 +1,10 @@
 class Lesson < ActiveRecord::Base
   belongs_to :day
   belongs_to :subject
-  has_many :activities
-  has_many :comments, as: :commentable
-  has_many :behaviors, as: :behaviorable
+  has_many :activities, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :behaviors, as: :behaviorable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   serialize :content
 

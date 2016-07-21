@@ -1,7 +1,8 @@
 class Behavior < ActiveRecord::Base
   belongs_to :student
   belongs_to :behaviorable, polymorphic: true
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :student, :behaviorable, :content_type, presence: true
 

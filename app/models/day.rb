@@ -1,8 +1,8 @@
 class Day < ActiveRecord::Base
   belongs_to :classroom
-  has_many :lessons, dependent: :delete_all
-  has_many :behaviors, as: :behaviorable
-  has_many :absences
+  has_many :lessons, dependent: :destroy
+  has_many :behaviors, as: :behaviorable, dependent: :destroy
+  has_many :absences, dependent: :destroy
 
   serialize :content
 
