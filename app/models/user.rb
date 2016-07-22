@@ -120,6 +120,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def administrator?
+    !schools.empty? || !administrated_schools.empty?
+  end
+
   def admin_notifications
     notifications.where(recipient_role: 'Admin').sorted
   end

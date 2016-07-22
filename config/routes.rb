@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:show, :update]
 
   namespace :admin do
+    get '/' => 'panel#index'
     resources :feed, only: [:index]
     resources :notifications, only: [:index] do
       get 'all' => 'notifications#all', on: :collection

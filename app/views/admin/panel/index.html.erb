@@ -1,0 +1,24 @@
+<% provide :panel_title, 'Parent Panel' %>
+
+<%= render layout: 'simple_panel' do %>
+  <div class="panel">
+    <div class="panel-heading">
+      <h1 class="panel-title">Schools</h1>
+    </div>
+
+    <div class="panel-body">
+      <ul class="nav nav-stacked">
+	<% schools.each do |s| %>
+	  <li><%= link_to s.name, s %></li>
+	<% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <ul class="nav nav-stacked">
+      <li><%= link_to 'Feed', admin_feed_index_path %></li>
+      <li><%= link_to 'Notifications', admin_notifications_path %></li>
+    </ul>
+  </div>
+<% end %>
