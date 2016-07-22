@@ -87,6 +87,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :feed, only: [:index]
+    resources :notifications, only: [:index] do
+      get 'all' => 'notifications#all', on: :collection
+    end
   end
 
   namespace :teacher do

@@ -1,0 +1,9 @@
+<% provide :panel_title, 'All Notifications' %>
+
+<%= content_for :actions_list do %>
+  <li><%= link_to 'Unread Notifications', admin_notifications_path %></li>
+<% end %>
+
+<%= render layout: 'wide_panel' do %>
+  <%= render 'notifications/notifications', notifications: @notifications %>
+<% end %>
