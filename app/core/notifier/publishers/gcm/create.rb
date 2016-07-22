@@ -24,7 +24,8 @@ module Notifier
             notifiable_type: notifiable.class.name,
             notifiable_id: notifiable.id,
             summary: Notifier::Presenter::Notifiable.new(notifiable).present,
-            role: role
+            role: role,
+            notifiable: ActiveModelSerializers::SerializableResource.new(notifiable).to_json
           }
 
           response = gcm.send tokens, { data: notification }
