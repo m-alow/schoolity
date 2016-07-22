@@ -8,7 +8,6 @@ RSpec.describe Announcement, type: :model do
   it { should validate_presence_of :announceable }
   it { should validate_presence_of :author }
   it { should validate_presence_of :title }
-  it { should validate_presence_of :body }
 
   it '#for_school? is true when the announceable is school' do
     school = build(:school)

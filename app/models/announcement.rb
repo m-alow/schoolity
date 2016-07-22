@@ -4,7 +4,7 @@ class Announcement < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
 
-  validates :announceable, :author, :title, :body, presence: true
+  validates :announceable, :author, :title, presence: true
 
   mount_uploader :image, ImageUploader
 
