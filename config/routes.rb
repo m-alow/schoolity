@@ -85,6 +85,10 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:show, :update]
 
+  namespace :admin do
+    resources :feed, only: [:index]
+  end
+
   namespace :teacher do
     get '/' => 'panel#index'
     resources :feed, only: [:index]

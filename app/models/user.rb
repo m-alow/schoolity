@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     administrated_schools.include? school
   end
 
+  def school_admin?
+    !administrated_schools.empty?
+  end
+
   def owns?(school)
     self == school.owner
   end
@@ -114,5 +118,13 @@ class User < ActiveRecord::Base
         followings.build relationship: relationship
       end
     end
+  end
+
+  def admin_notifications
+    notifications.where(recipient_role: 'Admin').sorted
+  end
+
+  def admin_feed notifications
+    notifications.includes(:notifiable).map { |n| [n, n.notifiable] }
   end
 end
