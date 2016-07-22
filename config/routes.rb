@@ -125,6 +125,7 @@ Rails.application.routes.draw do
       devise_scope :user do
         post '/sign_up' => 'registrations#create'
         post '/sign_in' => 'sessions#create'
+        delete '/sign_out' => 'sessions#destroy'
 
         namespace :parent do
           resources :followings, only: [:index, :create, :destroy], shallow: true do

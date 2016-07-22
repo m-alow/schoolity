@@ -10,4 +10,11 @@ class Api::V1::SessionsController < Devise::SessionsController
       render json: { errors: ['Invalid email an password combination.'] }, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    current_user.update(authentication_token: nil)
+    respond_to do |format|
+      format.json { render json: 'signed out', status: :ok }
+    end
+  end
 end
