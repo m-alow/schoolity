@@ -15,7 +15,8 @@ module Notifier
           tokens = DeviceToken
                    .select(:token)
                    .where(user: subscribers.map(&:id),
-                          role: role)
+                          role: role,
+                          enabled: true)
                    .map(&:token)
 
           return if tokens.empty?

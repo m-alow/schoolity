@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722165346) do
+ActiveRecord::Schema.define(version: 20160722205534) do
 
   create_table "absences", force: :cascade do |t|
     t.integer  "student_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160722165346) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "role"
+    t.boolean  "enabled"
   end
 
   add_index "device_tokens", ["user_id", "token"], name: "index_device_tokens_on_user_id_and_token", unique: true
