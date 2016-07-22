@@ -13,6 +13,7 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   def destroy
     current_user.update(authentication_token: nil)
+    DeviceToken.where(user: current_user, role: 'Follower').update_all(enabled: false)
     respond_to do |format|
       format.json { render json: 'signed out', status: :ok }
     end
