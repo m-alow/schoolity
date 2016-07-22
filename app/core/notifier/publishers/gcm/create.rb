@@ -4,7 +4,7 @@ module Notifier
       class Create
         attr_reader :gcm
         def initialize
-          @gcm = GCM.new 'AIzaSyAgjbteGB9sFfOuQVXc8lPviP8yPNOy5QM'
+          @gcm = GCM.new ENV['GCM_API_KEY']
         end
 
         def call scope, notifiable
