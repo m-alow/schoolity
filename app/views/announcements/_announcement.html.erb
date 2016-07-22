@@ -16,6 +16,9 @@
 </div>
 
 <div class="internal-element">
+  <% unless announcement.image.file.nil? %>
+    <%= image_tag announcement.image.url, 'width'=> '275' %>
+  <% end %>
   <%= announcement.body.html_safe %>
 </div>
 

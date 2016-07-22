@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720202352) do
+ActiveRecord::Schema.define(version: 20160722165346) do
 
   create_table "absences", force: :cascade do |t|
     t.integer  "student_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160720202352) do
     t.text     "body"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "image"
   end
 
   add_index "announcements", ["announceable_type", "announceable_id"], name: "index_announcements_on_announceable_type_and_announceable_id"

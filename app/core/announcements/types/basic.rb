@@ -9,7 +9,8 @@ module Announcements
       def call
         {
           title: attributes[:title],
-          body: attributes[:body]
+          body: attributes[:body],
+          image: attributes[:image]
         }
       end
     end

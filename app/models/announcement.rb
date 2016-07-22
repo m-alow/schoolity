@@ -6,6 +6,8 @@ class Announcement < ActiveRecord::Base
 
   validates :announceable, :author, :title, :body, presence: true
 
+  mount_uploader :image, ImageUploader
+
   def for_school?
     announceable_type == 'School'
   end

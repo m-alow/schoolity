@@ -34,6 +34,7 @@ gem 'rectify', '~> 0.6.0'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'prawn'
 gem 'will_paginate'
+gem 'carrierwave'
 
 gem 'devise', '~> 4.1.0'
 gem 'pundit', '~> 1.1.0'
