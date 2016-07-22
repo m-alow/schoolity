@@ -1,2 +1,4 @@
-On <%= f.input :date, as: :date, label: false %>
+<div class="form-group form-inline">
+  On <%= select_date Date.current, { prefix: 'message[date]' }, class: 'date form-control' %>
+</div>
 <%= f.input :reason, as: :text, label: false, placeholder: 'Because...' %>

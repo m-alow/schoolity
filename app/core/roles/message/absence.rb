@@ -24,8 +24,9 @@ module Roles
 
       def update_content **params
         tap do |message|
-          if params[:"date(1i)"].present?
-            message.date = "#{params[:"date(1i)"]}-#{params[:"date(2i)"]}-#{params[:"date(3i)"]}"
+          if params[:date].present?
+            d = params[:date]
+            message.date = "#{d[:year]}-#{d[:month]}-#{d[:day]}".to_date
           end
           message.reason = params[:reason] if params[:reason]
         end
