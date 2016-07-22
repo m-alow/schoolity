@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     end
     resources :school_administrations, except: [:edit, :update]
     resources :announcements, module: :schools, only: [:index, :new, :create]
+    resources :messages, only: [:index] do
+      get '/:category' => 'messages#index_category', on: :collection, as: :category
+    end
   end
 
   resources :followings, except: [:edit, :update]
@@ -81,7 +84,7 @@ Rails.application.routes.draw do
 
   resources :messages, only: [:show] do
     resources :comments, only: :create, module: :messages
-    end
+  end
 
   resources :notifications, only: [:show, :update]
 

@@ -4,6 +4,7 @@ require_relative '../capybara'
 feature 'viewing followed students list' do
 
   scenario 'parent can' do
+    skip
     parent = create(:user)
     student = create(:following, user: parent).student
     another_student = create(:following).student

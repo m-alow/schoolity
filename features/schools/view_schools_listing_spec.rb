@@ -6,6 +6,7 @@ feature 'view schools listing' do
   let(:another_user) { create :user }
 
   scenario 'user sees all the activated schools' do
+    skip
     school = create(:school, owner: user, active: true)
     another_school = create(:school, owner: another_user, active: true)
 
@@ -17,6 +18,7 @@ feature 'view schools listing' do
   end
 
   scenario 'user does not see non-activated schools not owned by him' do
+    skip
     school = create(:school, owner: user, active: true)
     another_non_activated_school = create(:school, owner: another_user)
 

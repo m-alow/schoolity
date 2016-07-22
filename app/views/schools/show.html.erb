@@ -15,6 +15,15 @@
       </ul>
     <% end %>
 
+    <%= render layout: 'accordion_section', locals: { id: 'messages_actions', title: 'Messages', show: false } do %>
+      <ul class="nav nav-pills nav-stacked">
+	<li><%= link_to 'Messages', school_messages_path(@school) %></li>
+	<li><%= link_to 'Complaints', category_school_messages_path(@school, 'complaints') %></li>
+	<li><%= link_to 'Suggestions', category_school_messages_path(@school, 'suggestions') %></li>
+	<li><%= link_to 'Absence Justifications', category_school_messages_path(@school, 'absence_justifications') %></li>
+      </ul>
+    <% end %>
+
     <%= render layout: 'accordion_section', locals: { id: 'school_classes_actions', title: 'Classes', show: false } do %>
       <ul class="nav nav-pills nav-stacked">
 	<li><%= link_to 'Classes list', school_school_classes_path(@school) %></li>

@@ -1,0 +1,11 @@
+<% provide :panel_title, 'Messages' %>
+
+<% content_for :actions_list do %>
+  <li><%= link_to 'Complaints', category_school_messages_path(@school, 'complaints') %></li>
+  <li><%= link_to 'Suggestions', category_school_messages_path(@school, 'suggestions') %></li>
+  <li><%= link_to 'Absence Justifications', category_school_messages_path(@school, 'absence_justifications') %></li>
+<% end %>
+
+<%= render layout: 'simple_panel' do %>
+  <%= render 'messages/messages', messages: messages %>
+<% end %>

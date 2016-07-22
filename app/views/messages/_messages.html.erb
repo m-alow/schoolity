@@ -1,0 +1,16 @@
+<ul class="list-group">
+  <% messages.each do |msg| %>
+    <li class="list-group-item">
+      <a class="list-group-item-heading">
+	<%= render 'messages/message_head', message: msg %>
+      </a>
+      <p class="list-group-item-text">
+	About student <%= msg.student.name %> by <%= msg.user.name %>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+<div>
+<%= will_paginate messages %>
+</div>

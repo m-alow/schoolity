@@ -16,4 +16,8 @@ class School < ActiveRecord::Base
   def owned_by?(user)
     owner == user
   end
+
+  def messages
+    Message.where(student_id: students).includes(:student, :user)
+  end
 end

@@ -1,0 +1,6 @@
+<%= link_to message do %>
+  <%= message.message_type.humanize %>:
+  <% if message.content_type == 'basic' %>
+    <%= message.subject %>
+  <% end %>
+<% end %>

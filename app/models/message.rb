@@ -8,6 +8,9 @@ class Message < ActiveRecord::Base
 
   serialize :content
 
+  scope :sorted, -> { order created_at: :desc }
+  scope :complaints, -> { where message_type: 'complaint' }
+
   after_initialize do
     self.content_type ||= 'base'
     extend "Roles::Message::#{content_type.camelcase}".constantize
