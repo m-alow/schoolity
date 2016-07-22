@@ -34,6 +34,8 @@ class AnnouncementsController < ApplicationController
       redirect_to school_class_announcements_url(@announceable), notice: 'Announcement was successfully destroyed.'
     elsif @announcement.for_classroom?
       redirect_to classroom_announcements_url(@announceable), notice: 'Announcement was successfully destroyed.'
+    elsif @announcement.for_student?
+      redirect_to student_announcements_url(@announceable), notice: 'Announcement was successfully destroyed.'
     end
   end
 
