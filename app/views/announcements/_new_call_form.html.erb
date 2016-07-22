@@ -1,0 +1,22 @@
+<%= simple_form_for [announceable, announcement] do |f| %>
+  <div>
+    <%= f.error_notification %>
+  </div>
+
+  <div class="form-inputs">
+    <%= hidden_field_tag 'announcement[type]', 'call' %>
+
+    <div class="form-group form-inline">
+      <%= label_tag 'On' %>
+      <%= select_datetime Date.current, { prefix: 'announcement[time]', ampm: true }, class: 'date form-control'%>
+    </div>
+
+    <div class="form-group">
+      <%= text_area_tag 'announcement[reason]', nil, class: 'form-control', placeholder: 'Because...' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Submit' %>
+  </div>
+<% end %>
