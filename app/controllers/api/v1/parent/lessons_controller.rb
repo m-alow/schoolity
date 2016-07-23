@@ -5,8 +5,9 @@ module Api
         def show
           lesson = Lesson.find params[:id]
           authorize lesson
+          student = Following.find_by(user: current_user, student: lesson.day.classroom.students).student
           respond_to do |format|
-            format.json { render json: lesson, status: :ok }
+            format.json { render json: lesson, student_id: student, status: :ok }
           end
         end
       end

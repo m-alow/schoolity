@@ -1,5 +1,5 @@
 class LessonSerializer < ActiveModel::Serializer
-  attributes :id, :subject, :order, :content_type, :content, :activity, :behavior, :comments_count
+  attributes :id, :subject, :order, :content_type, :content, :activity, :behavior, :comments_count, :student
 
   def activity
     ActiveModelSerializers::SerializableResource.new(object.activities.find_by student_id: student_id)
@@ -19,5 +19,9 @@ class LessonSerializer < ActiveModel::Serializer
 
   def comments_count
     object.comments.count
+  end
+
+  def student
+    ActiveModelSerializers::SerializableResource.new(Student.find student_id)
   end
 end
