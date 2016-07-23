@@ -13,7 +13,7 @@ class Classroom < ActiveRecord::Base
   validates :name, uniqueness: { scope: :school_class_id }
 
   def following_codes
-    FollowingCode.where(student_id: students)
+    FollowingCode.where(student_id: students).valid.group(:student_id).having('expire_at = max(expire_at)')
   end
 
   def current_timetables

@@ -4,6 +4,8 @@ class FollowingCode < ActiveRecord::Base
   validates :student, :code, :expire_at, presence: true
   validates :code, length: { is: 8 }
 
+  scope :valid, -> { where 'following_codes.expire_at >= ?', DateTime.now }
+
   def self.make(student)
     new(student: student,
         code: new_code,
