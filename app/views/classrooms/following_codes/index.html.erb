@@ -13,4 +13,7 @@
       </tr>
     <% end %>
   </table>
+  <div class="well well-sm">
+    <%= link_to 'PDF', classroom_following_codes_path(@classroom) + '.pdf'%>
+  </div>
 <% end %>

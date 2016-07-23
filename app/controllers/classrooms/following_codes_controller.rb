@@ -5,6 +5,13 @@ class Classrooms::FollowingCodesController < ApplicationController
   def index
     FollowingCodePolicy.new(current_user, @classroom.school).authorize_action(:index?)
     @following_codes = @classroom.following_codes
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Pdf::FollowingCodesList.new @following_codes
+        return send_data pdf.render, filename: 'followings.pdf', type: 'application/pdf'
+      end
+    end
   end
 
   def create
