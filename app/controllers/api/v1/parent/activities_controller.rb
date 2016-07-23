@@ -8,7 +8,7 @@ module Api
           authorize @following, :show?
 
           respond_to do |format|
-            format.json { render json: @following.student.activities }
+            format.json { render json: @following.student.activities, user_id: current_user.id }
           end
         end
 
@@ -16,7 +16,7 @@ module Api
         def show
           activity = Activity.find params[:id]
           respond_to do |format|
-            format.json { render json: activity }
+            format.json { render json: activity, user_id: current_user.id }
           end
         end
       end
