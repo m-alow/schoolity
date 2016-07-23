@@ -150,6 +150,7 @@ Rails.application.routes.draw do
             resources :absences, only: [:index, :show] do
               resources :comments, only: [:index, :create], module: :absences
             end
+            resources :subjects, only: [:index, :show]
           end
           resources :announcements, only: [:index, :show] do
             resources :comments, only: [:index, :create], module: :announcements

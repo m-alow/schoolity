@@ -5,7 +5,7 @@ class SubjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || user.owns?(school) || user.administrates?(school)
+    user.admin? || user.owns?(school) || user.administrates?(school) || user.follows_student_in_school?(school)
   end
 
   alias_method :new?, :show?
