@@ -30,7 +30,10 @@ class LessonSerializer < ActiveModel::Serializer
   end
 
   def student
+    user_id = instance_options[:user_id]
     s = Student.find_by id: student_id
-    ActiveModelSerializers::SerializableResource.new(s) if s.present?
+    s = Following.find_by(user: user_id, student: object.day.classroom.students).student if s.nil?
+
+    ActiveModelSerializers::SerializableResource.new(s, user_id: user_id) if s.present?
   end
 end
