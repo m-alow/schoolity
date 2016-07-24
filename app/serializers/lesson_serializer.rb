@@ -22,6 +22,7 @@ class LessonSerializer < ActiveModel::Serializer
   end
 
   def student
-    ActiveModelSerializers::SerializableResource.new(Student.find student_id)
+    s = Student.find_by id: student_id
+    ActiveModelSerializers::SerializableResource.new(s) if s.present?
   end
 end
