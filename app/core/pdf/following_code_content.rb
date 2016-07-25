@@ -33,11 +33,11 @@ module Pdf
     end
 
     def student
-      @student ||= @code.student
+      @student = @code.student
     end
 
     def school
-      @school ||= student.school
+      @school = student.school
     end
   end
 end
