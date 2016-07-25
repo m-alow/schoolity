@@ -1,7 +1,8 @@
 class PeriodSerializer < ActiveModel::Serializer
+  belongs_to :subject
   attributes :day, :order, :subject
 
   def subject
-    object.subject&.name || ""
+    ActiveModelSerializers::SerializableResource.new object.subject
   end
 end
